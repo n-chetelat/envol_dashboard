@@ -1,0 +1,15 @@
+.container {
+  border: 4px solid var(--theme-secondary-dark);
+  border-radius: var(--border-radius);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.filled {
+  background-color: var(--theme-secondary-dark);
+  color: var(--theme-secondary-light);
+}
+.outlined {
+  background-color: transparent;
+  color: var(--theme-secondary-dark);
+}
