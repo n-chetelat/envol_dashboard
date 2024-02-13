@@ -35,7 +35,7 @@ export async function login(email: string, password: string) {
 export async function logout() {
   try {
     await signOut(auth);
-    return { message: "Logged out" };
+    return true;
   } catch (error) {
     throw error;
   }

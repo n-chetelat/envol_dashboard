@@ -1,20 +1,14 @@
 "use client";
 
 import styles from "@/components/auth/auth.module.css";
-import { Button, TextField, InputAdornment, IconButton } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { signup } from "@/actions/auth";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GoogleIcon from "@mui/icons-material/Google";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import PasswordField from "../passwordField/PasswordField";
 
 export default function LoginForm() {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const router = useRouter();
@@ -36,84 +30,43 @@ export default function LoginForm() {
     }
   };
   return (
-    <div className={styles.container}>
-      <section className={styles.socialAuthContainer}>
-        <h2 className={styles.formTitle}>Sign Up with Socials</h2>
-        <div className={styles.socialAuthButtonContainer}>
-          <Button
-            className={styles.socialAuthButton}
-            variant="contained"
-            startIcon={<GoogleIcon fontSize="small" />}
-          >
-            Sign Up with Google
-          </Button>
-          <Button
-            className={styles.socialAuthButton}
-            variant="contained"
-            startIcon={<FacebookIcon fontSize="small" />}
-          >
-            Sign Up with Facebook
-          </Button>
-        </div>
-      </section>
-
-      <hr className={styles.hr} />
-
-      <section className={styles.localAuthContainer}>
-        <h2 className={styles.formTitle}>Sign Up with Email</h2>
-        <form className={styles.form} action={handleSignUp}>
-          <TextField
-            label="Email"
-            name="email"
-            type="email"
-            error={emailError}
-            helperText=""
-          />
-          <TextField
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            error={passwordError}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => {
-                      setShowPassword((prevState) => !prevState);
-                    }}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Confirm Password"
-            type={showConfirmPassword ? "text" : "password"}
-            name="passwordConfirmation"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => {
-                      setShowConfirmPassword((prevState) => !prevState);
-                    }}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button type="submit" variant="contained">
-            Sign Up
-          </Button>
-        </form>
-        <p>
-          Already have an account? <Link href="/login">Log in</Link>
-        </p>
-      </section>
-    </div>
+    <section className={styles.container}>
+      <Typography
+        component="h2"
+        variant="h6"
+        align="center"
+        sx={{ paddingTop: "0.5rem" }}
+      >
+        Sign Up with Email
+      </Typography>
+      <form className={styles.form} action={handleSignUp}>
+        <TextField
+          label="Email"
+          name="email"
+          type="email"
+          error={emailError}
+          helperText=""
+          className={styles.input}
+        />
+        <PasswordField
+          error={passwordError}
+          classes={styles.input}
+          name="password"
+          label="Password"
+        />
+        <PasswordField
+          error={passwordError}
+          classes={styles.input}
+          name="passwordConfirmation"
+          label="Confirm Password"
+        />
+        <Button type="submit" variant="contained" className={styles.input}>
+          Sign Up
+        </Button>
+      </form>
+      <Typography variant="body2" className={styles.authLinks}>
+        Already have an account? <Link href="/login">Log in</Link>
+      </Typography>
+    </section>
   );
 }

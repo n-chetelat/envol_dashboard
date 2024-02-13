@@ -4,11 +4,12 @@ import styles from "@/components/auth/auth.module.css";
 import { forgotPassword } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography, TextField, Box } from "@mui/material";
 
 export default function ForgotPasswordForm() {
   const [emailSent, setEmailSent] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<boolean>(false);
 
   const router = useRouter();
   const handleForgotPassword = async (formData: FormData) => {
@@ -25,25 +26,41 @@ export default function ForgotPasswordForm() {
   return (
     <div className={styles.container}>
       {emailSent ? (
-        <p>
-          There is an account for '{email}' you will receive an email to reset
-          your password
-        </p>
+        <Typography variant="body1" align="center">
+          Thanks! If we have an account for
+          <Box component="span" sx={{ fontWeight: "600" }}>
+            {` ${email} `}
+          </Box>
+          you will receive an email shortly to reset your password.
+        </Typography>
       ) : (
         <section className={styles.localAuthContainer}>
-          <h2 className={styles.formTitle}>Reset your Password</h2>
+          <Typography
+            component="h2"
+            variant="h6"
+            align="center"
+            sx={{ paddingTop: "0.5rem" }}
+          >
+            Reset your password
+          </Typography>
           <form className={styles.form} action={handleForgotPassword}>
-            <label>Email</label>
-            <input className={styles.input} type="text" name="email" />
-            <Button type="submit" variant="contained">
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              error={emailError}
+              helperText=""
+              className={styles.input}
+            />
+            <Button type="submit" variant="contained" className={styles.input}>
               Send Password Reset Email
             </Button>
           </form>
-          <p>
-            <a href="/login">Back to Log In page</a>
-          </p>
         </section>
       )}
+      <Typography variant="body2" className={styles.authLinks}>
+        <a href="/login">Back to Log In page</a>
+      </Typography>
     </div>
   );
 }

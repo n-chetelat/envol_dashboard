@@ -1,14 +1,17 @@
 "use client";
 
 import styles from "@/components/auth/auth.module.css";
-import { Button } from "@mui/material";
-import { login, googleLogin } from "@/actions/auth";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GoogleIcon from "@mui/icons-material/Google";
+import { Button, Typography, TextField } from "@mui/material";
+import { login } from "@/actions/auth";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import PasswordField from "../passwordField/PasswordField";
 
 export default function LoginForm() {
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
   const router = useRouter();
+
   const handleLogin = async (formData: FormData) => {
     try {
       const email = `${formData.get("email")}`;
@@ -21,47 +24,45 @@ export default function LoginForm() {
       console.error(error);
     }
   };
+
   return (
     <div className={styles.container}>
-      <section className={styles.socialAuthContainer}>
-        <h2 className={styles.formTitle}>Log In with Socials</h2>
-        <div className={styles.socialAuthButtonContainer}>
-          <Button
-            className={styles.socialAuthButton}
-            variant="contained"
-            endIcon={
-              <GoogleIcon fontSize="small" onClick={() => googleLogin()} />
-            }
-          >
-            Log In with Google
-          </Button>
-          <Button
-            className={styles.socialAuthButton}
-            variant="contained"
-            endIcon={<FacebookIcon fontSize="small" />}
-          >
-            Log In with Facebook
-          </Button>
-        </div>
-      </section>
-      <hr className={styles.hr} />
       <section className={styles.localAuthContainer}>
-        <h2 className={styles.formTitle}>Log In with Email</h2>
+        <Typography
+          component="h2"
+          variant="h6"
+          align="center"
+          sx={{ paddingTop: "0.5rem" }}
+        >
+          Log In with Email
+        </Typography>
         <form className={styles.form} action={handleLogin}>
-          <label>Email</label>
-          <input className={styles.input} type="text" name="email" />
-          <label>Password</label>
-          <input className={styles.input} type="password" name="password" />
-          <Button type="submit" variant="contained">
+          <TextField
+            label="Email"
+            name="email"
+            type="email"
+            error={emailError}
+            helperText=""
+            className={styles.input}
+          />
+          <PasswordField
+            error={passwordError}
+            classes={styles.input}
+            name="password"
+            label="Password"
+          />
+          <Button type="submit" variant="contained" className={styles.input}>
             Log In
           </Button>
         </form>
-        <p>
-          Don't have an account? <a href="/signup">Sign up</a>
-        </p>
-        <p>
-          <a href="/forgot-password">Forgot your password?</a>
-        </p>
+        <div className={styles.authLinks}>
+          <Typography variant="body2">
+            Don't have an account? <a href="/signup">Sign up</a>
+          </Typography>
+          <Typography variant="body2">
+            <a href="/forgot-password">Forgot your password?</a>
+          </Typography>
+        </div>
       </section>
     </div>
   );

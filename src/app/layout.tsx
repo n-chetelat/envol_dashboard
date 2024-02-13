@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Ruda } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
-const ruda = Ruda({ subsets: ["latin"] });
+const roboto = Roboto({ weight: "400", subsets: ["latin-ext"] });
 
 export const metadata: Metadata = {
   title: "Air Kollage | Home",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={ruda.className}>{children}</body>
+      <body className={roboto.className}>{children}</body>
     </html>
   );
 }

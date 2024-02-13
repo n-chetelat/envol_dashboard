@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .form {
@@ -9,14 +10,13 @@
 }
 
 .input {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
 }
 
-.localAuthContainer,
-.socialAuthContainer {
-  display: flex;
-  flex-direction: column;
+.authLinks {
+  padding: 0.5rem;
+  text-align: center;
 }
 
 .socialAuthContainer {
@@ -34,14 +34,4 @@
   margin-top: 1rem;
   flex: 1;
   text-align: left;
-}
-
-.formTitle {
-  text-align: center;
-  margin: 1rem;
-}
-
-.hr {
-  margin: 1rem;
-  border: 1px solid;
 }

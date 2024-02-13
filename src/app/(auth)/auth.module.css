@@ -6,7 +6,10 @@
   min-height: 100vh;
 }
 
-.authContainer {
+.formContainer {
   width: 40%;
+  max-width: 500px;
+  min-width: 260px;
   padding: 1rem;
+  margin: 1rem auto;
 }

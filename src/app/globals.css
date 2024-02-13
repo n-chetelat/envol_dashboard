@@ -31,8 +31,3 @@ body {
   color: rgb(var(--text-color-paragraph));
   background: --background;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
