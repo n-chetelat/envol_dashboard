@@ -6,7 +6,7 @@
   padding: 6rem;
   min-height: 100vh;
   background-image: linear-gradient(
-    var(--theme-primary),
+    var(--theme-primary-reg),
     var(--background),
     #ffff
   );
@@ -23,7 +23,7 @@
 .title {
   font-size: 8rem;
   flex: 1;
-  color: var(--theme-primary);
+  color: var(--theme-primary-reg);
 }
 .subtitle {
   font-size: 2rem;
@@ -37,10 +37,6 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  .button {
-    flex: 1;
-    padding: 1rem;
-  }
 }
 
 @media (max-width: 700px) {
@@ -58,10 +54,6 @@
 
   .buttonsContainer {
     flex-direction: column;
-    .button {
-      flex: none;
-      width: 100%;
-    }
   }
 }
 
