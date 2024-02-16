@@ -1,13 +1,21 @@
 import { Agbalumo } from "next/font/google";
 import styles from "./home.module.css";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
-const abgalumo = Agbalumo({ subsets: ["latin-ext"], weight: "400" });
+const agbalumo = Agbalumo({ subsets: ["latin-ext"], weight: "400" });
 export default function Home() {
   return (
     <main className={styles.container}>
-      <h1 className={`${abgalumo.className} ${styles.title}`}>Kollage</h1>
-      <h2 className={styles.subtitle}>Join the circus</h2>
+      <Typography
+        component="h1"
+        sx={{ fontFamily: agbalumo.style.fontFamily }}
+        className={styles.title}
+      >
+        Kollage
+      </Typography>
+      <Typography variant="h6" component="h2">
+        Join the circus
+      </Typography>
       <div className={styles.buttonsContainer}>
         <Button component={"a"} href="/signup" variant="contained">
           Sign Up

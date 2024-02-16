@@ -20,13 +20,10 @@
   justify-content: center;
 }
 
-.title {
+.container .title {
   font-size: 8rem;
   flex: 1;
   color: var(--theme-primary-reg);
-}
-.subtitle {
-  font-size: 2rem;
 }
 
 .buttonsContainer {

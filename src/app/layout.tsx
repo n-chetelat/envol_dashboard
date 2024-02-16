@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import "./globals.css";
-
-const roboto = Roboto({ weight: "400", subsets: ["latin-ext"] });
+import { ThemeProvider } from "@mui/material/styles";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import kollageTheme from "@/libs/theme";
 
 export const metadata: Metadata = {
   title: "Air Kollage | Home",
@@ -17,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={kollageTheme}> {children} </ThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
