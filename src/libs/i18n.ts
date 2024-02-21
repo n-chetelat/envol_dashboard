@@ -3,6 +3,7 @@ import { getRequestConfig } from "next-intl/server";
 
 export const defaultLocale = "en";
 export const locales = [defaultLocale, "fr"];
+export const localePrefix = "always";
 
 export default getRequestConfig(async ({ locale }) => {
   // Validate that the incoming `locale` parameter is valid

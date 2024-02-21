@@ -5,6 +5,11 @@
       "description": "Did you ever want to join the circus? Welcome to your hub for circus classes in Montréal. Hoop, silks, pole, burlesque - Oh my!"
     }
   },
+  "locales": {
+    "localeLabel": "English",
+    "en": "English",
+    "fr": "French"
+  },
   "common": {
     "and": "and",
     "or": "or",
