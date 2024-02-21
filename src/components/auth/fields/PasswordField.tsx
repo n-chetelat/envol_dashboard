@@ -9,6 +9,7 @@ type PasswordFieldProps = {
   classes: string;
   name: string;
   label: string;
+  helperText?: string;
 };
 
 export default function PasswordField({
@@ -16,6 +17,7 @@ export default function PasswordField({
   classes,
   name,
   label,
+  helperText,
 }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -26,6 +28,7 @@ export default function PasswordField({
       name={name}
       className={classes}
       error={error}
+      helperText={helperText}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

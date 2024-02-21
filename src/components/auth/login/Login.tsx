@@ -3,14 +3,15 @@
 import styles from "@/components/auth/auth.module.css";
 import { Button, Typography, TextField } from "@mui/material";
 import { login } from "@/actions/auth";
+import PasswordField from "../fields/PasswordField";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import PasswordField from "../passwordField/PasswordField";
 
 export default function LoginForm() {
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("auth");
+  const tc = useTranslations("common");
 
   const handleLogin = async (formData: FormData) => {
     try {
@@ -18,7 +19,7 @@ export default function LoginForm() {
       const password = `${formData.get("password")}`;
       const authorized = await login(email, password);
       if (authorized) {
-        router.push("/dashboard");
+        router.push(`/${locale}/dashboard`);
       }
     } catch (error) {
       console.error(error);
@@ -34,33 +35,34 @@ export default function LoginForm() {
           align="center"
           sx={{ paddingTop: "0.5rem" }}
         >
-          Log In with Email
+          {t("emailLogin")}
         </Typography>
         <form className={styles.form} action={handleLogin}>
           <TextField
-            label="Email"
+            label={tc("email")}
             name="email"
             type="email"
-            error={emailError}
             helperText=""
+            error={false}
             className={styles.input}
           />
           <PasswordField
-            error={passwordError}
             classes={styles.input}
             name="password"
-            label="Password"
+            label={t("password")}
+            error={false}
           />
           <Button type="submit" variant="contained" className={styles.input}>
-            Log In
+            {t("login")}
           </Button>
         </form>
         <div className={styles.authLinks}>
           <Typography variant="body2">
-            Don't have an account? <a href="/signup">Sign up</a>
+            {`${t("noAccount")} `}
+            <a href={`/${locale}/signup`}>{t("signup")}</a>
           </Typography>
           <Typography variant="body2">
-            <a href="/forgot-password">Forgot your password?</a>
+            <a href={`/${locale}/forgot-password`}>{t("forgotPassword")}</a>
           </Typography>
         </div>
       </section>

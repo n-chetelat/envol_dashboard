@@ -1,66 +1,66 @@
 "use client";
 
-import styles from "@/components/auth/auth.module.css";
 import { forgotPassword } from "@/actions/auth";
-import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import styles from "@/components/auth/auth.module.css";
+import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Button, Typography, TextField, Box } from "@mui/material";
 
-export default function ForgotPasswordForm() {
+export default function ForgotPassword() {
   const [emailSent, setEmailSent] = useState<boolean>(false);
-  const [email, setEmail] = useState<string | null>(null);
-  const [emailError, setEmailError] = useState<boolean>(false);
+  const [inputEmail, setInputEmail] = useState<string>("");
+  const locale = useLocale();
+  const t = useTranslations("auth");
+  const tc = useTranslations("common");
 
-  const router = useRouter();
   const handleForgotPassword = async (formData: FormData) => {
     try {
       const email = `${formData.get("email")}`;
-      setEmail(email);
+      setInputEmail(email);
       await forgotPassword(email);
       setEmailSent(true);
     } catch (error) {
-      setEmailSent(false);
+      setEmailSent(true);
       console.error(error);
     }
   };
   return (
-    <div className={styles.container}>
+    <section>
       {emailSent ? (
         <Typography variant="body1" align="center">
-          Thanks! If we have an account for
-          <Box component="span" sx={{ fontWeight: "600" }}>
-            {` ${email} `}
-          </Box>
-          you will receive an email shortly to reset your password.
+          {t.rich("resetEmailSent", {
+            bold: (chunks) => <b>{chunks}</b>,
+            email: inputEmail,
+          })}
         </Typography>
       ) : (
-        <section className={styles.localAuthContainer}>
+        <div className={styles.localAuthContainer}>
           <Typography
             component="h2"
             variant="h6"
             align="center"
             sx={{ paddingTop: "0.5rem" }}
           >
-            Reset your password
+            {t("resetPassword")}
           </Typography>
           <form className={styles.form} action={handleForgotPassword}>
             <TextField
-              label="Email"
-              name="email"
               type="email"
-              error={emailError}
+              label={tc("email")}
+              name="email"
+              error={false}
               helperText=""
               className={styles.input}
             />
             <Button type="submit" variant="contained" className={styles.input}>
-              Send Password Reset Email
+              {t("resetPasswordEmail")}
             </Button>
           </form>
-        </section>
+        </div>
       )}
       <Typography variant="body2" className={styles.authLinks}>
-        <a href="/login">Back to Log In page</a>
+        <a href={`/${locale}/login`}>{t("backToLogin")}</a>
       </Typography>
-    </div>
+    </section>
   );
 }

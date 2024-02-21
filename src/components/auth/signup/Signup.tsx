@@ -1,17 +1,18 @@
 "use client";
 
+import { signup } from "@/actions/auth";
 import styles from "@/components/auth/auth.module.css";
 import { Button, TextField, Typography } from "@mui/material";
-import { signup } from "@/actions/auth";
-import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { useState } from "react";
-import PasswordField from "../passwordField/PasswordField";
+import { useRouter } from "next/navigation";
+import PasswordField from "../fields/PasswordField";
 
 export default function LoginForm() {
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("auth");
+  const tc = useTranslations("common");
 
   const handleSignUp = async (formData: FormData) => {
     try {
@@ -19,11 +20,11 @@ export default function LoginForm() {
       const password = `${formData.get("password")}`;
       const passwordConfirmation = `${formData.get("passwordConfirmation")}`;
       if (password != passwordConfirmation) {
-        throw new Error("Passwords do not match");
+        throw new Error("NOT LOCALIZED - Passwords do not match");
       }
       const authorized = await signup(email, password);
       if (authorized) {
-        router.push("/dashboard");
+        router.push(`/${locale}/dashboard`);
       }
     } catch (error) {
       console.error(error);
@@ -37,35 +38,36 @@ export default function LoginForm() {
         align="center"
         sx={{ paddingTop: "0.5rem" }}
       >
-        Sign Up with Email
+        {t("emailSignup")}
       </Typography>
       <form className={styles.form} action={handleSignUp}>
         <TextField
-          label="Email"
+          label={tc("email")}
           name="email"
           type="email"
-          error={emailError}
+          error={false}
           helperText=""
           className={styles.input}
         />
         <PasswordField
-          error={passwordError}
+          error={false}
           classes={styles.input}
           name="password"
-          label="Password"
+          label={t("password")}
         />
         <PasswordField
-          error={passwordError}
+          error={false}
           classes={styles.input}
           name="passwordConfirmation"
-          label="Confirm Password"
+          label={t("confirmPassword")}
         />
         <Button type="submit" variant="contained" className={styles.input}>
-          Sign Up
+          {t("signup")}
         </Button>
       </form>
       <Typography variant="body2" className={styles.authLinks}>
-        Already have an account? <Link href="/login">Log in</Link>
+        {t("alreadyAccount")}{" "}
+        <Link href={`/${locale}/login`}>{t("login")}</Link>
       </Typography>
     </section>
   );
