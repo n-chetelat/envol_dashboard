@@ -1,15 +1,15 @@
 "use client";
 
 import { forgotPassword } from "@/actions/auth";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import styles from "@/components/auth/auth.module.css";
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { Link } from "@/libs/navigation";
 
 export default function ForgotPassword() {
   const [emailSent, setEmailSent] = useState<boolean>(false);
   const [inputEmail, setInputEmail] = useState<string>("");
-  const locale = useLocale();
   const t = useTranslations("auth");
   const tc = useTranslations("common");
 
@@ -59,7 +59,7 @@ export default function ForgotPassword() {
         </div>
       )}
       <Typography variant="body2" className={styles.authLinks}>
-        <a href={`/${locale}/login`}>{t("backToLogin")}</a>
+        <Link href="/login">{t("backToLogin")}</Link>
       </Typography>
     </section>
   );

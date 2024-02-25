@@ -1,5 +1,6 @@
 import styles from "./home.module.css";
 import { Button, Typography } from "@mui/material";
+import { Link } from "@/libs/navigation";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 
@@ -20,12 +21,8 @@ export default function Home({
         {t("subtitle")}
       </Typography>
       <div className={styles.buttonsContainer}>
-        <Button component={"a"} href={`/${locale}/signup`} variant="contained">
-          {ta("signup")}
-        </Button>
-        <Button component={"a"} href={`/${locale}/login`} variant="outlined">
-          {ta("login")}
-        </Button>
+        <Link href="/signup">{ta("signup")}</Link>
+        <Link href="/login">{ta("login")}</Link>
       </div>
     </main>
   );

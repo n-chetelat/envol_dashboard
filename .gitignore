@@ -40,3 +40,4 @@ next-env.d.ts
 /functions/
 
 ui-debug.log
+firebase-debug.log

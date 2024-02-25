@@ -1,15 +1,14 @@
 import { logout } from "@/actions/auth";
-import { redirect } from "next/navigation";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+import { redirect } from "@/libs/navigation";
 
 export default function LogoutButton() {
   const t = useTranslations("auth");
-  const locale = useLocale();
   const handleLogout = async () => {
     "use server";
     try {
       await logout();
-      redirect(`/${locale}`);
+      redirect("/login");
     } catch (error) {
       console.log(error);
     }

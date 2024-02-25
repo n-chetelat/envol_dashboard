@@ -1,14 +1,16 @@
-import createMiddleware from "next-intl/middleware";
+import createIntlMiddleware from "next-intl/middleware";
 import { defaultLocale, locales } from "@/libs/i18n";
+import { NextRequest } from "next/server";
 
-// How to integrate with oter middlewares:
-// https://next-intl-docs.vercel.app/docs/routing/middleware#example-auth-js
-export default createMiddleware({
+const i18nMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
 });
 
+export function middleware(request: NextRequest) {
+  return i18nMiddleware(request);
+}
+
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ["/", `/(fr|en)/:path*`],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)"],
 };

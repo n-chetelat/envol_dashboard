@@ -19,6 +19,8 @@ npm run dev
 
 ### How to start the firebase emulators
 
+Inside of `src/libs/firebase`:
+
 ```ts
 import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";

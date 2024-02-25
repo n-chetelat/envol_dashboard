@@ -3,14 +3,12 @@
 import { signup } from "@/actions/auth";
 import styles from "@/components/auth/auth.module.css";
 import { Button, TextField, Typography } from "@mui/material";
-import { useLocale, useTranslations } from "next-intl";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, useRouter } from "@/libs/navigation";
 import PasswordField from "../fields/PasswordField";
 
 export default function LoginForm() {
   const router = useRouter();
-  const locale = useLocale();
   const t = useTranslations("auth");
   const tc = useTranslations("common");
 
@@ -24,7 +22,7 @@ export default function LoginForm() {
       }
       const authorized = await signup(email, password);
       if (authorized) {
-        router.push(`/${locale}/dashboard`);
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error(error);
@@ -66,8 +64,7 @@ export default function LoginForm() {
         </Button>
       </form>
       <Typography variant="body2" className={styles.authLinks}>
-        {t("alreadyAccount")}{" "}
-        <Link href={`/${locale}/login`}>{t("login")}</Link>
+        {t("alreadyAccount")} <Link href="/login">{t("login")}</Link>
       </Typography>
     </section>
   );

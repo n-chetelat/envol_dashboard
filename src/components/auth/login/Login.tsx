@@ -4,12 +4,11 @@ import styles from "@/components/auth/auth.module.css";
 import { Button, Typography, TextField } from "@mui/material";
 import { login } from "@/actions/auth";
 import PasswordField from "../fields/PasswordField";
-import { useTranslations, useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, useRouter } from "@/libs/navigation";
 
 export default function LoginForm() {
   const router = useRouter();
-  const locale = useLocale();
   const t = useTranslations("auth");
   const tc = useTranslations("common");
 
@@ -19,7 +18,7 @@ export default function LoginForm() {
       const password = `${formData.get("password")}`;
       const authorized = await login(email, password);
       if (authorized) {
-        router.push(`/${locale}/dashboard`);
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error(error);
@@ -59,10 +58,10 @@ export default function LoginForm() {
         <div className={styles.authLinks}>
           <Typography variant="body2">
             {`${t("noAccount")} `}
-            <a href={`/${locale}/signup`}>{t("signup")}</a>
+            <Link href="/signup">{t("signup")}</Link>
           </Typography>
           <Typography variant="body2">
-            <a href={`/${locale}/forgot-password`}>{t("forgotPassword")}</a>
+            <Link href="/forgot-password">{t("forgotPassword")}</Link>
           </Typography>
         </div>
       </section>
