@@ -1,16 +1,17 @@
 "use client";
 
-import { signup } from "@/actions/auth";
 import styles from "@/components/auth/auth.module.css";
 import { Button, TextField, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/libs/navigation";
 import PasswordField from "../fields/PasswordField";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginForm() {
   const router = useRouter();
   const t = useTranslations("auth");
   const tc = useTranslations("common");
+  const { signup } = useAuth();
 
   const handleSignUp = async (formData: FormData) => {
     try {
@@ -20,8 +21,8 @@ export default function LoginForm() {
       if (password != passwordConfirmation) {
         throw new Error("NOT LOCALIZED - Passwords do not match");
       }
-      const authorized = await signup(email, password);
-      if (authorized) {
+      const result = await signup(email, password);
+      if (result.user) {
         router.push("/dashboard");
       }
     } catch (error) {

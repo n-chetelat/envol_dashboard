@@ -1,23 +1,24 @@
 "use client";
 
-import { forgotPassword } from "@/actions/auth";
 import { useTranslations } from "next-intl";
 import styles from "@/components/auth/auth.module.css";
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "@/libs/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ForgotPassword() {
   const [emailSent, setEmailSent] = useState<boolean>(false);
   const [inputEmail, setInputEmail] = useState<string>("");
   const t = useTranslations("auth");
   const tc = useTranslations("common");
+  const { resetPassword } = useAuth();
 
   const handleForgotPassword = async (formData: FormData) => {
     try {
       const email = `${formData.get("email")}`;
       setInputEmail(email);
-      await forgotPassword(email);
+      await resetPassword(email);
       setEmailSent(true);
     } catch (error) {
       setEmailSent(true);

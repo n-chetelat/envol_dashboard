@@ -1,18 +1,23 @@
 "use client";
 
-import { googleLogin } from "@/actions/auth";
 import styles from "@/components/auth/auth.module.css";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Button, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "@/libs/navigation";
 
 export default function SocialAuth() {
+  const router = useRouter();
   const t = useTranslations("auth");
+  const { googleLogin } = useAuth();
 
   const handleGoogleLogin = async () => {
     try {
-      await googleLogin();
+      const result = await googleLogin();
+      if (result?.user) {
+        router.push("/dashboard");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -36,14 +41,6 @@ export default function SocialAuth() {
           onClick={handleGoogleLogin}
         >
           {`${t("socialLoginWith")} Google`}
-        </Button>
-        <Button
-          className={styles.socialAuthButton}
-          variant="contained"
-          startIcon={<FacebookIcon fontSize="small" />}
-          onClick={() => {}}
-        >
-          {`${t("socialLoginWith")} Facebook`}
         </Button>
       </div>
     </section>

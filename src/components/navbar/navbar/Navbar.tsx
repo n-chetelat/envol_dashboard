@@ -1,18 +1,20 @@
 import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
 import LogoutButton from "../logoutButton/LogoutButton";
 import AuthenticatedNav from "./AuthenticatedNav";
-import { auth } from "@/libs/firebase";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
 export default function Navbar() {
+  const messages = useMessages();
   return (
     <nav>
       <AuthenticatedNav
         children={
           <>
-            <LogoutButton />
+            <NextIntlClientProvider messages={messages}>
+              <LogoutButton />
+            </NextIntlClientProvider>
           </>
         }
-        currentUser={auth.currentUser}
       />
       <LocaleSwitcher />
     </nav>

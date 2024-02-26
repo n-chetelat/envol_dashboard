@@ -1,14 +1,17 @@
-import { logout } from "@/actions/auth";
+"use client";
+
+import { useAuth } from "@/context/AuthContext";
 import { useTranslations } from "next-intl";
-import { redirect } from "@/libs/navigation";
+import { useRouter } from "@/libs/navigation";
 
 export default function LogoutButton() {
   const t = useTranslations("auth");
+  const { logout } = useAuth();
+  const router = useRouter();
   const handleLogout = async () => {
-    "use server";
     try {
       await logout();
-      redirect("/login");
+      router.push("/login");
     } catch (error) {
       console.log(error);
     }

@@ -1,18 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User } from "firebase/auth";
+import { useAuth } from "@/context/AuthContext";
 
 type AuthenticatedNavProps = {
   children: React.ReactNode;
-  currentUser: User | null;
 };
 
-export default function AuthenticatedNav({
-  children,
-  currentUser,
-}: AuthenticatedNavProps) {
+export default function AuthenticatedNav({ children }: AuthenticatedNavProps) {
   const [show, setShow] = useState<boolean>(false);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (currentUser) {
@@ -22,5 +19,16 @@ export default function AuthenticatedNav({
     }
   }, [currentUser]);
 
-  return <>{show ? <div>{children}</div> : null}</>;
+  return (
+    <>
+      {show ? (
+        <div>
+          {children}
+          <p>{`${currentUser?.email}`}</p>
+        </div>
+      ) : (
+        "No user"
+      )}
+    </>
+  );
 }
