@@ -1,21 +1,22 @@
 import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
 import LogoutButton from "../logoutButton/LogoutButton";
 import AuthenticatedNav from "./AuthenticatedNav";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { auth } from "@/libs/auth";
+import { SessionProvider } from "next-auth/react";
 
-export default function Navbar() {
-  const messages = useMessages();
+export default async function Navbar() {
+  const session = await auth();
   return (
     <nav>
-      <AuthenticatedNav
-        children={
-          <>
-            <NextIntlClientProvider messages={messages}>
+      <SessionProvider session={session}>
+        <AuthenticatedNav
+          children={
+            <>
               <LogoutButton />
-            </NextIntlClientProvider>
-          </>
-        }
-      />
+            </>
+          }
+        />
+      </SessionProvider>
       <LocaleSwitcher />
     </nav>
   );

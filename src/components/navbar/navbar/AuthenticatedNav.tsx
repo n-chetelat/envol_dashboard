@@ -1,30 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useSession } from "next-auth/react";
 
 type AuthenticatedNavProps = {
   children: React.ReactNode;
 };
 
 export default function AuthenticatedNav({ children }: AuthenticatedNavProps) {
-  const [show, setShow] = useState<boolean>(false);
-  const { currentUser } = useAuth();
-
-  useEffect(() => {
-    if (currentUser) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
-  }, [currentUser]);
+  const { data: session, status } = useSession();
 
   return (
     <>
-      {show ? (
+      {status === "authenticated" ? (
         <div>
           {children}
-          <p>{`${currentUser?.email}`}</p>
+          <p>Signed in as {session?.user?.email}</p>
         </div>
       ) : (
         "No user"

@@ -20,8 +20,8 @@ export default function SignupPage({
   return (
     <div className={styles.container}>
       <Paper elevation={1} className={styles.formContainer}>
+        <SocialAuth />
         <NextIntlClientProvider messages={messages}>
-          <SocialAuth />
           <Divider variant="middle"> {t("or")} </Divider>
           <SignupForm />
         </NextIntlClientProvider>

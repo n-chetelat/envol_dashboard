@@ -1,9 +1,5 @@
 import { locales } from "@/libs/i18n";
-import kollageTheme from "@/libs/theme";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
 import { unstable_setRequestLocale, getTranslations } from "next-intl/server";
-import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 
 export async function generateMetadata({
@@ -35,13 +31,7 @@ export default function RootLayout({
   unstable_setRequestLocale(locale);
   return (
     <html lang={locale}>
-      <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={kollageTheme}>
-            <AuthProvider>{children}</AuthProvider>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

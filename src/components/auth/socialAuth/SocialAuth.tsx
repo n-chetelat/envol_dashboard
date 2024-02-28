@@ -1,27 +1,11 @@
-"use client";
-
 import styles from "@/components/auth/auth.module.css";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "@/libs/navigation";
+import { handleGoogleLogin } from "@/actions/auth";
 
 export default function SocialAuth() {
-  const router = useRouter();
   const t = useTranslations("auth");
-  const { googleLogin } = useAuth();
-
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await googleLogin();
-      if (result?.user) {
-        router.push("/dashboard");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <section className={styles.container}>
@@ -33,15 +17,12 @@ export default function SocialAuth() {
       >
         {t("socialLogin")}
       </Typography>
-      <div className={styles.socialAuthButtonContainer}>
-        <Button
-          className={styles.socialAuthButton}
-          variant="contained"
-          startIcon={<GoogleIcon fontSize="small" />}
-          onClick={handleGoogleLogin}
-        >
-          {`${t("socialLoginWith")} Google`}
-        </Button>
+      <div className="flex flex-col w-ful">
+        <form action={handleGoogleLogin} className="flex">
+          <button type="submit" className="mt-4 flex-1 text-left w-full">
+            {`${t("socialLoginWith")} Google`}
+          </button>
+        </form>
       </div>
     </section>
   );

@@ -5,22 +5,17 @@ import { Button, Typography, TextField } from "@mui/material";
 import PasswordField from "../fields/PasswordField";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/libs/navigation";
-import { useAuth } from "@/context/AuthContext";
 
 export default function LoginForm() {
   const router = useRouter();
   const t = useTranslations("auth");
   const tc = useTranslations("common");
-  const { login } = useAuth();
 
   const handleLogin = async (formData: FormData) => {
     try {
       const email = `${formData.get("email")}`;
       const password = `${formData.get("password")}`;
-      const result = await login(email, password);
-      if (result.user) {
-        router.push("/dashboard");
-      }
+      // log in here
     } catch (error) {
       console.error(error);
     }
