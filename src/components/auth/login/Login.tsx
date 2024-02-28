@@ -1,13 +1,9 @@
 "use client";
 
-import styles from "@/components/auth/auth.module.css";
-import { Button, Typography, TextField } from "@mui/material";
-import PasswordField from "../fields/PasswordField";
 import { useTranslations } from "next-intl";
-import { Link, useRouter } from "@/libs/navigation";
+import { Link } from "@/libs/navigation";
 
 export default function LoginForm() {
-  const router = useRouter();
   const t = useTranslations("auth");
   const tc = useTranslations("common");
 
@@ -22,43 +18,22 @@ export default function LoginForm() {
   };
 
   return (
-    <div className={styles.container}>
-      <section className={styles.localAuthContainer}>
-        <Typography
-          component="h2"
-          variant="h6"
-          align="center"
-          sx={{ paddingTop: "0.5rem" }}
-        >
-          {t("emailLogin")}
-        </Typography>
-        <form className={styles.form} action={handleLogin}>
-          <TextField
-            label={tc("email")}
-            name="email"
-            type="email"
-            helperText=""
-            error={false}
-            className={styles.input}
-          />
-          <PasswordField
-            classes={styles.input}
-            name="password"
-            label={t("password")}
-            error={false}
-          />
-          <Button type="submit" variant="contained" className={styles.input}>
-            {t("login")}
-          </Button>
+    <div>
+      <section>
+        <h2>{t("emailLogin")}</h2>
+        <form action={handleLogin}>
+          <input name="email" type="email" />
+          <input name="password" />
+          <button type="submit">{t("login")}</button>
         </form>
-        <div className={styles.authLinks}>
-          <Typography variant="body2">
+        <div>
+          <p>
             {`${t("noAccount")} `}
             <Link href="/signup">{t("signup")}</Link>
-          </Typography>
-          <Typography variant="body2">
+          </p>
+          <p>
             <Link href="/forgot-password">{t("forgotPassword")}</Link>
-          </Typography>
+          </p>
         </div>
       </section>
     </div>

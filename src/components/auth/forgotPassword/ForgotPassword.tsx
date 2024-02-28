@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import styles from "@/components/auth/auth.module.css";
-import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "@/libs/navigation";
 
@@ -26,40 +24,24 @@ export default function ForgotPassword() {
   return (
     <section>
       {emailSent ? (
-        <Typography variant="body1" align="center">
+        <p>
           {t.rich("resetEmailSent", {
             bold: (chunks) => <b>{chunks}</b>,
             email: inputEmail,
           })}
-        </Typography>
+        </p>
       ) : (
-        <div className={styles.localAuthContainer}>
-          <Typography
-            component="h2"
-            variant="h6"
-            align="center"
-            sx={{ paddingTop: "0.5rem" }}
-          >
-            {t("resetPassword")}
-          </Typography>
-          <form className={styles.form} action={handleForgotPassword}>
-            <TextField
-              type="email"
-              label={tc("email")}
-              name="email"
-              error={false}
-              helperText=""
-              className={styles.input}
-            />
-            <Button type="submit" variant="contained" className={styles.input}>
-              {t("resetPasswordEmail")}
-            </Button>
+        <div>
+          <h2>{t("resetPassword")}</h2>
+          <form action={handleForgotPassword}>
+            <input type="email" name="email" />
+            <button type="submit">{t("resetPasswordEmail")}</button>
           </form>
         </div>
       )}
-      <Typography variant="body2" className={styles.authLinks}>
+      <p>
         <Link href="/login">{t("backToLogin")}</Link>
-      </Typography>
+      </p>
     </section>
   );
 }

@@ -1,7 +1,5 @@
-import styles from "@/app/[locale]/(auth)/auth.module.css";
 import SignupForm from "@/components/auth/signup/Signup";
 import SocialAuth from "@/components/auth/socialAuth/SocialAuth";
-import { Divider, Paper } from "@mui/material";
 import { unstable_setRequestLocale } from "next-intl/server";
 import {
   NextIntlClientProvider,
@@ -18,14 +16,14 @@ export default function SignupPage({
   const t = useTranslations("common");
   const messages = useMessages();
   return (
-    <div className={styles.container}>
-      <Paper elevation={1} className={styles.formContainer}>
+    <div>
+      <div>
         <SocialAuth />
         <NextIntlClientProvider messages={messages}>
-          <Divider variant="middle"> {t("or")} </Divider>
+          <hr />
           <SignupForm />
         </NextIntlClientProvider>
-      </Paper>
+      </div>
     </div>
   );
 }

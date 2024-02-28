@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-
+import { FirestoreAdapter, initFirestore } from "@auth/firebase-adapter";
 import type { NextAuthConfig } from "next-auth";
 
 export const config = {
