@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getRequestConfig } from "next-intl/server";
+import { enUS, frFR } from "@clerk/localizations";
 
 export const defaultLocale = "en";
 export const locales = [defaultLocale, "fr"];
@@ -13,3 +14,12 @@ export default getRequestConfig(async ({ locale }) => {
     messages: (await import(`@/translations/${locale}.json`)).default,
   };
 });
+
+// Clerk auth localization
+export const getClerkLocale = (locale: string) => {
+  const authLocales: any = {
+    en: enUS,
+    fr: frFR,
+  };
+  return authLocales[locale];
+};

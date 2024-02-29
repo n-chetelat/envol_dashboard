@@ -1,8 +1,8 @@
 {
   "metadata": {
     "mainLayout": {
-      "title": "FR - Air Kollage | Home",
-      "description": "FR - Did you ever want to join the circus? Welcome to your hub for circus classes in Montréal. Hoop, silks, pole, burlesque - Oh my!"
+      "title": "Air Kollage | Accueil",
+      "description": "Avez-vous déjà eu envie de rejoindre le cirque ? Bienvenue dans votre hub de cours de cirque à Montréal. Cerceau, soies, pole-dance, burlesque - Oh mon Dieu !"
     }
   },
   "locales": {
@@ -17,27 +17,6 @@
   },
   "home": {
     "subtitle": "Viens rejoindre le cirque",
-    "login": "Se connecter",
-    "signup": "S'inscrire"
-  },
-  "auth": {
-    "socialSignup": "Connexion via un réseau social",
-    "emailSignup": "S'inscrire avec un courriel",
-    "socialLogin": "Connexion via un réseau social ",
-    "emailLogin": "Se connecter avec un courriel",
-    "socialSignupWith": "Connexion via ",
-    "socialLoginWith": "Connexion via ",
-    "password": "Mot de passe",
-    "confirmPassword": "Confirmer le mot de passe",
-    "signup": "S'inscrire",
-    "login": "Se connecter",
-    "alreadyAccount": "Vous avez déjà un compte avec nous?",
-    "noAccount": "Vouz n'avez pas encore un compte?",
-    "forgotPassword": "Mot de passe oublié?",
-    "resetPassword": "Modifier le mot de passe",
-    "resetPasswordEmail": "Demander un mot de passe",
-    "backToLogin": "Retour à la page de connexion",
-    "logout": "Déconnexion",
-    "resetEmailSent": "FR - Thanks! If we have an account for <bold>{email}</bold> you will receive an email shortly to reset your password."
+    "dashboardCta": "Tableau de bord"
   }
 }

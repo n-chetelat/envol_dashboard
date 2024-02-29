@@ -9,14 +9,12 @@ export default function Home({
 }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations("home");
-  const ta = useTranslations("auth");
   return (
     <main>
       <h1>Kollage</h1>
       <h2>{t("subtitle")}</h2>
       <div>
-        <Link href="/signup">{ta("signup")}</Link>
-        <Link href="/login">{ta("login")}</Link>
+        <Link href="/dashboard">{t("dashboardCta")}</Link>
       </div>
     </main>
   );

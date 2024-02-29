@@ -1,32 +1,32 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { defaultLocale, locales } from "@/libs/i18n";
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/libs/auth";
+import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 
-const PUBLIC_PAGES = ["/", "/login", "/signup", "forgot-password"];
+const PUBLIC_PAGES = ["/:locale", "/:locale/sign-in", "/:locale/sign-up"];
 
 const i18nMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
 });
 
-const authMiddleware = auth((request) => {
-  const pathSections = request.nextUrl.pathname.split("/").slice(1); // remove extra empty string
-  const unlocalizedUrl = pathSections.slice(1).join("/");
-  if (PUBLIC_PAGES.includes(`/${unlocalizedUrl}`)) {
+// Details of auth middleware:
+// https://clerk.com/docs/references/nextjs/auth-middleware
+export default authMiddleware({
+  publicRoutes: PUBLIC_PAGES,
+  beforeAuth: (request) => {
+    // Execute next-intl middleware before Clerk's auth middleware
     return i18nMiddleware(request);
-  }
-  if (request.auth && request.auth.user) {
-    return i18nMiddleware(request);
-  } else {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+  },
+  afterAuth(auth, request, event) {
+    if (!auth.userId && !auth.isPublicRoute) {
+      return redirectToSignIn({ returnBackUrl: request.url });
+    }
+    // TODO: Handle redirecting users by profile type here
+    return NextResponse.next();
+  },
 });
 
-export function middleware(request: NextRequest) {
-  return authMiddleware(request, {});
-}
-
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

@@ -1,6 +1,8 @@
-import { locales } from "@/libs/i18n";
-import { unstable_setRequestLocale, getTranslations } from "next-intl/server";
+import { locales, getClerkLocale } from "@/libs/i18n";
+import { ClerkProvider } from "@clerk/nextjs";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import "./globals.css";
+import { clerkTheme } from "@/libs/clerk";
 
 export async function generateMetadata({
   params: { locale },
@@ -29,9 +31,15 @@ export default function RootLayout({
   };
 }>) {
   unstable_setRequestLocale(locale);
+
   return (
-    <html lang={locale}>
-      <body>{children}</body>
-    </html>
+    <ClerkProvider
+      appearance={clerkTheme}
+      localization={getClerkLocale(locale)}
+    >
+      <html lang={locale}>
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -16,26 +16,7 @@
     "email": "Email"
   },
   "home": {
-    "subtitle": "Join the circus"
-  },
-  "auth": {
-    "socialSignup": "Sign Up with Socials",
-    "emailSignup": "Sign Up with Email",
-    "socialLogin": "Log In with Socials",
-    "emailLogin": "Log In with Email",
-    "socialSignupWith": "Sign Up With ",
-    "socialLoginWith": "Log In With ",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "signup": "Sign Up",
-    "login": "Log In",
-    "alreadyAccount": "Already have an account?",
-    "noAccount": "Don't have an account?",
-    "forgotPassword": "Forgot your password?",
-    "resetPassword": "Reset your password",
-    "resetPasswordEmail": "Send password reset email",
-    "backToLogin": "Back to Log In page",
-    "logout": "Log Out",
-    "resetEmailSent": "Thanks! If we have an account for <bold>{email}</bold> you will receive an email shortly to reset your password."
+    "subtitle": "Join the circus",
+    "dashboardCta": "Go to dashboard"
   }
 }
