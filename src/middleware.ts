@@ -3,7 +3,12 @@ import { defaultLocale, locales } from "@/libs/i18n";
 import { NextRequest, NextResponse } from "next/server";
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 
-const PUBLIC_PAGES = ["/:locale", "/:locale/sign-in", "/:locale/sign-up"];
+const PUBLIC_PAGES = [
+  "/:locale",
+  "/:locale/sign-in",
+  "/:locale/sign-up",
+  "/sing-in",
+];
 
 const i18nMiddleware = createIntlMiddleware({
   locales,

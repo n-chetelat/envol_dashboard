@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar/navbar/Navbar";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -16,5 +15,6 @@ export default async function DashboardPage({
   }
 
   const user = await clerkClient.users.getUser(userId);
-  return <div>{user ? <Navbar /> : null}</div>;
+  const email = user.emailAddresses[0]?.emailAddress;
+  return <div>{user ? <>{email}</> : null}</div>;
 }
