@@ -1,6 +1,10 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import prisma from "@/libs/prisma";
+import ProfileForm from "@/components/profileForm/ProfileForm";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 export default async function DashboardPage({
   params: { locale },
@@ -8,13 +12,27 @@ export default async function DashboardPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
+  const messages = await getMessages();
   const { userId } = auth();
 
   if (!userId) {
     redirect("/");
+    f;
   }
 
-  const user = await clerkClient.users.getUser(userId);
-  const email = user.emailAddresses[0]?.emailAddress;
-  return <div>{user ? <>{email}</> : null}</div>;
+  const profile = await prisma.profile.findFirst({ where: { userId } });
+
+  return (
+    <div>
+      {!profile ? (
+        <div>Render dashboard</div>
+      ) : (
+        <div>
+          <NextIntlClientProvider messages={messages}>
+            <ProfileForm userId={userId} />
+          </NextIntlClientProvider>
+        </div>
+      )}
+    </div>
+  );
 }

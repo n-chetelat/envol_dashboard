@@ -14,7 +14,18 @@
   "common": {
     "and": "et",
     "or": "ou",
-    "email": "Courriel"
+    "email": "Courriel",
+    "pronouns": {
+      "she/her": "Elle",
+      "he/him": "Il",
+      "they/them": "Iel"
+    },
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "preferredName": "Prénom d'usage",
+    "phoneNumber": "Numéro de téléphone",
+    "pronoun": "Pronoms",
+    "preferredLanguage": "Langue préférée"
   },
   "home": {
     "subtitle": "Viens rejoindre le cirque",
