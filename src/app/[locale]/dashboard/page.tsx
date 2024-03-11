@@ -1,5 +1,5 @@
 import { unstable_setRequestLocale } from "next-intl/server";
-import { auth, clerkClient } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import prisma from "@/libs/prisma";
 import ProfileForm from "@/components/profileForm/ProfileForm";
@@ -19,7 +19,6 @@ export default async function DashboardPage({
 
   if (!userId) {
     redirect("/");
-    f;
   }
 
   const profile = await prisma.profile.findFirst({ where: { userId } });
@@ -29,12 +28,7 @@ export default async function DashboardPage({
       {profile ? (
         <div className="h-screen">
           <NextIntlClientProvider messages={messages}>
-            <div className="fixed h-full w-48">
-              <Sidebar profile={profile} locale={locale} />
-            </div>
-            <div className="pl-[14rem]">
-              <GenericDashboard profile={profile} locale={locale} />
-            </div>
+            <GenericDashboard profile={profile} />
           </NextIntlClientProvider>
         </div>
       ) : (

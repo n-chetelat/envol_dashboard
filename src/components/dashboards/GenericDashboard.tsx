@@ -5,7 +5,7 @@ import useProfileType from "@/hooks/useProfileType";
 
 import { useTranslations } from "next-intl";
 
-export default function GenericDashboard({ profile, locale }) {
+export default function GenericDashboard({ profile }) {
   const { profileType, setProfileType } = useProfileType(profile);
   const [businessProfileFormOpen, setBusinessProfileFormOpen] =
     useState<"boolean">(false);
