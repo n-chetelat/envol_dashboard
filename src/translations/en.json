@@ -25,11 +25,26 @@
     "preferredName": "Preferred Name",
     "phoneNumber": "Phone Number",
     "pronoun": "Pronouns",
-    "preferredLanguage": "Preferred Language"
+    "preferredLanguage": "Preferred Language",
+    "select": "Select",
+    "welcome": "Welcome"
   },
   "home": {
     "subtitle": "Join the circus",
     "dashboardCta": "Go to dashboard",
     "join": "Join"
+  },
+  "profile": {
+    "title": "Welcome to Kollage!",
+    "description": "Please fill out your profile information to continue"
+  },
+  "dashboard": {
+    "why": "What brings you to Kollage today?",
+    "amStudent": "I want to take classes",
+    "amInstructor": "I am an instructor",
+    "amBusiness": "I am a business owner",
+    "dashboard": "Dashboard",
+    "classes": "Classes",
+    "settings": "Settings"
   }
 }

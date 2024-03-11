@@ -23,6 +23,7 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
   });
 
   const t = useTranslations("common");
+  const tp = useTranslations("profile");
 
   const handleCreateProfile = async (formData: FormData) => {
     try {
@@ -47,10 +48,14 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
   }, []);
 
   return (
-    <div className="flex">
+    <div className="m-4 flex w-1/2 flex-col rounded bg-slate-50 p-4 shadow-md md:max-w-2xl">
+      <h1 className="m-4 text-center text-2xl font-bold uppercase">
+        {tp("title")}
+      </h1>
+      <h3 className="my-4 text-center">{tp("description")}</h3>
       <form
         action={handleSubmit(handleCreateProfile)}
-        className="flex flex-col"
+        className="flex flex-col items-center"
       >
         <TextInput
           inputParams={{ ...register("firstName"), required: true }}
@@ -68,19 +73,25 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
           label={t("preferredName")}
         />
         <MultiSelectInput
-          inputParams={{ ...register("pronouns") }}
+          inputParams={{ ...register("pronouns"), required: true }}
           errors={errors.pronouns}
           label={t("pronoun")}
           options={pronounSelectorOptions}
           formControl={control}
           controllerComponent={Controller}
+          placeholder={t("select")}
         />
         <PhoneNumberInput
           inputParams={{ ...register("phoneNumber"), required: true }}
           errors={errors.phoneNumber}
           label={t("phoneNumber")}
         />
-        <button type="submit">Submit</button>
+        <button
+          className="bg-darkblue hover:bg-darkblue-light w-10/12 rounded p-6 font-bold text-white"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

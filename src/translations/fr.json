@@ -25,11 +25,26 @@
     "preferredName": "Prénom d'usage",
     "phoneNumber": "Numéro de téléphone",
     "pronoun": "Pronoms",
-    "preferredLanguage": "Langue préférée"
+    "preferredLanguage": "Langue préférée",
+    "select": "Sélectionez",
+    "welcome": "Bienvenue"
   },
   "home": {
     "subtitle": "Viens rejoindre le cirque",
     "dashboardCta": "Tableau de bord",
     "join": "Rejoindre"
+  },
+  "profile": {
+    "title": "Bienvenue chez Kollage!",
+    "description": "Veuillez remplir les informations de votre profil pour continuer"
+  },
+  "dashboard": {
+    "why": "Qu’est-ce qui vous amène à Kollage aujourd’hui ?",
+    "amStudent": "Je veux suivre des cours",
+    "amInstructor": "Je suis instructeur",
+    "amBusiness": "Je gère une entreprise",
+    "dashboard": "Tableau de bord",
+    "classes": "Cours",
+    "settings": "Paramètres"
   }
 }
