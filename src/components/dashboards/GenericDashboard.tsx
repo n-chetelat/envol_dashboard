@@ -2,50 +2,98 @@
 
 import { useState } from "react";
 import useProfileType from "@/hooks/useProfileType";
-
 import { useTranslations } from "next-intl";
+import {
+  createStudentProfile,
+  createInstructorProfile,
+  createBusinessProfile,
+} from "@/actions/profile";
+import { Prisma, Profile } from "@prisma/client";
+import TokenForm from "@/components/forms/TokenForm";
 
-export default function GenericDashboard({ profile }) {
+export default function GenericDashboard({ profile }: GenericDashboardProps) {
   const { profileType, setProfileType } = useProfileType(profile);
-  const [businessProfileFormOpen, setBusinessProfileFormOpen] =
-    useState<"boolean">(false);
-  const [instructorProfileFormOpen, setInstructorProfileFormOpen] =
-    useState<"boolean">(false);
+  const [tokenFormOpen, setTokenFormOpen] = useState<boolean>(false);
   const t = useTranslations("common");
   const td = useTranslations("dashboard");
 
-  const handleCreateStudentProfile = () => {};
+  const handleCreateStudentProfile = async () => {
+    try {
+      await createStudentProfile({
+        profile: { connect: { id: profile.id } },
+      });
+      window.location.reload();
+    } catch (errors) {
+      console.error(errors);
+    }
+  };
+
+  const handleTokenSubmit = async (formData: FormData) => {
+    try {
+      console.log(formData);
+      // TODO: Validate token here
+      if (formData.tokenType === "business") {
+        handleCreateBusinessProfile();
+      } else if (formData.tokenType === "instructor") {
+        handleCreateInstructorProfile();
+      } else {
+        console.error("Invalid token type");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCreateInstructorProfile = async () => {
+    try {
+      await createInstructorProfile({
+        profile: { connect: { id: profile.id } },
+      });
+      window.location.reload();
+    } catch (errors) {
+      console.error(errors);
+    }
+  };
+
+  const handleCreateBusinessProfile = async () => {
+    try {
+      await createBusinessProfile({
+        profile: { connect: { id: profile.id } },
+      });
+      window.location.reload();
+    } catch (errors) {
+      console.error(errors);
+    }
+  };
 
   return (
     <div className="flex flex-col p-4">
       <h1 className="m-4 text-2xl font-bold uppercase">
         {t("welcome")}, {profile.preferredName || profile.firstName}
       </h1>
-      {!profileType && (
+      {!profileType && <p>Loading...</p>}
+      {profileType === "none" && (
         <div className="my-8 flex flex-col items-center">
           <p>{td("why")}</p>
           <button
-            className="bg-babyblue hover:bg-babyblue-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
+            className="my-4 w-2/4 rounded bg-babyblue p-6 font-bold hover:bg-babyblue-dark lg:w-[32rem]"
             onClick={handleCreateStudentProfile}
           >
             {td("amStudent")}
           </button>
           <button
-            className="bg-babyblue hover:bg-babyblue-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
+            className="my-4 w-2/4 rounded bg-babyblue p-6 font-bold hover:bg-babyblue-dark lg:w-[32rem]"
             onClick={() => {
-              setInstructorProfileFormOpen(!instructorProfileFormOpen);
+              setTokenFormOpen(!tokenFormOpen);
             }}
           >
-            {td("amInstructor")}
+            {td("haveToken")}
           </button>
-          <button
-            className="bg-babyblue hover:bg-babyblue-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
-            onClick={() => {
-              setBusinessProfileFormOpen(!businessProfileFormOpen);
-            }}
-          >
-            {td("amBusiness")}
-          </button>
+          {tokenFormOpen && (
+            <div className="flex w-2/4 justify-center rounded bg-slate-100 p-6">
+              <TokenForm onSubmit={handleTokenSubmit} />
+            </div>
+          )}
         </div>
       )}
       {profileType === "business" && <div>The business dashboard</div>}
@@ -54,3 +102,7 @@ export default function GenericDashboard({ profile }) {
     </div>
   );
 }
+
+type GenericDashboardProps = {
+  profile: Profile & Prisma.ProfileInclude;
+};

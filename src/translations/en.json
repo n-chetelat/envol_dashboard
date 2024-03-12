@@ -27,7 +27,8 @@
     "pronoun": "Pronouns",
     "preferredLanguage": "Preferred Language",
     "select": "Select",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "submit": "Submit"
   },
   "home": {
     "subtitle": "Join the circus",
@@ -43,6 +44,8 @@
     "amStudent": "I want to take classes",
     "amInstructor": "I am an instructor",
     "amBusiness": "I am a business owner",
+    "haveToken": "I received a code",
+    "token": "Enter your code",
     "dashboard": "Dashboard",
     "classes": "Classes",
     "settings": "Settings"

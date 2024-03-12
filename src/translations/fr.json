@@ -27,7 +27,8 @@
     "pronoun": "Pronoms",
     "preferredLanguage": "Langue préférée",
     "select": "Sélectionez",
-    "welcome": "Bienvenue"
+    "welcome": "Bienvenue",
+    "submit": "Soumettre"
   },
   "home": {
     "subtitle": "Viens rejoindre le cirque",
@@ -43,6 +44,8 @@
     "amStudent": "Je veux suivre des cours",
     "amInstructor": "Je suis instructeur",
     "amBusiness": "Je gère une entreprise",
+    "haveToken": "J'ai reçu un code",
+    "token": "Entrez votre code",
     "dashboard": "Tableau de bord",
     "classes": "Cours",
     "settings": "Paramètres"

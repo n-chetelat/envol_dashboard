@@ -37,6 +37,8 @@ model BusinessProfile {
   id        String  @id @default(uuid()) @db.Uuid
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @unique @db.Uuid
+
+  business Business?
 }
 
 model InstructorProfile {
@@ -49,6 +51,31 @@ model StudentProfile {
   id        String  @id @default(uuid()) @db.Uuid
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId String  @unique @db.Uuid
+}
+
+model Business {
+  id                String          @id @default(uuid()) @db.Uuid
+  name              String
+  businessProfile   BusinessProfile @relation(fields: [businessProfileId], references: [id])
+  businessProfileId String          @unique @db.Uuid
+
+  instructorProfileToken InstructorProfileToken[]
+}
+
+model BusinessProfileToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  token     String
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model InstructorProfileToken {
+  id         String   @id @default(uuid()) @db.Uuid
+  token      String
+  used       Boolean  @default(false)
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String   @unique @db.Uuid
+  createdAt  DateTime @default(now())
 }
 
 enum Language {

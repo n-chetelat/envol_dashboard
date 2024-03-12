@@ -6,7 +6,6 @@ import ProfileForm from "@/components/profileForm/ProfileForm";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import GenericDashboard from "@/components/dashboards/GenericDashboard";
-import Sidebar from "@/components/sidebar/Sidebar";
 
 export default async function DashboardPage({
   params: { locale },
@@ -21,12 +20,19 @@ export default async function DashboardPage({
     redirect("/");
   }
 
-  const profile = await prisma.profile.findFirst({ where: { userId } });
+  const profile = await prisma.profile.findFirst({
+    where: { userId },
+    include: {
+      studentProfile: true,
+      instructorProfile: true,
+      businessProfile: true,
+    },
+  });
 
   return (
     <>
       {profile ? (
-        <div className="h-screen">
+        <div>
           <NextIntlClientProvider messages={messages}>
             <GenericDashboard profile={profile} />
           </NextIntlClientProvider>
