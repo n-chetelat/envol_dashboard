@@ -7,7 +7,14 @@ import Sidebar from "./Sidebar";
 export default async function SidebarWrapper() {
   const messages = await getMessages();
   const { userId } = auth();
-  const profile = await prisma.profile.findFirst({ where: { userId } });
+  const profile = await prisma.profile.findFirst({
+    where: { userId },
+    include: {
+      studentProfile: true,
+      instructorProfile: true,
+      businessProfile: true,
+    },
+  });
 
   return (
     <div className="h-screen">

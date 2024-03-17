@@ -24,7 +24,7 @@ model Profile {
   preferredLang Language @default(EN)
   phoneNumber   String   @db.VarChar(30)
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @default(now()) @updatedAt
 
   businessProfile   BusinessProfile?
   instructorProfile InstructorProfile?
@@ -34,48 +34,106 @@ model Profile {
 }
 
 model BusinessProfile {
-  id        String  @id @default(uuid()) @db.Uuid
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId String  @unique @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String   @unique @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   business Business?
 }
 
 model InstructorProfile {
-  id        String  @id @default(uuid()) @db.Uuid
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId String  @unique @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String   @unique @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  instructor Instructor?
 }
 
 model StudentProfile {
-  id        String  @id @default(uuid()) @db.Uuid
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId String  @unique @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String   @unique @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  student Student?
 }
 
 model Business {
   id                String          @id @default(uuid()) @db.Uuid
-  name              String
+  name              String          @db.VarChar(50)
+  bio               String
+  phoneNumber       String          @db.VarChar(30)
+  contactEmail      String          @db.VarChar(30)
+  published         Boolean         @default(false)
   businessProfile   BusinessProfile @relation(fields: [businessProfileId], references: [id])
   businessProfileId String          @unique @db.Uuid
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
 
-  instructorProfileToken InstructorProfileToken[]
+  instructorProfileTokens InstructorProfileToken[]
+  courses                 Course[]
+}
+
+model Instructor {
+  id                  String            @id @default(uuid()) @db.Uuid
+  bio                 String
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  instructorProfile   InstructorProfile @relation(fields: [instructorProfileId], references: [id])
+  instructorProfileId String            @unique @db.Uuid
+}
+
+model Student {
+  id               String         @id @default(uuid()) @db.Uuid
+  bio              String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  studentProfile   StudentProfile @relation(fields: [studentProfileId], references: [id])
+  studentProfileId String         @unique @db.Uuid
 }
 
 model BusinessProfileToken {
   id        String   @id @default(uuid()) @db.Uuid
-  token     String
+  token     String   @db.VarChar(50)
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model InstructorProfileToken {
   id         String   @id @default(uuid()) @db.Uuid
-  token      String
+  token      String   @db.VarChar(50)
   used       Boolean  @default(false)
   business   Business @relation(fields: [businessId], references: [id])
   businessId String   @unique @db.Uuid
   createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Course {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(225)
+  description  String
+  requirements String
+  business     Business @relation(fields: [businessId], references: [id])
+  businessId   String   @db.Uuid
+  location     Location @relation(fields: [locationId], references: [id])
+  locationId   String   @db.Uuid
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Location {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @db.VarChar(225)
+  description String
+  address     String   @db.VarChar(225)
+  courses     Course[]
 }
 
 enum Language {
