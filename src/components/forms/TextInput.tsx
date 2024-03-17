@@ -8,7 +8,7 @@ export default function TextInput({ inputParams, errors, label }) {
         {inputParams.required && <span>*</span>}
       </label>
       <input
-        className={`focus:outline-babyblue rounded border border-gray-300 px-2 py-1.5  outline-none outline-offset-0 hover:border-gray-400 focus:outline-offset-0 ${errors ? "border-orange" : ""}`}
+        className={`focus:outline-lilac rounded border border-gray-300 px-2 py-1.5  outline-none outline-offset-0 hover:border-gray-400 focus:outline-offset-0 ${errors ? "border-vermillion" : ""}`}
         type="text"
         aria-invalid={errors ? "true" : "false"}
         {...inputParams}

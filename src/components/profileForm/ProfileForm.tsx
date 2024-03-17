@@ -87,7 +87,7 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
           label={t("phoneNumber")}
         />
         <button
-          className="bg-darkblue hover:bg-darkblue-light w-10/12 rounded p-6 font-bold text-white"
+          className="bg-violet hover:bg-violet-light w-10/12 rounded p-6 font-bold text-white"
           type="submit"
         >
           Submit

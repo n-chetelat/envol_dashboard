@@ -12,11 +12,13 @@ export default function Home({
   const t = useTranslations("home");
   const { userId } = auth();
   return (
-    <main className="flex flex-col w-full justify-center items-center">
-      <h1 className="md:text-9xl sm:text-7xl text-6xl">Kollage</h1>
+    <main className="flex w-full flex-col items-center justify-center">
+      <h1 className="font-serif text-6xl font-bold sm:text-7xl md:text-9xl">
+        Envol
+      </h1>
       <h2 className="text-lg">{t("subtitle")}</h2>
       {userId ? (
-        <div className="text-white bg-blue-500 hover:bg-blue-700 p-4 m-4 rounded">
+        <div className="m-4 rounded bg-blue-500 p-4 text-white hover:bg-blue-700">
           <Link href="/dashboard">{t("dashboardCta")}</Link>
         </div>
       ) : (

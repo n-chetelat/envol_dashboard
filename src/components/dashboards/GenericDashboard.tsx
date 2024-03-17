@@ -68,7 +68,7 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
 
   return (
     <div className="flex flex-col p-4">
-      <h1 className="m-4 text-2xl font-bold uppercase">
+      <h1 className="font-serif m-4 text-2xl font-bold uppercase">
         {t("welcome")}, {profile.preferredName || profile.firstName}
       </h1>
       {!profileType && <p>Loading...</p>}
@@ -76,13 +76,13 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
         <div className="my-8 flex flex-col items-center">
           <p>{td("why")}</p>
           <button
-            className="my-4 w-2/4 rounded bg-babyblue p-6 font-bold hover:bg-babyblue-dark lg:w-[32rem]"
+            className="bg-lilac hover:bg-lilac-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
             onClick={handleCreateStudentProfile}
           >
             {td("amStudent")}
           </button>
           <button
-            className="my-4 w-2/4 rounded bg-babyblue p-6 font-bold hover:bg-babyblue-dark lg:w-[32rem]"
+            className="bg-lilac hover:bg-lilac-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
             onClick={() => {
               setTokenFormOpen(!tokenFormOpen);
             }}

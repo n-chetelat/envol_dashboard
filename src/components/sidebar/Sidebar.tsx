@@ -12,7 +12,7 @@ export default function Sidebar({ profile }) {
   return (
     <nav className="h-full bg-slate-100 p-4 pr-0">
       <div
-        className="m-0.5 cursor-pointer border-l-4 border-l-gold p-4 hover:border-l-gold-dark hover:bg-slate-200"
+        className=" font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
         onClick={() => {
           router.push("/dashboard");
         }}
@@ -22,7 +22,7 @@ export default function Sidebar({ profile }) {
       {profileType === "business" && (
         <div>
           <div
-            className="m-0.5 cursor-pointer border-l-4 border-l-gold p-4 hover:border-l-gold-dark hover:bg-slate-200"
+            className=" font-serif m-0.5 cursor-pointer p-4 uppercase hover:bg-slate-200"
             onClick={() => {
               router.push("/dashboard/business/courses");
             }}
@@ -34,7 +34,7 @@ export default function Sidebar({ profile }) {
       {profileType === "instructor" && (
         <div>
           <div
-            className="m-0.5 cursor-pointer border-l-4 border-l-gold p-4 hover:border-l-gold-dark hover:bg-slate-200"
+            className=" font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
             onClick={() => {
               router.push("/dashboard/instructor/courses");
             }}
@@ -46,7 +46,7 @@ export default function Sidebar({ profile }) {
       {profileType === "student" && (
         <div>
           <div
-            className="m-0.5 cursor-pointer border-l-4 border-l-gold p-4 hover:border-l-gold-dark hover:bg-slate-200"
+            className=" font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
             onClick={() => {
               router.push("/dashboard/student/courses");
             }}
@@ -56,7 +56,7 @@ export default function Sidebar({ profile }) {
         </div>
       )}
       <div
-        className="cursor m-0.5 cursor-pointer border-l-4 border-l-gold p-4 hover:border-l-gold-dark hover:bg-slate-200"
+        className="cursor  font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
         onClick={() => {
           router.push("/dashboard/settings");
         }}

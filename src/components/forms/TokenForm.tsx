@@ -40,7 +40,7 @@ export default function TokenForm({ onSubmit }) {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="w-10/12 rounded bg-darkblue p-6 font-bold text-white hover:bg-darkblue-light"
+          className="bg-violet hover:bg-violet-light w-10/12 rounded p-6 font-bold text-white"
         >
           {t("submit")}
         </button>

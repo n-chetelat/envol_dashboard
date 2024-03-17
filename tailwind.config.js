@@ -5,26 +5,28 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: ["lato", "helvetica neue", "helvetica", "arial", "sans-serif"],
+      serif: ["Perpetua Titling MT", "Baskerville", "Palatino", "serif"],
     },
     colors: {
       ...colors,
-      babyblue: {
-        DEFAULT: "#87C6E4",
-        dark: "#75ACC6",
+      lilac: {
+        DEFAULT: "#B78FE4",
+        dark: "#9F7DC6",
+        light: "#E9DDFF",
       },
-      darkblue: {
-        DEFAULT: "#1B3C6C",
-        dark: "#132B4E",
-        light: "#224B88",
+      violet: {
+        DEFAULT: "#39316D",
+        dark: "#2A2451",
+        light: "#584CA8",
       },
-      gold: {
-        DEFAULT: "#FFB703",
-        dark: "#E2A302",
+      salmon: {
+        DEFAULT: "#F48C7C",
+        dark: "#D87C6E",
       },
-      orange: {
-        DEFAULT: "#FB5600",
-        dark: "#DD4D00",
-        light: "#FA7B38",
+      vermillion: {
+        DEFAULT: "#FB5644",
+        dark: "#DD4C3C",
+        light: "#FA6656",
       },
     },
     extend: {},
