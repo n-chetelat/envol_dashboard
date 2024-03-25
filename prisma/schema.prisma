@@ -4,6 +4,12 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// Commands:
+// npx prisma format
+// npx prisma generate
+// npx prisma db push
+// npx prisma studio
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,6 +18,11 @@ datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum Language {
+  EN
+  FR
 }
 
 model Profile {
@@ -26,78 +37,53 @@ model Profile {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now()) @updatedAt
 
-  businessProfile   BusinessProfile?
-  instructorProfile InstructorProfile?
-  studentProfile    StudentProfile?
+  businesses  Business[]
+  instructors Instructor[]
+  students    Student[]
+
+  stripeCustomer StripeCustomer?
 
   @@index([userId])
 }
 
-model BusinessProfile {
-  id        String   @id @default(uuid()) @db.Uuid
-  profile   Profile  @relation(fields: [profileId], references: [id])
-  profileId String   @unique @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  business Business?
-}
-
-model InstructorProfile {
-  id        String   @id @default(uuid()) @db.Uuid
-  profile   Profile  @relation(fields: [profileId], references: [id])
-  profileId String   @unique @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  instructor Instructor?
-}
-
-model StudentProfile {
-  id        String   @id @default(uuid()) @db.Uuid
-  profile   Profile  @relation(fields: [profileId], references: [id])
-  profileId String   @unique @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  student Student?
-}
-
 model Business {
-  id                String          @id @default(uuid()) @db.Uuid
-  name              String          @db.VarChar(50)
-  bio               String
-  phoneNumber       String          @db.VarChar(30)
-  contactEmail      String          @db.VarChar(30)
-  published         Boolean         @default(false)
-  businessProfile   BusinessProfile @relation(fields: [businessProfileId], references: [id])
-  businessProfileId String          @unique @db.Uuid
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String?  @db.VarChar(50)
+  bio          String?
+  phoneNumber  String?  @db.VarChar(30)
+  contactEmail String?  @db.VarChar(30)
+  published    Boolean  @default(false)
+  profile      Profile  @relation(fields: [profileId], references: [id])
+  profileId    String   @unique @db.Uuid
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  instructorProfileTokens InstructorProfileToken[]
+  instructorProfileTokens InstructorToken[]
   courses                 Course[]
+  stripeAccount           StripeAccount?
 }
 
 model Instructor {
-  id                  String            @id @default(uuid()) @db.Uuid
-  bio                 String
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
-  instructorProfile   InstructorProfile @relation(fields: [instructorProfileId], references: [id])
-  instructorProfileId String            @unique @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
+  bio       String?
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String   @unique @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Student {
-  id               String         @id @default(uuid()) @db.Uuid
-  bio              String
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  studentProfile   StudentProfile @relation(fields: [studentProfileId], references: [id])
-  studentProfileId String         @unique @db.Uuid
+  id        String   @id @default(uuid()) @db.Uuid
+  bio       String?
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String   @unique @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseSessions CourseSession[]
 }
 
-model BusinessProfileToken {
+model BusinessToken {
   id        String   @id @default(uuid()) @db.Uuid
   token     String   @db.VarChar(50)
   used      Boolean  @default(false)
@@ -105,7 +91,7 @@ model BusinessProfileToken {
   updatedAt DateTime @updatedAt
 }
 
-model InstructorProfileToken {
+model InstructorToken {
   id         String   @id @default(uuid()) @db.Uuid
   token      String   @db.VarChar(50)
   used       Boolean  @default(false)
@@ -126,6 +112,18 @@ model Course {
   locationId   String   @db.Uuid
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  courseSessions CourseSession[]
+}
+
+model CourseSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  String   @db.Uuid
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String   @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Location {
@@ -134,9 +132,48 @@ model Location {
   description String
   address     String   @db.VarChar(225)
   courses     Course[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
-enum Language {
-  EN
-  FR
+model StripeAccount {
+  id                 String   @id @default(uuid()) @db.Uuid
+  stripeAccountId    String   @unique
+  chargesEnabled     Boolean  @default(false)
+  payoutsEnabled     Boolean  @default(false)
+  onboardingComplete Boolean  @default(false)
+  business           Business @relation(fields: [businessId], references: [id])
+  businessId         String   @unique @db.Uuid
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @default(now()) @updatedAt
 }
+
+model StripeCustomer {
+  id               String   @id @default(uuid()) @db.Uuid
+  stripeCustomerId String
+  profile          Profile  @relation(fields: [profileId], references: [id])
+  profileId        String   @unique @db.Uuid
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now()) @updatedAt
+}
+
+enum WebhookEventStatus {
+  DONE
+  FAILED
+  PENDING
+}
+
+// https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types/working-with-json-fields
+model WebhookEvent {
+  id               String             @id @default(uuid()) @db.Uuid
+  data             Json
+  source           String             @db.VarChar(225)
+  processingErrors String
+  status           WebhookEventStatus
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now()) @updatedAt
+}
+
+// Membership? -> profile id (student), business id, stripe subscription id, stripe checkout session id, status. Unique by student and business (avoid multiple subscriptions). checkout session mode is "subscription". There are other modes for one-time payments
+
+// There is a way for businesses to set their own prices (there are stripe price and product objects)

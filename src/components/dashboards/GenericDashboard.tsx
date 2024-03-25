@@ -4,9 +4,9 @@ import { useState } from "react";
 import useProfileType from "@/hooks/useProfileType";
 import { useTranslations } from "next-intl";
 import {
-  createStudentProfile,
-  createInstructorProfile,
-  createBusinessProfile,
+  createStudent,
+  createInstructor,
+  createBusiness,
 } from "@/actions/profile";
 import { Prisma, Profile } from "@prisma/client";
 import TokenForm from "@/components/forms/TokenForm";
@@ -17,9 +17,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
   const t = useTranslations("common");
   const td = useTranslations("dashboard");
 
-  const handleCreateStudentProfile = async () => {
+  const handleCreateStudent = async () => {
     try {
-      await createStudentProfile({
+      await createStudent({
         profile: { connect: { id: profile.id } },
       });
       window.location.reload();
@@ -33,9 +33,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
       console.log(formData);
       // TODO: Validate token here
       if (formData.tokenType === "business") {
-        handleCreateBusinessProfile();
+        handleCreateBusiness();
       } else if (formData.tokenType === "instructor") {
-        handleCreateInstructorProfile();
+        handleCreateInstructor();
       } else {
         console.error("Invalid token type");
       }
@@ -44,9 +44,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
     }
   };
 
-  const handleCreateInstructorProfile = async () => {
+  const handleCreateInstructor = async () => {
     try {
-      await createInstructorProfile({
+      await createInstructor({
         profile: { connect: { id: profile.id } },
       });
       window.location.reload();
@@ -55,9 +55,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
     }
   };
 
-  const handleCreateBusinessProfile = async () => {
+  const handleCreateBusiness = async () => {
     try {
-      await createBusinessProfile({
+      await createBusiness({
         profile: { connect: { id: profile.id } },
       });
       window.location.reload();
@@ -68,7 +68,7 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
 
   return (
     <div className="flex flex-col p-4">
-      <h1 className="font-serif m-4 text-2xl font-bold uppercase">
+      <h1 className="m-4 font-serif text-2xl font-bold uppercase">
         {t("welcome")}, {profile.preferredName || profile.firstName}
       </h1>
       {!profileType && <p>Loading...</p>}
@@ -76,13 +76,13 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
         <div className="my-8 flex flex-col items-center">
           <p>{td("why")}</p>
           <button
-            className="bg-lilac hover:bg-lilac-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
-            onClick={handleCreateStudentProfile}
+            className="my-4 w-2/4 rounded bg-lilac p-6 font-bold hover:bg-lilac-dark lg:w-[32rem]"
+            onClick={handleCreateStudent}
           >
             {td("amStudent")}
           </button>
           <button
-            className="bg-lilac hover:bg-lilac-dark my-4 w-2/4 rounded p-6 font-bold lg:w-[32rem]"
+            className="my-4 w-2/4 rounded bg-lilac p-6 font-bold hover:bg-lilac-dark lg:w-[32rem]"
             onClick={() => {
               setTokenFormOpen(!tokenFormOpen);
             }}

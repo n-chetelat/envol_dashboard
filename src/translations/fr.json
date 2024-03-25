@@ -12,6 +12,8 @@
     "fr": "Français"
   },
   "common": {
+    "yes": "Oui",
+    "no": "Non",
     "and": "et",
     "or": "ou",
     "email": "Courriel",
@@ -20,6 +22,8 @@
       "he/him": "Il",
       "they/them": "Iel"
     },
+    "name": "Nom",
+    "bio": "Description",
     "firstName": "Prénom",
     "lastName": "Nom",
     "preferredName": "Prénom d'usage",
@@ -49,5 +53,12 @@
     "dashboard": "Tableau de bord",
     "classes": "Cours",
     "settings": "Paramètres"
+  },
+  "settings": {
+    "createStripe": "Se connecter à Stripe",
+    "linkStripe": "Continuer de se connecter à Stripe",
+    "businessTitle": "Paramètres de l'entreprise",
+    "published": "Inscrire l'entreprise au public",
+    "payments": "paramètres de paiement"
   }
 }

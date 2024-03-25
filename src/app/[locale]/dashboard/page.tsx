@@ -2,7 +2,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import prisma from "@/libs/prisma";
-import ProfileForm from "@/components/profileForm/ProfileForm";
+import ProfileForm from "@/components/forms/ProfileForm";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import GenericDashboard from "@/components/dashboards/GenericDashboard";
@@ -23,9 +23,9 @@ export default async function DashboardPage({
   const profile = await prisma.profile.findFirst({
     where: { userId },
     include: {
-      studentProfile: true,
-      instructorProfile: true,
-      businessProfile: true,
+      students: true,
+      instructors: true,
+      businesses: true,
     },
   });
 

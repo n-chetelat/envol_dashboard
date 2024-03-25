@@ -12,7 +12,7 @@ export default function Sidebar({ profile }) {
   return (
     <nav className="h-full bg-slate-100 p-4 pr-0">
       <div
-        className=" font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
+        className=" m-0.5 cursor-pointer p-4 font-serif  uppercase hover:bg-slate-200"
         onClick={() => {
           router.push("/dashboard");
         }}
@@ -22,19 +22,27 @@ export default function Sidebar({ profile }) {
       {profileType === "business" && (
         <div>
           <div
-            className=" font-serif m-0.5 cursor-pointer p-4 uppercase hover:bg-slate-200"
+            className=" m-0.5 cursor-pointer p-4 font-serif uppercase hover:bg-slate-200"
             onClick={() => {
               router.push("/dashboard/business/courses");
             }}
           >
             {t("classes")}
           </div>
+          <div
+            className=" m-0.5 cursor-pointer p-4 font-serif uppercase hover:bg-slate-200"
+            onClick={() => {
+              router.push("/dashboard/business/settings");
+            }}
+          >
+            {t("settings")}
+          </div>
         </div>
       )}
       {profileType === "instructor" && (
         <div>
           <div
-            className=" font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
+            className=" m-0.5 cursor-pointer p-4 font-serif  uppercase hover:bg-slate-200"
             onClick={() => {
               router.push("/dashboard/instructor/courses");
             }}
@@ -46,7 +54,7 @@ export default function Sidebar({ profile }) {
       {profileType === "student" && (
         <div>
           <div
-            className=" font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
+            className=" m-0.5 cursor-pointer p-4 font-serif  uppercase hover:bg-slate-200"
             onClick={() => {
               router.push("/dashboard/student/courses");
             }}
@@ -55,14 +63,6 @@ export default function Sidebar({ profile }) {
           </div>
         </div>
       )}
-      <div
-        className="cursor  font-serif m-0.5 cursor-pointer p-4  uppercase hover:bg-slate-200"
-        onClick={() => {
-          router.push("/dashboard/settings");
-        }}
-      >
-        {t("settings")}
-      </div>
     </nav>
   );
 }

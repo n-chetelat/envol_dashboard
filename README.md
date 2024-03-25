@@ -16,3 +16,21 @@ An application for joining the circus.
 ```bash
 npm run dev
 ```
+
+### How to get Stripe Webhook events in development
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe --forward-connect-to localhost:3000/api/webhooks/stripe --events account.updated,customer.created,account.application.authorized,account.application.deauthorized,capability.updated
+```
+
+Trigger an individual webhook
+
+```bash
+stripe trigger account.updated
+```
+
+### How to run Inngest server in dev
+
+```bash
+npx inngest-cli@latest dev
+```

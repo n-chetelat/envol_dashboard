@@ -10,9 +10,9 @@ export default async function SidebarWrapper() {
   const profile = await prisma.profile.findFirst({
     where: { userId },
     include: {
-      studentProfile: true,
-      instructorProfile: true,
-      businessProfile: true,
+      students: true,
+      instructors: true,
+      businesses: true,
     },
   });
 

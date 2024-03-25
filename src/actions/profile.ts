@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/libs/prisma";
-import { Prisma } from "@prisma/client";
+import prisma from "@prisma/client";
 
 export const createProfile = async (data: Prisma.ProfileCreateInput) => {
   const result = await prisma.profile.create({
@@ -9,26 +9,20 @@ export const createProfile = async (data: Prisma.ProfileCreateInput) => {
   });
 };
 
-export const createStudentProfile = async (
-  data: Prisma.StudentProfileCreateInput,
-) => {
-  const result = await prisma.studentProfile.create({
+export const createStudent = async (data: Prisma.StudentCreateInput) => {
+  const result = await prisma.student.create({
     data: { ...data },
   });
 };
 
-export const createInstructorProfile = async (
-  data: Prisma.InstructorProfileCreateInput,
-) => {
-  const result = await prisma.instructorProfile.create({
+export const createInstructor = async (data: Prisma.InstructorCreateInput) => {
+  const result = await prisma.instructor.create({
     data: { ...data },
   });
 };
 
-export const createBusinessProfile = async (
-  data: Prisma.BusinessProfileCreateInput,
-) => {
-  const result = await prisma.businessProfile.create({
+export const createBusiness = async (data: Prisma.BusinessCreateInput) => {
+  const result = await prisma.business.create({
     data: { ...data },
   });
 };

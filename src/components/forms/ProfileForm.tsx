@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { createProfile } from "@/actions/profile";
-import { Prisma } from "@prisma/client";
+import prisma from "@prisma/client";
 import { PRONOUNS } from "@/constants";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
@@ -36,6 +36,7 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
         phoneNumber: `${formData.phoneNumber}`,
       };
       await createProfile(profileData);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +49,7 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
   }, []);
 
   return (
-    <div className="m-4 flex w-1/2 flex-col rounded bg-slate-50 p-4 shadow-md md:max-w-2xl">
+    <div className="paper m-4 flex w-1/2 flex-col md:max-w-2xl">
       <h1 className="m-4 text-center text-2xl font-bold uppercase">
         {tp("title")}
       </h1>
@@ -87,10 +88,10 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
           label={t("phoneNumber")}
         />
         <button
-          className="bg-violet hover:bg-violet-light w-10/12 rounded p-6 font-bold text-white"
+          className="w-10/12 rounded bg-violet p-6 font-bold text-white hover:bg-violet-light"
           type="submit"
         >
-          Submit
+          {t("submit")}
         </button>
       </form>
     </div>

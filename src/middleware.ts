@@ -21,7 +21,7 @@ export default authMiddleware({
   publicRoutes: PUBLIC_PAGES,
   beforeAuth: (request) => {
     // Execute next-intl middleware before Clerk's auth middleware
-    return i18nMiddleware(request);
+    if (!request.url.includes("/api/")) return i18nMiddleware(request);
   },
   afterAuth(auth, request, event) {
     if (!auth.userId && !auth.isPublicRoute) {
@@ -35,5 +35,5 @@ export default authMiddleware({
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next|api).*)", "/"],
 };

@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod";
-import { Prisma } from "@prisma/client";
+import prisma from "@prisma/client";
 import { LANGUAGES, PRONOUNS } from "@/constants";
 
 export const ProfileFormSchema: ZodType<Prisma.ProfileCreateInput> = z.object({

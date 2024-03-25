@@ -20,22 +20,21 @@ export default async function StudentCoursesPage({
     redirect("/");
   }
 
-  type ProfileWithBusinessProfile = Prisma.ProfileGetPayload<{
+  type ProfileWithBusinesses = Prisma.ProfileGetPayload<{
     include: {
-      businessProfile: true;
+      businesses: true;
     };
   }>;
 
-  const profile: ProfileWithBusinessProfile | null =
-    await prisma.profile.findFirst({
-      where: { userId },
-      include: {
-        businessProfile: true,
-      },
-    });
+  const profile: ProfileWithBusinesses | null = await prisma.profile.findFirst({
+    where: { userId },
+    include: {
+      businesses: true,
+    },
+  });
 
   const business: Business | null = await prisma.business.findFirst({
-    where: { businessProfileId: profile?.businessProfile?.id },
+    where: { id: profile?.businesses[0]?.id },
   });
 
   const courses: Course[] = await prisma.course.findMany({

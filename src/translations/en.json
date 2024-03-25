@@ -12,6 +12,8 @@
     "fr": "French"
   },
   "common": {
+    "yes": "Yes",
+    "no": "No",
     "and": "and",
     "or": "or",
     "email": "Email",
@@ -20,6 +22,8 @@
       "he/him": "He/Him",
       "they/them": "They/Them"
     },
+    "name": "Name",
+    "bio": "Bio",
     "firstName": "First Name",
     "lastName": "Last Name",
     "preferredName": "Preferred Name",
@@ -49,5 +53,12 @@
     "dashboard": "Dashboard",
     "classes": "Classes",
     "settings": "Settings"
+  },
+  "settings": {
+    "createStripe": "Connect to Stripe",
+    "linkStripe": "Continue connecting to Stripe",
+    "businessTitle": "Business Settings",
+    "published": "List business to public",
+    "payments": "Payment Settings"
   }
 }

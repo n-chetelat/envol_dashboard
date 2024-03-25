@@ -8,18 +8,14 @@ export default function useProfileType(
 
   useEffect(() => {
     if (profile) {
-      if (profile.businessProfile) setProfileType("business");
-      else if (profile.instructorProfile) setProfileType("instructor");
-      else if (profile.studentProfile) setProfileType("student");
+      if (profile.businesses.length) setProfileType("business");
+      else if (profile.instructors.length) setProfileType("instructor");
+      else if (profile.students.length) setProfileType("student");
       else setProfileType("none");
     } else {
-      setProfile(null);
+      setProfileType(null);
     }
-  }, [
-    profile?.studentProfile,
-    profile?.instructorProfile,
-    profile?.businessProfile,
-  ]);
+  }, [profile?.students, profile?.instructors, profile?.businesses]);
 
   return { profileType, setProfileType };
 }
