@@ -1,16 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { createStripeAccountLink, createStripeAccount } from "@/actions/stripe";
 
 export default function StripeConnectForm({ business }) {
   const t = useTranslations("settings");
 
-  const [isDisabled, setIsDisabled] = useState(false);
-
-  const handleCreateStripeAccount = async (event) => {
-    event.preventDefault();
+  const handleCreateStripeAccount = async () => {
     try {
       await createStripeAccount(business);
     } catch (error) {
@@ -18,8 +14,7 @@ export default function StripeConnectForm({ business }) {
     }
   };
 
-  const handleCreateStripeAccountLink = async (event) => {
-    event.preventDefault();
+  const handleCreateStripeAccountLink = async () => {
     try {
       await createStripeAccountLink(business.stripeAccount);
     } catch (error) {

@@ -23,7 +23,6 @@ export const handleStripeEvent = inngest.createFunction(
 async function handleAccountUpdated(eventData: EventData) {
   try {
     const account = eventData.stripeEvent.data.object;
-
     await prisma.stripeAccount.update({
       where: {
         stripeAccountId: account?.id,

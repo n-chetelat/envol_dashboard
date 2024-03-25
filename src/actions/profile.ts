@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/libs/prisma";
-import prisma from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 export const createProfile = async (data: Prisma.ProfileCreateInput) => {
   const result = await prisma.profile.create({

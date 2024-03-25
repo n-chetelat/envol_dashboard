@@ -6,6 +6,7 @@ import prisma from "@/libs/prisma";
 
 export const createStripeAccount = async (business) => {
   if (!business?.stripeAccount) {
+    let stripeAccount;
     try {
       // Create account on stripe
       const account = await stripe.accounts.create({
@@ -29,7 +30,7 @@ export const createStripeAccount = async (business) => {
       });
 
       // Create local account object
-      const stripeAccount = await prisma.stripeAccount.create({
+      stripeAccount = await prisma.stripeAccount.create({
         data: {
           business: { connect: { id: business?.id } },
           stripeAccountId: account.id,
@@ -38,11 +39,11 @@ export const createStripeAccount = async (business) => {
           onboardingComplete: account.details_submitted,
         },
       });
-      if (stripeAccount) {
-        createStripeAccountLink(stripeAccount);
-      }
     } catch (error) {
       console.log(error);
+    }
+    if (stripeAccount) {
+      await createStripeAccountLink(stripeAccount);
     }
   }
 };

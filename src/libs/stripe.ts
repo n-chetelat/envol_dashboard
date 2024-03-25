@@ -4,6 +4,8 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   typescript: true,
 });
 
+export const HANDLED_EVENTS = ["account.updated"];
+
 // Account type:Express
 // Charge type: Destinaion
 // Who pays fees: Platform, before payout to vendor
