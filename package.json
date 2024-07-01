@@ -12,7 +12,7 @@
     "@clerk/localizations": "^1.26.16",
     "@clerk/nextjs": "^4.29.8",
     "@hookform/resolvers": "^3.3.4",
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.14.0",
     "inngest": "^3.16.1",
     "next": "14.1.0",
     "next-auth": "^5.0.0-beta.13",

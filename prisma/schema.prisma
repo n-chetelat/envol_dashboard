@@ -60,6 +60,8 @@ model Business {
 
   instructorProfileTokens InstructorToken[]
   courses                 Course[]
+  courseListings          CourseListing[]
+  locations               Location[]
   stripeAccount           StripeAccount?
 }
 
@@ -108,22 +110,36 @@ model Course {
   requirements String
   business     Business @relation(fields: [businessId], references: [id])
   businessId   String   @db.Uuid
-  location     Location @relation(fields: [locationId], references: [id])
-  locationId   String   @db.Uuid
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  courseListings CourseListing[]
+}
+
+model CourseListing {
+  id           String     @id @default(uuid()) @db.Uuid
+  location     Location   @relation(fields: [locationId], references: [id])
+  locationId   String     @db.Uuid
+  course       Course     @relation(fields: [courseId], references: [id])
+  courseId     String     @db.Uuid
+  business     Business   @relation(fields: [businessId], references: [id])
+  businessId   String     @db.Uuid
+  timePeriod   TimePeriod @relation(fields: [timePeriodId], references: [id])
+  timePeriodId String     @db.Uuid
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 
   courseSessions CourseSession[]
 }
 
 model CourseSession {
-  id        String   @id @default(uuid()) @db.Uuid
-  course    Course   @relation(fields: [courseId], references: [id])
-  courseId  String   @db.Uuid
-  student   Student  @relation(fields: [studentId], references: [id])
-  studentId String   @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id              String        @id @default(uuid()) @db.Uuid
+  courseListing   CourseListing @relation(fields: [courseListingId], references: [id])
+  courseListingId String        @db.Uuid
+  student         Student       @relation(fields: [studentId], references: [id])
+  studentId       String        @db.Uuid
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @default(now()) @updatedAt
 }
 
 model Location {
@@ -131,9 +147,41 @@ model Location {
   name        String   @db.VarChar(225)
   description String
   address     String   @db.VarChar(225)
-  courses     Course[]
+  business    Business @relation(fields: [businessId], references: [id])
+  businessId  String   @db.Uuid
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt
+
+  coursesListings CourseListing[]
+}
+
+model TimePeriod {
+  id         String    @id @default(uuid()) @db.Uuid
+  frequency  Frequency
+  weekdays   Weekday[]
+  time       String // E.g 18:45
+  date       DateTime?
+  start_date DateTime?
+  end_date   DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
+
+  courseListings CourseListing[]
+}
+
+enum Frequency {
+  ONCE
+  RECURRING
+}
+
+enum Weekday {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
 }
 
 model StripeAccount {

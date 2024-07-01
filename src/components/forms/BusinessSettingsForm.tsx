@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
 import CheckboxInput from "@/components/forms/CheckboxInput";
+import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 import { createBusiness, updateBusiness } from "@/actions/business";

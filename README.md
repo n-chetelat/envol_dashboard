@@ -9,9 +9,18 @@ An application for joining the circus.
   />
 </a>
 
+# Stack
+
+- Next.js - [https://nextjs.org/](https://nextjs.org/)
+- Vercel (Server and DB) - [https://www.prisma.io/](https://www.prisma.io/)
+- Prisma (PostgreSQL) - [https://www.prisma.io/](https://www.prisma.io/)
+- Clerk (Auth) - [https://dashboard.clerk.com/](https://dashboard.clerk.com/)
+- Inngest (Events) - [https://github.com/inngest/inngest](https://github.com/inngest/inngest)
+- Stripe (Payments) - [https://dashboard.stripe.com/dashboard](https://dashboard.stripe.com/dashboard)
+
 ## Development
 
-### How to run
+### How to run development serve
 
 ```bash
 npm run dev

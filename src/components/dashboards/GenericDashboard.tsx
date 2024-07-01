@@ -3,11 +3,6 @@
 import { useState } from "react";
 import useProfileType from "@/hooks/useProfileType";
 import { useTranslations } from "next-intl";
-import {
-  createStudent,
-  createInstructor,
-  createBusiness,
-} from "@/actions/profile";
 import { Prisma, Profile } from "@prisma/client";
 import TokenForm from "@/components/forms/TokenForm";
 
@@ -19,8 +14,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
 
   const handleCreateStudent = async () => {
     try {
-      await createStudent({
-        profile: { connect: { id: profile.id } },
+      await fetch("/api/students", {
+        method: "POST",
+        body: JSON.stringify({ id: profile.id }),
       });
       window.location.reload();
     } catch (errors) {
@@ -46,8 +42,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
 
   const handleCreateInstructor = async () => {
     try {
-      await createInstructor({
-        profile: { connect: { id: profile.id } },
+      await fetch("/api/instructors", {
+        method: "POST",
+        body: JSON.stringify({ id: profile.id }),
       });
       window.location.reload();
     } catch (errors) {
@@ -57,8 +54,9 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
 
   const handleCreateBusiness = async () => {
     try {
-      await createBusiness({
-        profile: { connect: { id: profile.id } },
+      await fetch("/api/businesses", {
+        method: "POST",
+        body: JSON.stringify({ id: profile.id }),
       });
       window.location.reload();
     } catch (errors) {

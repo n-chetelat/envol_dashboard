@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod";
-import prisma from "@prisma/client";
+import {Prisma} from "@prisma/client";
 
 export const BusinessSettingsFormSchema: ZodType<Prisma.BusinessCreateInput> =
   z.object({

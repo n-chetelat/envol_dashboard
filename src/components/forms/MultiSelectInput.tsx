@@ -18,6 +18,21 @@ const multiSelectInputStyles: StylesConfig = {
     ...baseStyles,
     backgroundColor: state.isFocused ? "#87C6E4" : undefined,
   }),
+  multiValue: (baseStyles) => ({
+    ...baseStyles,
+    backgroundColor: "#87C6E4", // Your custom background color
+  }),
+  multiValueLabel: (baseStyles) => ({
+    ...baseStyles,
+    color: "white", // Your custom text color
+  }),
+  multiValueRemove: (baseStyles) => ({
+    ...baseStyles,
+    color: "white", // Your custom text color
+    ":hover": {
+      backgroundColor: "#65A7C5", // Your custom hover background color
+    },
+  }),
 };
 
 export default function MultiSelectInput({
@@ -46,7 +61,8 @@ export default function MultiSelectInput({
             placeholder={`${placeholder}...`}
             options={options}
             isMulti
-            value={options.find((c) => c.value === value)}
+            // value={options.find((c) => c.value === value)}
+            value={options.filter((c) => value?.includes(c.value))}
             onChange={(values) => onChange(values.map((v) => v.value))}
             styles={multiSelectInputStyles}
           />

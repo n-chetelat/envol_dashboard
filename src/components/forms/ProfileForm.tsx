@@ -2,8 +2,7 @@
 
 import { useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { createProfile } from "@/actions/profile";
-import prisma from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/constants";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
@@ -35,7 +34,10 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
         pronouns: formData.pronouns,
         phoneNumber: `${formData.phoneNumber}`,
       };
-      await createProfile(profileData);
+      await fetch("/api/profiles", {
+        method: "POST",
+        body: JSON.stringify(profileData),
+      });
       window.location.reload();
     } catch (error) {
       console.error(error);

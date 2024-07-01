@@ -32,7 +32,11 @@
     "preferredLanguage": "Langue préférée",
     "select": "Sélectionez",
     "welcome": "Bienvenue",
-    "submit": "Soumettre"
+    "submit": "Soumettre",
+    "title": "Titre",
+    "description": "Description",
+    "requirements": "FR- Requirements",
+    "location": "Lieu"
   },
   "home": {
     "subtitle": "Viens rejoindre le cirque",
@@ -60,5 +64,12 @@
     "businessTitle": "Paramètres de l'entreprise",
     "published": "Inscrire l'entreprise au public",
     "payments": "paramètres de paiement"
+  },
+  "courses": {
+    "yourClasses": "Vos cours",
+    "createClass": "Créer un nouveau cour",
+    "createLocation": "Créer un nouveau lieu",
+    "removeClass": "Enlever un cours",
+    "removeLocation": "Enlever un lieu"
   }
 }

@@ -32,7 +32,11 @@
     "preferredLanguage": "Preferred Language",
     "select": "Select",
     "welcome": "Welcome",
-    "submit": "Submit"
+    "submit": "Submit",
+    "title": "Title",
+    "description": "Description",
+    "requirements": "Requirements",
+    "location": "Location"
   },
   "home": {
     "subtitle": "Join the circus",
@@ -40,7 +44,7 @@
     "join": "Join"
   },
   "profile": {
-    "title": "Welcome to Kollage!",
+    "title": "Welcome to Envol!",
     "description": "Please fill out your profile information to continue"
   },
   "dashboard": {
@@ -60,5 +64,12 @@
     "businessTitle": "Business Settings",
     "published": "List business to public",
     "payments": "Payment Settings"
+  },
+  "courses": {
+    "yourClasses": "Your Classes",
+    "createClass": "Create New Class",
+    "createLocation": "Create New Location",
+    "removeClass": "Remove Class",
+    "removeLocation": "Remove Location"
   }
 }
