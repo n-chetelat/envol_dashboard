@@ -20,3 +20,8 @@
     @apply rounded bg-slate-50 p-4 shadow-md;
   }
 }
+
+/* Clerk overrides */
+.cl-card {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 8px;
+}

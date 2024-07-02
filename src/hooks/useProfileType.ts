@@ -8,9 +8,9 @@ export default function useProfileType(
 
   useEffect(() => {
     if (profile) {
-      if (profile.businesses.length) setProfileType("business");
-      else if (profile.instructors.length) setProfileType("instructor");
-      else if (profile.students.length) setProfileType("student");
+      if (profile.businesses?.length) setProfileType("business");
+      else if (profile.instructors?.length) setProfileType("instructor");
+      else if (profile.students?.length) setProfileType("student");
       else setProfileType("none");
     } else {
       setProfileType(null);

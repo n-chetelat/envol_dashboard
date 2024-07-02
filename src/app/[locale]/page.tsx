@@ -44,7 +44,7 @@ export default function Home({
             </Link>
           </div>
         )}
-        <h2 className="p-8 text-center font-sans text-4xl font-light text-violet">
+        <h2 className="p-8 text-center font-sans text-lg font-light text-violet lg:text-4xl">
           {t("subtitle")}
         </h2>
       </div>
