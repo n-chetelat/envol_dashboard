@@ -7,7 +7,7 @@
   },
   "locales": {
     "localeLabel": "English",
-    "localeOther": "Français",
+    "localeOther": "FR",
     "en": "English",
     "fr": "French"
   },
@@ -39,9 +39,11 @@
     "location": "Location"
   },
   "home": {
-    "subtitle": "Join the circus",
+    "subtitle": "Envol offers booking solutions",
     "dashboardCta": "Go to dashboard",
-    "join": "Join"
+    "join": "Join us",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
   },
   "profile": {
     "title": "Welcome to Envol!",

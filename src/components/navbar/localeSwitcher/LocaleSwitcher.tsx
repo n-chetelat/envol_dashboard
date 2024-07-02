@@ -11,7 +11,7 @@ export default function LocaleSwitcher() {
     }) || defaultLocale;
 
   return (
-    <div className="flex">
+    <div className="flex font-serif text-xl text-white">
       <LocaleSwitcherButton
         otherLocaleLabel={t("localeOther")}
         otherLocaleValue={otherLocaleValue}

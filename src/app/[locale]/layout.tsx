@@ -4,6 +4,23 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/navbar/navbar/Navbar";
 import "./globals.css";
+import { Lato, Baskervville } from "next/font/google";
+
+const lato = Lato({
+  weight: ["300", "400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const baskervville = Baskervville({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-serif",
+});
 
 export async function generateMetadata({
   params: { locale },
@@ -38,10 +55,13 @@ export default function RootLayout({
       appearance={clerkTheme}
       localization={getClerkLocale(locale)}
     >
-      <html lang={locale}>
+      <html
+        lang={locale}
+        className={`${lato.variable} ${baskervville.variable} mono`}
+      >
         <body>
           <Navbar />
-          {children}
+          <div className="mt-[--navbar-height]">{children}</div>
         </body>
       </html>
     </ClerkProvider>

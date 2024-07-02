@@ -1,4 +1,5 @@
 import { Link } from "@/libs/navigation";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { auth } from "@clerk/nextjs";
@@ -12,20 +13,41 @@ export default function Home({
   const t = useTranslations("home");
   const { userId } = auth();
   return (
-    <main className="flex w-full flex-col items-center justify-center">
-      <h1 className="font-serif text-6xl font-bold sm:text-7xl md:text-9xl">
-        Envol
-      </h1>
-      <h2 className="text-lg">{t("subtitle")}</h2>
-      {userId ? (
-        <div className="m-4 rounded bg-blue-500 p-4 text-white hover:bg-blue-700">
-          <Link href="/dashboard">{t("dashboardCta")}</Link>
+    <main className="flex h-[calc(100vh-var(--navbar-height))] w-full flex-col items-center">
+      <div className="flex w-3/6 flex-col">
+        <div className="m-4 mt-16">
+          <Image
+            src={`/landing.png`}
+            alt="Envol booking system"
+            width={900}
+            height={408}
+          />
         </div>
-      ) : (
-        <div>
-          <Link href="/sign-in">{t("join")}</Link>
-        </div>
-      )}
+
+        {userId ? (
+          <div className="m-4 flex-1 bg-lilac p-4 text-center font-sans text-white hover:bg-lilac-dark">
+            <Link href="/dashboard">{t("dashboardCta")}</Link>
+          </div>
+        ) : (
+          <div className="flex">
+            <Link
+              className="m-4 flex-1 bg-lilac p-4 text-center font-sans text-white hover:bg-lilac-dark"
+              href="/sign-up"
+            >
+              {t("join")}
+            </Link>
+            <Link
+              className="m-4 flex-1 bg-lilac p-4 text-center font-sans text-white hover:bg-lilac-dark"
+              href="/sign-in"
+            >
+              {t("signIn")}
+            </Link>
+          </div>
+        )}
+        <h2 className="p-8 text-center font-sans text-4xl font-light text-violet">
+          {t("subtitle")}
+        </h2>
+      </div>
     </main>
   );
 }

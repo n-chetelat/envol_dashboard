@@ -7,7 +7,7 @@
   },
   "locales": {
     "localeLabel": "Français",
-    "localeOther": "English",
+    "localeOther": "EN",
     "en": "Anglais",
     "fr": "Français"
   },
@@ -39,9 +39,11 @@
     "location": "Lieu"
   },
   "home": {
-    "subtitle": "Viens rejoindre le cirque",
+    "subtitle": "Envol offers booking solutions - FR",
     "dashboardCta": "Tableau de bord",
-    "join": "Rejoindre"
+    "join": "Rejoindre",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion"
   },
   "profile": {
     "title": "Bienvenue chez Kollage!",

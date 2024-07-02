@@ -30,7 +30,7 @@ export default function RootLayout({
       <div className="fixed h-full w-48">
         <SidebarWrapper />
       </div>
-      <div className="mt-20 pl-[14rem]">{children}</div>
+      <div className="mt-[--navbar-height] pl-[14rem]">{children}</div>
     </div>
   );
 }

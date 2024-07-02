@@ -43,3 +43,12 @@ stripe trigger account.updated
 ```bash
 npx inngest-cli@latest dev
 ```
+
+### Prisma commands
+
+```bash
+npx prisma format # Clean up schema file
+npx prisma generate # Create types for TypeScript
+npx prisma db push # Migrate database
+npx prisma studio # Open studio UI in browser
+```

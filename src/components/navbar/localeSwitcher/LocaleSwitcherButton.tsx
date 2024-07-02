@@ -1,6 +1,5 @@
 "use client";
 
-import { useTransition } from "react";
 import { useRouter, usePathname } from "@/libs/navigation";
 
 type LocaleSwitcherSelectProps = {
@@ -13,7 +12,6 @@ export default function LocaleSwitcherButton({
   otherLocaleValue,
 }: LocaleSwitcherSelectProps) {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
   const pathname = usePathname();
 
   function handleOnClick() {
