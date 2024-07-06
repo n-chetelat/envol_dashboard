@@ -8,14 +8,20 @@ import prisma from "@/libs/prisma";
 
 export default async function Navbar() {
   const { userId } = auth();
-  const profile = await prisma.profile.findFirst({
-    where: { userId },
-    include: {
-      students: true,
-      instructors: true,
-      businesses: true,
-    },
-  });
+
+  const getProfile = async () => {
+    if (userId) {
+      const profile = await prisma.profile.findFirst({
+        where: { userId },
+        include: {
+          students: true,
+          instructors: true,
+          businesses: true,
+        },
+      });
+      return profile;
+    }
+  };
 
   return (
     <nav className="fixed top-0 z-40 flex h-[--navbar-height] w-full flex-row justify-between bg-lilac p-6 shadow-sm">
@@ -31,7 +37,7 @@ export default async function Navbar() {
         <SignedIn>
           <p>|</p>
           <div className="m-4">
-            <AvatarMenu profile={profile} />
+            <AvatarMenu profile={getProfile()} />
           </div>
         </SignedIn>
       </div>
