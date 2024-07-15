@@ -1,7 +1,7 @@
 {
   "metadata": {
     "mainLayout": {
-      "title": "Air Kollage | Accueil",
+      "title": "Envol | Accueil",
       "description": "Avez-vous déjà eu envie de rejoindre le cirque ? Bienvenue dans votre hub de cours de cirque à Montréal. Cerceau, soies, pole-dance, burlesque - Oh mon Dieu !"
     }
   },
@@ -36,7 +36,9 @@
     "title": "Titre",
     "description": "Description",
     "requirements": "FR- Requirements",
-    "location": "Lieu"
+    "location": "Lieu",
+    "next": "Suivat",
+    "back": "Précedent"
   },
   "home": {
     "subtitle": "Envol offers booking solutions - FR",
@@ -47,15 +49,15 @@
   },
   "profile": {
     "title": "Bienvenue chez Kollage!",
-    "description": "Veuillez remplir les informations de votre profil pour continuer"
-  },
-  "dashboard": {
+    "description": "Veuillez remplir les informations de votre profil pour continuer",
     "why": "Qu’est-ce qui vous amène à Kollage aujourd’hui ?",
     "amStudent": "Je veux suivre des cours",
     "amInstructor": "Je suis instructeur",
     "amBusiness": "Je gère une entreprise",
     "haveToken": "J'ai reçu un code",
-    "token": "Entrez votre code",
+    "token": "Entrez votre code"
+  },
+  "dashboard": {
     "dashboard": "Tableau de bord",
     "classes": "Cours",
     "settings": "Paramètres"

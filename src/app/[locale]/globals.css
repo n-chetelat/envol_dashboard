@@ -14,7 +14,7 @@
 
 @layer components {
   .btn-primary {
-    @apply rounded bg-violet p-6 font-bold text-white hover:bg-violet-light disabled:cursor-not-allowed disabled:opacity-50;
+    @apply rounded bg-violet p-6 font-bold text-white hover:bg-violet-light disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-violet;
   }
   .paper {
     @apply rounded bg-slate-50 p-4 shadow-md;

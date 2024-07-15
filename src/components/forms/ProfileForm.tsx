@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/constants";
@@ -10,39 +10,45 @@ import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
 import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProfileFormSchema } from "@/validations/profileForm";
+import { StepComponentProps } from "@/components/stepper/Stepper";
 
-export default function ProfileForm({ userId }: ProfileFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm<Prisma.ProfileCreateInput>({
-    resolver: zodResolver(ProfileFormSchema),
-  });
-
+export default function ProfileForm({
+  userId,
+  data,
+  onValidityChange,
+  onDataChange,
+}: StepComponentProps & ProfileTypeFormProps) {
   const t = useTranslations("common");
   const tp = useTranslations("profile");
 
-  const handleCreateProfile = async (formData: FormData) => {
-    try {
-      const profileData: Prisma.ProfileCreateInput = {
-        userId,
-        firstName: `${formData.firstName}`,
-        lastName: `${formData.lastName}`,
-        preferredName: `${formData.preferredName}`,
-        pronouns: formData.pronouns,
-        phoneNumber: `${formData.phoneNumber}`,
-      };
-      await fetch("/api/profiles", {
-        method: "POST",
-        body: JSON.stringify(profileData),
-      });
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const {
+    register,
+    formState: { errors, isValid },
+    control,
+    watch,
+    setValue,
+  } = useForm<Prisma.ProfileCreateInput>({
+    resolver: zodResolver(ProfileFormSchema),
+    mode: "onChange",
+    defaultValues: data, // Set default values from the passed data
+  });
+
+  useEffect(() => {
+    // Update form values when data prop changes
+    Object.entries(data).forEach(([key, value]) => {
+      setValue(key as keyof Prisma.ProfileCreateInput, value);
+    });
+  }, [data, setValue]);
+
+  useEffect(() => {
+    onValidityChange(isValid);
+  }, [isValid, onValidityChange]);
+
+  useEffect(() => {
+    const subscription = watch((value) => onDataChange(value));
+    return () => subscription.unsubscribe();
+  }, [watch, onDataChange]);
+
   const pronounSelectorOptions = useMemo(() => {
     return PRONOUNS.map((pronoun) => ({
       value: pronoun,
@@ -51,15 +57,12 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
   }, []);
 
   return (
-    <div className="paper m-4 flex w-1/2 flex-col md:max-w-2xl">
+    <div className="paper m-4 flex flex-col">
       <h1 className="m-4 text-center text-2xl font-bold uppercase">
         {tp("title")}
       </h1>
       <h3 className="my-4 text-center">{tp("description")}</h3>
-      <form
-        action={handleSubmit(handleCreateProfile)}
-        className="flex flex-col items-center"
-      >
+      <form className="flex flex-col items-center">
         <TextInput
           inputParams={{ ...register("firstName"), required: true }}
           errors={errors.firstName}
@@ -81,7 +84,6 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
           label={t("pronoun")}
           options={pronounSelectorOptions}
           formControl={control}
-          controllerComponent={Controller}
           placeholder={t("select")}
         />
         <PhoneNumberInput
@@ -89,17 +91,12 @@ export default function ProfileForm({ userId }: ProfileFormProps) {
           errors={errors.phoneNumber}
           label={t("phoneNumber")}
         />
-        <button
-          className="w-10/12 rounded bg-violet p-6 font-bold text-white hover:bg-violet-light"
-          type="submit"
-        >
-          {t("submit")}
-        </button>
       </form>
     </div>
   );
 }
 
-type ProfileFormProps = {
+type ProfileTypeFormProps = {
   userId: string;
+  data: Partial<Prisma.ProfileCreateInput>;
 };

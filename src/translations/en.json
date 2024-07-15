@@ -1,7 +1,7 @@
 {
   "metadata": {
     "mainLayout": {
-      "title": "Air Kollage | Home",
+      "title": "Envol | Home",
       "description": "Did you ever want to join the circus? Welcome to your hub for circus classes in Montréal. Hoop, silks, pole, burlesque - Oh my!"
     }
   },
@@ -36,7 +36,9 @@
     "title": "Title",
     "description": "Description",
     "requirements": "Requirements",
-    "location": "Location"
+    "location": "Location",
+    "next": "Next",
+    "back": "Back"
   },
   "home": {
     "subtitle": "Envol offers booking solutions",
@@ -47,15 +49,15 @@
   },
   "profile": {
     "title": "Welcome to Envol!",
-    "description": "Please fill out your profile information to continue"
-  },
-  "dashboard": {
+    "description": "Please fill out your profile information to continue",
     "why": "What brings you to Kollage today?",
     "amStudent": "I want to take classes",
     "amInstructor": "I am an instructor",
     "amBusiness": "I am a business owner",
     "haveToken": "I received a code",
-    "token": "Enter your code",
+    "token": "Enter your code"
+  },
+  "dashboard": {
     "dashboard": "Dashboard",
     "classes": "Classes",
     "settings": "Settings"

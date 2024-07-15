@@ -2,6 +2,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import prisma from "@/libs/prisma";
+import ProfileCreationStepper from "@/components/ProfileCreationStepper";
 import ProfileForm from "@/components/forms/ProfileForm";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -38,9 +39,9 @@ export default async function DashboardPage({
           </NextIntlClientProvider>
         </div>
       ) : (
-        <div className="flex justify-center">
+        <div className="flex">
           <NextIntlClientProvider messages={messages}>
-            <ProfileForm userId={userId} />
+            <ProfileCreationStepper userId={userId} />
           </NextIntlClientProvider>
         </div>
       )}

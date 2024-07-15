@@ -1,6 +1,7 @@
 "use client";
 
 import Select, { StylesConfig } from "react-select";
+import { Controller } from "react-hook-form";
 
 const multiSelectInputStyles: StylesConfig = {
   control: (baseStyles, state) => ({
@@ -42,9 +43,7 @@ export default function MultiSelectInput({
   options,
   placeholder,
   formControl,
-  controllerComponent,
 }) {
-  const Controller = controllerComponent;
   return (
     <div className="flex w-full flex-col">
       <label>
@@ -61,7 +60,6 @@ export default function MultiSelectInput({
             placeholder={`${placeholder}...`}
             options={options}
             isMulti
-            // value={options.find((c) => c.value === value)}
             value={options.filter((c) => value?.includes(c.value))}
             onChange={(values) => onChange(values.map((v) => v.value))}
             styles={multiSelectInputStyles}
