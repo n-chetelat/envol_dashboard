@@ -103,7 +103,7 @@ export default function ProfileTypeForm({
 
   return (
     <div className="paper m-4 flex flex-col">
-      <h1 className="m-4 text-center text-2xl font-bold uppercase">
+      <h1 className="m-4 text-center font-bold uppercase lg:text-2xl">
         {tp("why")}
       </h1>
       <form className="flx w-full flex-col">

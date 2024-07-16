@@ -39,7 +39,7 @@ export default async function DashboardPage({
           </NextIntlClientProvider>
         </div>
       ) : (
-        <div className="flex">
+        <div>
           <NextIntlClientProvider messages={messages}>
             <ProfileCreationStepper userId={userId} />
           </NextIntlClientProvider>

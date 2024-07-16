@@ -1,5 +1,4 @@
 import { z, ZodType } from "zod";
-import prisma from "@prisma/client";
 
 export type ProfileTypeFormInput = {
   profileType: string;
@@ -20,7 +19,7 @@ export const ProfileTypeFormSchema: ZodType<ProfileTypeFormInput> = z
     (schema) => {
       if (schema.profileType === "student") return true;
       return !(
-        ["instructor", "business"].includes(schema.profileType) &&
+        ["instructor", "business"].includes(schema.profileType || "") &&
         (!schema.token || schema.token.length < 10)
       );
     },

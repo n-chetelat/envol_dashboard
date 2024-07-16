@@ -1,5 +1,6 @@
 import React, { useState, ReactElement } from "react";
 import { useTranslations } from "next-intl";
+import { Icons } from "@/components/Icons";
 
 export interface StepComponentProps {
   onValidityChange: (isValid: boolean) => void;
@@ -56,20 +57,24 @@ export default function Stepper({ children, onComplete }: StepperProps) {
   });
 
   return (
-    <div>
-      {currentChild}
-      <div>
+    <div className="flex flex-col items-center">
+      <div className="w-10/12">{currentChild}</div>
+      <div className="flex w-10/12 flex-wrap justify-between p-4">
         {currentStep > 0 && (
-          <button className="btn-primary" onClick={handlePrevious}>
-            {t("back")}
+          <button
+            className="btn-primary mt-1 w-full lg:mt-0 lg:w-4/12"
+            onClick={handlePrevious}
+          >
+            <Icons.ChevronLeft className="inline" size={20} /> {t("back")}
           </button>
         )}
         <button
           onClick={handleNext}
           disabled={!isStepValid}
-          className="btn-primary"
+          className="btn-primary mt-1 w-full lg:mt-0 lg:w-4/12"
         >
-          {currentStep === children.length - 1 ? t("submit") : t("next")}
+          {currentStep === children.length - 1 ? t("submit") : t("next")}{" "}
+          <Icons.ChevronRight className="inline" size={20} />
         </button>
       </div>
     </div>

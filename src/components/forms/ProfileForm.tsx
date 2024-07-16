@@ -58,7 +58,7 @@ export default function ProfileForm({
 
   return (
     <div className="paper m-4 flex flex-col">
-      <h1 className="m-4 text-center text-2xl font-bold uppercase">
+      <h1 className="m-4 text-center font-bold uppercase lg:text-2xl">
         {tp("title")}
       </h1>
       <h3 className="my-4 text-center">{tp("description")}</h3>

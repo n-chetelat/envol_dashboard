@@ -34,11 +34,11 @@ export default function ProfileCreationStepper({
     <Stepper onComplete={handleProfileStepperComplete}>
       {
         // @ts-ignore: Ignore missing props. They are added in Stepper component.
-        <ProfileTypeForm userId={userId} />
+        <ProfileForm userId={userId} />
       }
       {
         // @ts-ignore: Ignore missing props. They are added in Stepper component.
-        <ProfileForm userId={userId} />
+        <ProfileTypeForm userId={userId} />
       }
     </Stepper>
   );
