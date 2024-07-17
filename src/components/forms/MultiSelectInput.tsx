@@ -9,7 +9,7 @@ const multiSelectInputStyles: StylesConfig = {
     backgroundColor: "white",
     borderColor: "#ccc",
     boxShadow: "0 0 #0000",
-    outline: state.isFocused ? "2px solid #87C6E4" : "none",
+    outline: state.isFocused ? "2px solid #9F90C0" : "none",
     ":hover": {
       ...baseStyles[":hover"],
       borderColor: "#9ca3af",
@@ -17,21 +17,21 @@ const multiSelectInputStyles: StylesConfig = {
   }),
   option: (baseStyles, state) => ({
     ...baseStyles,
-    backgroundColor: state.isFocused ? "#87C6E4" : undefined,
+    backgroundColor: state.isFocused ? "#9F90C0" : undefined,
   }),
   multiValue: (baseStyles) => ({
     ...baseStyles,
-    backgroundColor: "#87C6E4", // Your custom background color
+    backgroundColor: "#9F90C0", // Custom background color
   }),
   multiValueLabel: (baseStyles) => ({
     ...baseStyles,
-    color: "white", // Your custom text color
+    color: "white", // Custom text color
   }),
   multiValueRemove: (baseStyles) => ({
     ...baseStyles,
-    color: "white", // Your custom text color
+    color: "white", // Custom text color
     ":hover": {
-      backgroundColor: "#65A7C5", // Your custom hover background color
+      backgroundColor: "#B7A6DD", // Custom hover background color
     },
   }),
 };
@@ -66,7 +66,7 @@ export default function MultiSelectInput({
           />
         )}
       />
-      <p className="h-8 text-pink-500">{errors && errors?.message}</p>
+      <p className="h-8 text-vermillion">{errors && errors?.message}</p>
     </div>
   );
 }

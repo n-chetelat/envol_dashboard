@@ -19,7 +19,7 @@ export default function CheckboxInput({ inputParams, errors, label }) {
         </label>
       </div>
 
-      <p className="h-8 text-pink-500">{errors && errors?.message}</p>
+      <p className="h-8 text-vermillion">{errors && errors?.message}</p>
     </div>
   );
 }

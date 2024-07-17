@@ -21,7 +21,15 @@
   }
 }
 
-/* Clerk overrides */
+/*** Clerk overrides ***/
 .cl-card {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 8px;
+}
+
+/*** 3rd Party Component Overrides ***/
+
+/* Phone input  library */
+.PhoneInputInput {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }

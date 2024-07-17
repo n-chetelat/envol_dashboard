@@ -49,58 +49,6 @@ export default function ProfileTypeForm({
     return () => subscription.unsubscribe();
   }, [watch, onDataChange]);
 
-  // const handleCreateStudent = async () => {
-  //   try {
-  //     await fetch("/api/students", {
-  //       method: "POST",
-  //       body: JSON.stringify({ id: profile.id }),
-  //     });
-  //     window.location.reload();
-  //   } catch (errors) {
-  //     console.error(errors);
-  //   }
-  // };
-
-  // const handleTokenSubmit = async (formData: FormData) => {
-  //   try {
-  //     console.log(formData);
-  //     // TODO: Validate token here
-  //     if (formData.profileType === "business") {
-  //       handleCreateBusiness();
-  //     } else if (formData.profileType === "instructor") {
-  //       handleCreateInstructor();
-  //     } else {
-  //       console.error("Invalid token type");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const handleCreateInstructor = async () => {
-  //   try {
-  //     await fetch("/api/instructors", {
-  //       method: "POST",
-  //       body: JSON.stringify({ id: profile.id }),
-  //     });
-  //     window.location.reload();
-  //   } catch (errors) {
-  //     console.error(errors);
-  //   }
-  // };
-
-  // const handleCreateBusiness = async () => {
-  //   try {
-  //     await fetch("/api/businesses", {
-  //       method: "POST",
-  //       body: JSON.stringify({ id: profile.id }),
-  //     });
-  //     window.location.reload();
-  //   } catch (errors) {
-  //     console.error(errors);
-  //   }
-  // };
-
   return (
     <div className="paper m-4 flex flex-col">
       <h1 className="m-4 text-center font-bold uppercase lg:text-2xl">
@@ -119,7 +67,7 @@ export default function ProfileTypeForm({
           <input {...register("profileType")} type="radio" value="business" />
           <label>{` ${tp("amBusiness")}`}</label>
         </div>
-        <p className="h-8 text-pink-500">
+        <p className="h-8 text-vermillion">
           {errors.profileType && errors.profileType?.message}
         </p>
 

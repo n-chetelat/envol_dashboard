@@ -90,6 +90,7 @@ export default function ProfileForm({
           inputParams={{ ...register("phoneNumber"), required: true }}
           errors={errors.phoneNumber}
           label={t("phoneNumber")}
+          formControl={control}
         />
       </form>
     </div>
