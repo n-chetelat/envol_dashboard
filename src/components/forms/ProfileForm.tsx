@@ -13,7 +13,6 @@ import { ProfileFormSchema } from "@/validations/profileForm";
 import { StepComponentProps } from "@/components/stepper/Stepper";
 
 export default function ProfileForm({
-  userId,
   data,
   onValidityChange,
   onDataChange,
@@ -98,6 +97,5 @@ export default function ProfileForm({
 }
 
 type ProfileTypeFormProps = {
-  userId: string;
   data: Partial<Prisma.ProfileCreateInput>;
 };

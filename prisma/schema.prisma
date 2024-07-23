@@ -89,6 +89,7 @@ model BusinessToken {
   id        String   @id @default(uuid()) @db.Uuid
   token     String   @db.VarChar(50)
   used      Boolean  @default(false)
+  email     String   @db.VarChar(50)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -97,6 +98,7 @@ model InstructorToken {
   id         String   @id @default(uuid()) @db.Uuid
   token      String   @db.VarChar(50)
   used       Boolean  @default(false)
+  email      String   @db.VarChar(50)
   business   Business @relation(fields: [businessId], references: [id])
   businessId String   @unique @db.Uuid
   createdAt  DateTime @default(now())

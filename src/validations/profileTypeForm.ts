@@ -2,26 +2,31 @@ import { z, ZodType } from "zod";
 
 export type ProfileTypeFormInput = {
   profileType: string;
-  token: string;
+  token?: string;
+  tokenIsValid?: boolean;
 };
 
 export const ProfileTypeFormSchema: ZodType<ProfileTypeFormInput> = z
   .object({
-    profileType: z
-      .string()
-      .nullable()
-      .refine((val) => val && val.length > 0, {
-        message: "You must select one of the options",
+    profileType: z.string().refine((val) => val && val.length > 0, {
+      message: "You must select one of the options",
+    }),
+    token: z.string().optional(),
+    tokenIsValid: z
+      .boolean()
+      .optional()
+      .refine((val) => !!val, {
+        message: "Your token must be valid",
       }),
-    token: z.string().trim().optional(),
   })
   .refine(
     (schema) => {
       if (schema.profileType === "student") return true;
-      return !(
+      if (schema.tokenIsValid === undefined) return true;
+      return (
         ["instructor", "business"].includes(schema.profileType || "") &&
-        (!schema.token || schema.token.length < 10)
+        schema.tokenIsValid
       );
     },
-    { message: "Enter a valid token" },
+    { message: "The token you have entered is not valid.", path: ["token"] },
   );
