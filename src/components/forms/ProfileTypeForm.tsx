@@ -12,6 +12,7 @@ import { StepComponentProps } from "@/components/stepper/Stepper";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import { verifyToken } from "@/libs/tokens";
+import { PROFILE_TYPES } from "@/constants";
 
 export default function ProfileTypeForm({
   userEmail,
@@ -43,13 +44,20 @@ export default function ProfileTypeForm({
   // Update form values when data prop changes
   useEffect(() => {
     Object.entries(data).forEach(([key, value]) => {
-      setValue(key as keyof ProfileTypeFormInput, value as any);
+      const currentValue = getValues(key as keyof ProfileTypeFormInput);
+      if (currentValue !== value) {
+        setValue(key as keyof ProfileTypeFormInput, value as any);
+      }
     });
-  }, [data, setValue]);
+  }, [data, setValue, getValues]);
 
   useEffect(() => {
-    onValidityChange(isValid);
-  }, [isValid, onValidityChange]);
+    const values = getValues();
+    const isFormValid =
+      values.profileType === PROFILE_TYPES.STUDENT_TYPE ||
+      values.tokenIsValid === true;
+    onValidityChange(isFormValid);
+  }, [watch, onValidityChange]);
 
   useEffect(() => {
     const subscription = watch((value) => onDataChange(value));
@@ -62,12 +70,11 @@ export default function ProfileTypeForm({
     try {
       await verifyTokenForProfileType(token || "", profileType);
       setValue("tokenIsValid", true);
-      trigger();
     } catch (error) {
       console.error(error);
       setValue("tokenIsValid", false);
-      trigger();
     } finally {
+      trigger();
       setIsValidating(false);
     }
   };
@@ -97,7 +104,7 @@ export default function ProfileTypeForm({
           <input
             {...register("profileType")}
             type="radio"
-            value="student"
+            value={PROFILE_TYPES.STUDENT_TYPE}
             disabled={isValid || isValidating}
           />
           <label>{` ${t("profile.amStudent")}`}</label>
@@ -106,7 +113,7 @@ export default function ProfileTypeForm({
           <input
             {...register("profileType")}
             type="radio"
-            value="instructor"
+            value={PROFILE_TYPES.INSTRUCTOR_TYPE}
             disabled={isValid || isValidating}
           />
           <label>{` ${t("profile.amInstructor")}`}</label>
@@ -115,7 +122,7 @@ export default function ProfileTypeForm({
           <input
             {...register("profileType")}
             type="radio"
-            value="business"
+            value={PROFILE_TYPES.BUSINESS_TYPE}
             disabled={isValid || isValidating}
           />
           <label>{` ${t("profile.amBusiness")}`}</label>
@@ -124,7 +131,9 @@ export default function ProfileTypeForm({
           {errors.profileType && errors.profileType?.message}
         </p>
 
-        {["instructor", "business"].includes(getValues("profileType")) && (
+        {[PROFILE_TYPES.INSTRUCTOR_TYPE, PROFILE_TYPES.BUSINESS_TYPE].includes(
+          getValues("profileType"),
+        ) && (
           <div className="m-2">
             <TextInput
               inputParams={{

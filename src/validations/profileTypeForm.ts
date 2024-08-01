@@ -1,4 +1,5 @@
 import { z, ZodType } from "zod";
+import { PROFILE_TYPES } from "@/constants";
 
 export type ProfileTypeFormInput = {
   profileType: string;
@@ -20,11 +21,13 @@ export const createProfileTypeFormSchema = (translations: Function) => {
     })
     .refine(
       (schema) => {
-        if (schema.profileType === "student") return true;
-        if (schema.tokenIsValid === undefined) return true;
+        if (schema.profileType === PROFILE_TYPES.STUDENT_TYPE) return true;
+        if (schema.tokenIsValid === undefined || !schema.profileType)
+          return true;
         return (
-          ["instructor", "business"].includes(schema.profileType || "") &&
-          schema.tokenIsValid
+          [PROFILE_TYPES.INSTRUCTOR_TYPE, PROFILE_TYPES.BUSINESS_TYPE].includes(
+            schema.profileType,
+          ) && schema.tokenIsValid
         );
       },
       { message: translations("errors.invalidToken"), path: ["token"] },
