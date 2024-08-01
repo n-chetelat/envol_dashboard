@@ -39,7 +39,9 @@
     "location": "Lieu",
     "next": "Suivat",
     "back": "Précedent",
-    "validate": "Valider"
+    "validate": "Valider",
+    "validated": "Validated - FR",
+    "validating": "Validating - FR"
   },
   "errors": {
     "invalidPhone": "Invalid phone number - FR",

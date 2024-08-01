@@ -39,7 +39,9 @@
     "location": "Location",
     "next": "Next",
     "back": "Back",
-    "validate": "Validate"
+    "validate": "Validate",
+    "validated": "Validated",
+    "validating": "Validating"
   },
   "errors": {
     "invalidPhone": "Invalid phone number",

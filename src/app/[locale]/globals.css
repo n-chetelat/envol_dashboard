@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root  {
+:root {
   --navbar-height: 8rem;
 }
 
@@ -14,21 +14,47 @@
 
 @layer components {
   .btn-primary {
-    @apply rounded bg-violet p-6 font-bold text-white hover:bg-violet-light disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-violet;
+    @apply rounded bg-violet p-6 font-bold text-white 
+    transition-[opacity,background-color] duration-300 ease-in
+    hover:bg-violet-light hover:transition-none
+    disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-violet;
   }
   .paper {
     @apply rounded bg-slate-50 p-4 shadow-md;
   }
 }
 
-/*** Clerk overrides ***/
-.cl-card {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 8px;
+/*** Animations ***/
+@keyframes backForth {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(.5rem);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in-animation {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.back-forth-animation {
+  animation: backForth .5s ease-in-out 2;
 }
 
 /*** 3rd Party Component Overrides ***/
 
-/* Phone input  library */
+/* Clerk */
+.cl-card {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 8px;
+}
+
+/* Phone input library */
 .PhoneInputInput {
   outline: 2px solid transparent;
   outline-offset: 2px;

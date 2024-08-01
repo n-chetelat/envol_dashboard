@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import { useTranslations } from "next-intl";
 import { Icons } from "@/components/Icons";
 
@@ -74,7 +74,10 @@ export default function Stepper({ children, onComplete }: StepperProps) {
           className="btn-primary mt-1 w-full lg:mt-0 lg:w-4/12"
         >
           {currentStep === children.length - 1 ? t("submit") : t("next")}{" "}
-          <Icons.ChevronRight className="inline" size={20} />
+          <Icons.ChevronRight
+            className={`inline transition-transform duration-300 ${isStepValid ? "back-forth-animation" : ""}`}
+            size={20}
+          />
         </button>
       </div>
     </div>

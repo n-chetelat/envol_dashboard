@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import { verifyToken } from "@/libs/tokens";
 import { PROFILE_TYPES } from "@/constants";
+import { Icons } from "@/components/Icons";
 
 export default function ProfileTypeForm({
   userEmail,
@@ -132,7 +133,7 @@ export default function ProfileTypeForm({
         </p>
 
         {[PROFILE_TYPES.INSTRUCTOR_TYPE, PROFILE_TYPES.BUSINESS_TYPE].includes(
-          getValues("profileType"),
+          watch("profileType"),
         ) && (
           <div className="m-2">
             <TextInput
@@ -145,11 +146,24 @@ export default function ProfileTypeForm({
             />
             <button
               type="button"
-              className="btn-primary"
+              className={`btn-primary flex items-center justify-center ${
+                watch("tokenIsValid")
+                  ? "bg-success disabled:hover:bg-success disabled:cursor-not-allowed disabled:opacity-100"
+                  : ""
+              }`}
               onClick={onTokenSubmit}
               disabled={isValid || isValidating}
             >
-              {t("common.validate")}
+              {isValidating ? (
+                <Icons.Loader className="mr-2 h-4 w-4 animate-spin" />
+              ) : watch("tokenIsValid") ? (
+                <>
+                  <Icons.CircleCheckBig className="mr-2 h-4 w-4" />
+                </>
+              ) : (
+                ""
+              )}
+              {isValidating ? t("common.validating") : t("common.validated")}
             </button>
           </div>
         )}

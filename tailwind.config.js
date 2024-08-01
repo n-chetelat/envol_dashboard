@@ -27,7 +27,12 @@ module.exports = {
           dark: "#DD4C3C",
           light: "#FA6656",
         },
-      }
+        success: {
+          DEFAULT: "#22C55E",
+          light: "#4ADE80",
+          dark: "#16A34A",
+        },
+      },
     },
   },
   plugins: [],
