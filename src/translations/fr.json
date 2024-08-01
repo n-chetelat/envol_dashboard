@@ -38,7 +38,14 @@
     "requirements": "FR- Requirements",
     "location": "Lieu",
     "next": "Suivat",
-    "back": "Précedent"
+    "back": "Précedent",
+    "validate": "Valider"
+  },
+  "errors": {
+    "invalidPhone": "Invalid phone number - FR",
+    "isRequired": "{field} is required - FR",
+    "selectOptions": "Select at least one option - FR",
+    "invalidToken": "Invalid token - FR"
   },
   "home": {
     "subtitle": "Envol offers booking solutions - FR",

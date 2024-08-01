@@ -38,7 +38,14 @@
     "requirements": "Requirements",
     "location": "Location",
     "next": "Next",
-    "back": "Back"
+    "back": "Back",
+    "validate": "Validate"
+  },
+  "errors": {
+    "invalidPhone": "Invalid phone number",
+    "isRequired": "{field} is required",
+    "selectOptions": "Select at least one option",
+    "invalidToken": "Invalid token"
   },
   "home": {
     "subtitle": "Envol offers booking solutions",

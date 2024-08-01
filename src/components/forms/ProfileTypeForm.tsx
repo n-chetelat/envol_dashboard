@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  ProfileTypeFormSchema,
+  createProfileTypeFormSchema,
   type ProfileTypeFormInput,
 } from "@/validations/profileTypeForm";
 import { StepComponentProps } from "@/components/stepper/Stepper";
@@ -19,6 +19,8 @@ export default function ProfileTypeForm({
   onValidityChange,
   onDataChange,
 }: StepComponentProps & ProfileTypeFormProps) {
+  const t = useTranslations();
+  const ProfileTypeFormSchema = createProfileTypeFormSchema(t);
   const {
     trigger,
     register,
@@ -32,7 +34,6 @@ export default function ProfileTypeForm({
     defaultValues: data, // Set default values from the passed data
   });
   const [isValidating, setIsValidating] = useState<boolean>(false);
-  const tp = useTranslations("profile");
 
   // Register a value for token validation without making an input field for it
   useEffect(() => {
@@ -89,7 +90,7 @@ export default function ProfileTypeForm({
   return (
     <div className="paper m-4 flex flex-col">
       <h1 className="m-4 text-center font-bold uppercase lg:text-2xl">
-        {tp("why")}
+        {t("profile.why")}
       </h1>
       <form className="flx w-full flex-col">
         <div className="mt-4">
@@ -99,7 +100,7 @@ export default function ProfileTypeForm({
             value="student"
             disabled={isValid || isValidating}
           />
-          <label>{` ${tp("amStudent")}`}</label>
+          <label>{` ${t("profile.amStudent")}`}</label>
         </div>
         <div className="mt-4">
           <input
@@ -108,7 +109,7 @@ export default function ProfileTypeForm({
             value="instructor"
             disabled={isValid || isValidating}
           />
-          <label>{` ${tp("amInstructor")}`}</label>
+          <label>{` ${t("profile.amInstructor")}`}</label>
         </div>
         <div className="mt-4">
           <input
@@ -117,7 +118,7 @@ export default function ProfileTypeForm({
             value="business"
             disabled={isValid || isValidating}
           />
-          <label>{` ${tp("amBusiness")}`}</label>
+          <label>{` ${t("profile.amBusiness")}`}</label>
         </div>
         <p className="h-8 text-vermillion">
           {errors.profileType && errors.profileType?.message}
@@ -131,7 +132,7 @@ export default function ProfileTypeForm({
                 required: true,
               }}
               errors={errors.token}
-              label={tp("token")}
+              label={t("profile.token")}
             />
             <button
               type="button"
@@ -139,7 +140,7 @@ export default function ProfileTypeForm({
               onClick={onTokenSubmit}
               disabled={isValid || isValidating}
             >
-              Validate
+              {t("common.validate")}
             </button>
           </div>
         )}

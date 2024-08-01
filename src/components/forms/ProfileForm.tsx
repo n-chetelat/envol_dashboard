@@ -9,7 +9,7 @@ import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
 import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProfileFormSchema } from "@/validations/profileForm";
+import { createProfileFormSchema } from "@/validations/profileForm";
 import { StepComponentProps } from "@/components/stepper/Stepper";
 
 export default function ProfileForm({
@@ -17,10 +17,11 @@ export default function ProfileForm({
   onValidityChange,
   onDataChange,
 }: StepComponentProps & ProfileTypeFormProps) {
-  const t = useTranslations("common");
-  const tp = useTranslations("profile");
-
+  const t = useTranslations();
+  const ProfileFormSchema = createProfileFormSchema(t);
   const {
+    getFieldState,
+    trigger,
     register,
     formState: { errors, isValid },
     control,
@@ -37,7 +38,11 @@ export default function ProfileForm({
     Object.entries(data).forEach(([key, value]) => {
       setValue(key as keyof Prisma.ProfileCreateInput, value);
     });
-  }, [data, setValue]);
+    // Validate contents of pronoun array as value is seemingly non-reactive
+    if (getFieldState("pronouns").isDirty) {
+      trigger("pronouns");
+    }
+  }, [data, setValue, trigger]);
 
   useEffect(() => {
     onValidityChange(isValid);
@@ -51,44 +56,44 @@ export default function ProfileForm({
   const pronounSelectorOptions = useMemo(() => {
     return PRONOUNS.map((pronoun) => ({
       value: pronoun,
-      label: t(`pronouns.${pronoun}`),
+      label: t(`common.pronouns.${pronoun}`),
     }));
   }, []);
 
   return (
     <div className="paper m-4 flex flex-col">
       <h1 className="m-4 text-center font-bold uppercase lg:text-2xl">
-        {tp("title")}
+        {t("profile.title")}
       </h1>
-      <h3 className="my-4 text-center">{tp("description")}</h3>
+      <h3 className="my-4 text-center">{t("profile.description")}</h3>
       <form className="flex flex-col items-center">
         <TextInput
           inputParams={{ ...register("firstName"), required: true }}
           errors={errors.firstName}
-          label={t("firstName")}
+          label={t("common.firstName")}
         />
         <TextInput
           inputParams={{ ...register("lastName"), required: true }}
           errors={errors.lastName}
-          label={t("lastName")}
+          label={t("common.lastName")}
         />
         <TextInput
           inputParams={{ ...register("preferredName") }}
           errors={errors.preferredName}
-          label={t("preferredName")}
+          label={t("common.preferredName")}
         />
-        <MultiSelectInput
+        <MultiSelectInput<string>
           inputParams={{ ...register("pronouns"), required: true }}
           errors={errors.pronouns}
-          label={t("pronoun")}
+          label={t("common.pronoun")}
           options={pronounSelectorOptions}
           formControl={control}
-          placeholder={t("select")}
+          placeholder={t("common.select")}
         />
         <PhoneNumberInput
           inputParams={{ ...register("phoneNumber"), required: true }}
           errors={errors.phoneNumber}
-          label={t("phoneNumber")}
+          label={t("common.phoneNumber")}
           formControl={control}
         />
       </form>
