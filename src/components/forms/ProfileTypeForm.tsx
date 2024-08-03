@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import { verifyToken } from "@/libs/tokens";
 import { PROFILE_TYPES } from "@/constants";
-import { Icons } from "@/components/Icons";
+import { Loader, CircleCheckBig } from "@/libs/icons";
 
 export default function ProfileTypeForm({
   userEmail,
@@ -58,7 +58,7 @@ export default function ProfileTypeForm({
       values.profileType === PROFILE_TYPES.STUDENT_TYPE ||
       values.tokenIsValid === true;
     onValidityChange(isFormValid);
-  }, [watch, onValidityChange]);
+  }, [watch, onValidityChange, getValues]);
 
   useEffect(() => {
     const subscription = watch((value) => onDataChange(value));
@@ -148,17 +148,17 @@ export default function ProfileTypeForm({
               type="button"
               className={`btn-primary flex items-center justify-center ${
                 watch("tokenIsValid")
-                  ? "bg-success disabled:hover:bg-success disabled:cursor-not-allowed disabled:opacity-100"
+                  ? "bg-success disabled:cursor-not-allowed disabled:opacity-100 disabled:hover:bg-success"
                   : ""
               }`}
               onClick={onTokenSubmit}
               disabled={isValid || isValidating}
             >
               {isValidating ? (
-                <Icons.Loader className="mr-2 h-4 w-4 animate-spin" />
+                <Loader className="mr-2 h-4 w-4 animate-spin" />
               ) : watch("tokenIsValid") ? (
                 <>
-                  <Icons.CircleCheckBig className="mr-2 h-4 w-4" />
+                  <CircleCheckBig className="mr-2 h-4 w-4" />
                 </>
               ) : (
                 ""

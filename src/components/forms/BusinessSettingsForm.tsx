@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Prisma, Business } from "@prisma/client";
 import { useTranslations } from "next-intl";
@@ -23,17 +23,7 @@ export default function BusinessSettingsForm({
     control,
     reset,
   } = useForm<Prisma.BusinessCreateInput>({
-    defaultValues: useMemo(() => {
-      if (business) {
-        return { ...business };
-      } else return {};
-    }, [
-      business?.name,
-      business?.bio,
-      business?.contactEmail,
-      business?.phoneNumber,
-      business?.published,
-    ]),
+    defaultValues: business ? { ...business } : {},
     resolver: zodResolver(BusinessSettingsFormSchema),
   });
 
@@ -42,7 +32,7 @@ export default function BusinessSettingsForm({
 
   useEffect(() => {
     reset();
-  }, [business]);
+  }, [business, reset]);
 
   const handleCreateOrUpdateBusiness = async (formData: FormData) => {
     const businessData = {

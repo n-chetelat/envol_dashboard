@@ -42,7 +42,7 @@ export default function ProfileForm({
     if (getFieldState("pronouns").isDirty) {
       trigger("pronouns");
     }
-  }, [data, setValue, trigger]);
+  }, [data, setValue, trigger, getFieldState]);
 
   useEffect(() => {
     onValidityChange(isValid);
@@ -58,7 +58,7 @@ export default function ProfileForm({
       value: pronoun,
       label: t(`common.pronouns.${pronoun}`),
     }));
-  }, []);
+  }, [t]);
 
   return (
     <div className="paper m-4 flex flex-col">

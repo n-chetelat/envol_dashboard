@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import { useTranslations } from "next-intl";
-import { Icons } from "@/components/Icons";
+import { ChevronRight, ChevronLeft } from "@/libs/icons";
 
 export interface StepComponentProps {
   onValidityChange: (isValid: boolean) => void;
@@ -65,7 +65,7 @@ export default function Stepper({ children, onComplete }: StepperProps) {
             className="btn-primary mt-1 w-full lg:mt-0 lg:w-4/12"
             onClick={handlePrevious}
           >
-            <Icons.ChevronLeft className="inline" size={20} /> {t("back")}
+            <ChevronLeft className="inline" size={20} /> {t("back")}
           </button>
         )}
         <button
@@ -74,7 +74,7 @@ export default function Stepper({ children, onComplete }: StepperProps) {
           className="btn-primary mt-1 w-full lg:mt-0 lg:w-4/12"
         >
           {currentStep === children.length - 1 ? t("submit") : t("next")}{" "}
-          <Icons.ChevronRight
+          <ChevronRight
             className={`inline transition-transform duration-300 ${isStepValid ? "back-forth-animation" : ""}`}
             size={20}
           />

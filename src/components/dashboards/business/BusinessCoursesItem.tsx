@@ -21,7 +21,7 @@ export default function BusinessClassesItem({
       }
     };
     fetchCourse();
-  }, []);
+  }, [courseListing.courseId]);
 
   return <>{course && <li key={courseListing.id}>{course.name}</li>}</>;
 }

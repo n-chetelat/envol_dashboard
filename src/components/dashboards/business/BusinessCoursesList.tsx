@@ -15,7 +15,10 @@ export default function BusinessClassesList({
       </h1>
       <ul>
         {courseListings.map((courseListing) => (
-          <BusinessClassesItem courseListing={courseListing} />
+          <BusinessClassesItem
+            courseListing={courseListing}
+            key={courseListing.id}
+          />
         ))}
       </ul>
     </div>

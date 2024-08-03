@@ -15,7 +15,7 @@ export default function useProfileType(
     } else {
       setProfileType(null);
     }
-  }, [profile?.students, profile?.instructors, profile?.businesses]);
+  }, [profile, profile?.students, profile?.instructors, profile?.businesses]);
 
   return { profileType, setProfileType };
 }
