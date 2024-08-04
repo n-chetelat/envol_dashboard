@@ -33,6 +33,10 @@ module.exports = {
           dark: "#16A34A",
         },
       },
+      boxShadow: {
+        "radio-ring-focus":
+          "0 0 0 2px rgba(57, 49, 109, 0.3), 0 0 0 4px rgba(57, 49, 109, 0.2)",
+      },
     },
   },
   plugins: [],

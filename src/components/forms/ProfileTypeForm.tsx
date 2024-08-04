@@ -14,6 +14,7 @@ import TextInput from "@/components/forms/TextInput";
 import { verifyToken } from "@/libs/tokens";
 import { PROFILE_TYPES } from "@/constants";
 import { Loader, CircleCheckBig } from "@/libs/icons";
+import RadioInput from "@/components/forms/RadioInput";
 
 export default function ProfileTypeForm({
   userEmail,
@@ -101,41 +102,31 @@ export default function ProfileTypeForm({
         {t("profile.why")}
       </h1>
       <form className="flx w-full flex-col">
-        <div className="mt-4">
-          <input
-            {...register("profileType")}
-            type="radio"
-            value={PROFILE_TYPES.STUDENT_TYPE}
-            disabled={isValid || isValidating}
-          />
-          <label>{` ${t("profile.amStudent")}`}</label>
-        </div>
-        <div className="mt-4">
-          <input
-            {...register("profileType")}
-            type="radio"
-            value={PROFILE_TYPES.INSTRUCTOR_TYPE}
-            disabled={isValid || isValidating}
-          />
-          <label>{` ${t("profile.amInstructor")}`}</label>
-        </div>
-        <div className="mt-4">
-          <input
-            {...register("profileType")}
-            type="radio"
-            value={PROFILE_TYPES.BUSINESS_TYPE}
-            disabled={isValid || isValidating}
-          />
-          <label>{` ${t("profile.amBusiness")}`}</label>
-        </div>
-        <p className="h-8 text-vermillion">
-          {errors.profileType && errors.profileType?.message}
-        </p>
+        <RadioInput
+          inputParams={{ ...register("profileType"), required: true }}
+          errors={errors.profileType}
+          options={[
+            {
+              value: PROFILE_TYPES.STUDENT_TYPE,
+              label: `${t("profile.amStudent")}`,
+            },
+            {
+              value: PROFILE_TYPES.INSTRUCTOR_TYPE,
+              label: `${t("profile.amInstructor")}`,
+            },
+            {
+              value: PROFILE_TYPES.BUSINESS_TYPE,
+              label: `${t("profile.amBusiness")}`,
+            },
+          ]}
+          size="lg"
+          disabled={isValid || isValidating}
+        />
 
         {[PROFILE_TYPES.INSTRUCTOR_TYPE, PROFILE_TYPES.BUSINESS_TYPE].includes(
           watch("profileType"),
         ) && (
-          <div className="m-2">
+          <div className="m-2 translate-y-4 animate-[fadeInUp_0.3s_ease-out_forwards] space-y-4 opacity-0 transition-all duration-300 ease-out">
             <TextInput
               inputParams={{
                 ...register("token"),
