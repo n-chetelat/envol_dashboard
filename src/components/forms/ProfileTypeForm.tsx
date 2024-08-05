@@ -48,7 +48,10 @@ export default function ProfileTypeForm({
     Object.entries(data).forEach(([key, value]) => {
       const currentValue = getValues(key as keyof ProfileTypeFormInput);
       if (currentValue !== value) {
+        // Update value for validation purposes
         setValue(key as keyof ProfileTypeFormInput, value as any);
+        // Update value for data tracking purposes
+        data[key] = value;
       }
     });
   }, [data, setValue, getValues]);

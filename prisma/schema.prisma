@@ -87,20 +87,22 @@ model Student {
 
 model BusinessToken {
   id        String   @id @default(uuid()) @db.Uuid
-  token     String   @db.VarChar(50)
+  token     String   @db.VarChar(250)
   used      Boolean  @default(false)
   email     String   @db.VarChar(50)
+  expiresAt DateTime @default(dbgenerated("(now() AT TIME ZONE 'UTC' + interval '1 day')")) @db.Timestamptz
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model InstructorToken {
   id         String   @id @default(uuid()) @db.Uuid
-  token      String   @db.VarChar(50)
+  token      String   @db.VarChar(250)
   used       Boolean  @default(false)
   email      String   @db.VarChar(50)
   business   Business @relation(fields: [businessId], references: [id])
   businessId String   @unique @db.Uuid
+  expiresAt  DateTime @default(dbgenerated("(now() AT TIME ZONE 'UTC' + interval '1 day')")) @db.Timestamptz
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }

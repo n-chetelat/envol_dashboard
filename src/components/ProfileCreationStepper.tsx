@@ -5,102 +5,79 @@ import ProfileForm from "@/components/forms/ProfileForm";
 import ProfileTypeForm from "@/components/forms/ProfileTypeForm";
 import { Prisma } from "@prisma/client";
 import { ProfileTypeFormInput } from "@/validations/profileTypeForm";
+import { PROFILE_TYPES } from "@/constants";
+import { useRouter } from "@/libs/navigation";
 
 export default function ProfileCreationStepper({
   userId,
   userEmail,
 }: ProfileCreationStepperProps) {
-  const handleProfileStepperComplete = async (
-    data: Array<ProfileTypeFormInput & Prisma.ProfileCreateInput>,
-  ) => {
+  const router = useRouter();
+  const handleProfileStepperComplete = async (data: any) => {
     const [profileData, profileTypeData] = data;
-
-    try {
-    } catch (error) {
-      console.error(error);
+    if (profileTypeData.profileType === PROFILE_TYPES.STUDENT_TYPE) {
+      profileTypeData["tokenIsValid"] = true;
+    }
+    const profileCreateInput: Prisma.ProfileCreateInput = {
+      userId,
+      ...profileData,
+    };
+    if (profileTypeData["tokenIsValid"] === true) {
+      try {
+        await createProfile(profileTypeData.profileType, profileCreateInput);
+        router.replace("/dashboard");
+      } catch (error) {
+        // redirect to 500 error page
+        console.error("Error while creating profile:");
+        console.error(error);
+      }
+    } else {
+      console.error("This profile cannot be created due to an invalid token.");
     }
   };
 
-  const createProfile = (data: Prisma.ProfileCreateInput) => {};
+  // - If the profile is not created, redirect to a 500 error page
+  // - If the profile is created, redirect to dashboard for the correct profile type
+  const createProfile = async (
+    profileType: string,
+    profileCreateData: Prisma.ProfileCreateInput,
+  ) => {
+    const response = await fetch("/api/profiles", {
+      method: "POST",
+      body: JSON.stringify(profileCreateData),
+    });
+    const profile = await response.json();
+    if (profileType === PROFILE_TYPES.STUDENT_TYPE) {
+      await createStudent(profile.id);
+    } else if (profileType === PROFILE_TYPES.INSTRUCTOR_TYPE) {
+      await createInstructor(profile.id);
+    } else if (profileType === PROFILE_TYPES.BUSINESS_TYPE) {
+      await createBusiness(profile.id);
+    } else {
+      throw new Error(`Invalid profile type ${profileType}`);
+    }
+  };
 
-  /*
-  - Check if there is a token and check for its validity
-  - If the token is invalid, set it as invalid on the form
-  - If the token is valid, or if there is no token, create a profile
-  - If the profile is not created, redirect to a 500 error page
-  - If the profile is created, redirect to dashboard for the correct profile type
-  */
-  // const handleCreateProfile = async (formData: FormData) => {
-  //   try {
-  //     const profileData: Prisma.ProfileCreateInput = {
-  //       userId,
-  //       firstName: `${formData.firstName}`,
-  //       lastName: `${formData.lastName}`,
-  //       preferredName: `${formData.preferredName}`,
-  //       pronouns: formData.pronouns,
-  //       phoneNumber: `${formData.phoneNumber}`,
-  //     };
-  // await fetch("/api/profiles", {
-  //   method: "POST",
-  //   body: JSON.stringify(profileData),
-  // });
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const createStudent = async (profileId: string) => {
+    await fetch("/api/students", {
+      method: "POST",
+      body: JSON.stringify({ profileId }),
+    });
+  };
 
-  // const handleCreateStudent = async () => {
-  //   try {
-  //     await fetch("/api/students", {
-  //       method: "POST",
-  //       body: JSON.stringify({ id: profile.id }),
-  //     });
-  //     window.location.reload();
-  //   } catch (errors) {
-  //     console.error(errors);
-  //   }
-  // };
+  const createInstructor = async (profileId: string) => {
+    await fetch("/api/instructors", {
+      method: "POST",
+      body: JSON.stringify({ profileId }),
+    });
+  };
 
-  // const handleTokenSubmit = async (formData: FormData) => {
-  // try {
-  //   console.log(formData);
-  //   // TODO: Validate token here
-  //   if (formData.profileType === "business") {
-  //     handleCreateBusiness();
-  //   } else if (formData.profileType === "instructor") {
-  //     handleCreateInstructor();
-  //   } else {
-  //     console.error("Invalid token type");
-  //   }
-  // } catch (error) {
-  //   console.error(error);
-  // }
-  // };
-
-  // const handleCreateInstructor = async () => {
-  //   try {
-  //     await fetch("/api/instructors", {
-  //       method: "POST",
-  //       body: JSON.stringify({ id: profile.id }),
-  //     });
-  //     window.location.reload();
-  //   } catch (errors) {
-  //     console.error(errors);
-  //   }
-  // };
-
-  // const handleCreateBusiness = async () => {
-  //   try {
-  //     await fetch("/api/businesses", {
-  //       method: "POST",
-  //       body: JSON.stringify({ id: profile.id }),
-  //     });
-  //     window.location.reload();
-  //   } catch (errors) {
-  //     console.error(errors);
-  //   }
-  // };
+  const createBusiness = async (profileId: string) => {
+    await fetch("/api/businesses", {
+      method: "POST",
+      body: JSON.stringify({ profileId }),
+    });
+  };
 
   return (
     <Stepper onComplete={handleProfileStepperComplete}>
