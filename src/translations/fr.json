@@ -49,6 +49,9 @@
     "selectOptions": "Select at least one option - FR",
     "invalidToken": "Invalid token - FR"
   },
+  "aria": {
+    "dashboardNavigation": "Dashboard navigation - FR"
+  },
   "home": {
     "subtitle": "Envol offers booking solutions - FR",
     "dashboardCta": "Tableau de bord",

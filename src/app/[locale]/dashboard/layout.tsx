@@ -1,5 +1,6 @@
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import SidebarWrapper from "@/components/sidebar/SidebarWrapper";
+import PageTransition from "@/components/transitions/PageTransition";
 
 export async function generateMetadata({
   params: { locale },
@@ -31,7 +32,7 @@ export default function RootLayout({
         <SidebarWrapper />
       </div>
       <div className="mt-[--navbar-height] pl-[--sidebar-width] pt-8">
-        {children}
+        <PageTransition>{children}</PageTransition>
       </div>
     </div>
   );

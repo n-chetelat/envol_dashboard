@@ -49,6 +49,9 @@
     "selectOptions": "Select at least one option",
     "invalidToken": "Invalid token"
   },
+  "aria": {
+    "dashboardNavigation": "Dashboard navigation"
+  },
   "home": {
     "subtitle": "Envol offers booking solutions",
     "dashboardCta": "Go to dashboard",

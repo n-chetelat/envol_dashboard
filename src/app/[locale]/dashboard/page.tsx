@@ -2,7 +2,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import prisma from "@/libs/prisma";
 import { currentUser } from "@clerk/nextjs";
-import ProfileCreationStepper from "@/components/ProfileCreationStepper";
+import ProfileCreationStepper from "@/components/stepper/ProfileCreationStepper";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import GenericDashboard from "@/components/dashboards/GenericDashboard";

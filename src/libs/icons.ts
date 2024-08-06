@@ -7,4 +7,7 @@ export {
   ChevronLeft,
   Loader,
   CircleCheckBig,
+  Gauge,
+  Shapes,
+  Settings,
 } from "lucide-react";
