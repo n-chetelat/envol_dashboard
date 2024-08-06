@@ -19,7 +19,7 @@ export default async function SidebarWrapper() {
   return (
     <div className="h-screen">
       <NextIntlClientProvider messages={messages}>
-        <Sidebar profile={profile} />;
+        <Sidebar profile={profile} />
       </NextIntlClientProvider>
     </div>
   );

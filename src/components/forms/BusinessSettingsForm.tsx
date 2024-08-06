@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Prisma, Business } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
-import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 import { createBusiness, updateBusiness } from "@/actions/business";
+import CheckboxInput from "@/components/forms/CheckboxInput";
 
 export default function BusinessSettingsForm({
   profileId,
@@ -18,11 +18,20 @@ export default function BusinessSettingsForm({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     control,
     reset,
+    getValues,
   } = useForm<Prisma.BusinessCreateInput>({
-    defaultValues: business ? { ...business } : {},
+    defaultValues: business
+      ? {
+          name: business.name || "",
+          bio: business.bio || "",
+          contactEmail: business.contactEmail || "",
+          phoneNumber: business.phoneNumber || "",
+          published: business.published || false,
+        }
+      : {},
     resolver: zodResolver(BusinessSettingsFormSchema),
   });
 
@@ -33,20 +42,15 @@ export default function BusinessSettingsForm({
     reset();
   }, [business, reset]);
 
-  const handleCreateOrUpdateBusiness = async (formData: FormData) => {
-    const businessData = {
-      name: `${formData.name}`,
-      bio: `${formData.bio}`,
-      contactEmail: `${formData.contactEmail}`,
-      phoneNumber: `${formData.phoneNumber}`,
-      published: formData.published,
-    };
+  const handleCreateOrUpdateBusiness = async () => {
+    const { name, bio, contactEmail, phoneNumber, published } = getValues();
+    const businessData = { name, bio, contactEmail, phoneNumber, published };
 
     try {
       if (business?.id) {
         await updateBusiness(business.id, businessData);
       } else {
-        await updateBusiness(businessData);
+        await createBusiness(businessData);
       }
     } catch (error) {
       console.log(error);
@@ -58,10 +62,7 @@ export default function BusinessSettingsForm({
       <h1 className="m-4 text-center text-2xl font-bold uppercase">
         {ts("businessTitle")}
       </h1>
-      <form
-        action={handleSubmit(handleCreateOrUpdateBusiness)}
-        className="flex flex-col items-center"
-      >
+      <form className="flex flex-col items-center">
         <TextInput
           inputParams={{ ...register("name"), required: true }}
           errors={errors.name}
@@ -81,13 +82,19 @@ export default function BusinessSettingsForm({
           inputParams={{ ...register("phoneNumber"), required: true }}
           errors={errors.phoneNumber}
           label={t("phoneNumber")}
+          formControl={control}
         />
         <CheckboxInput
           inputParams={{ ...register("published") }}
           errors={errors.published}
           label={ts("published")}
         />
-        <button className="btn-primary w-10/12" type="submit">
+        <button
+          className="btn-primary w-10/12"
+          onClick={handleCreateOrUpdateBusiness}
+          disabled={!isValid}
+          type="button"
+        >
           {t("submit")}
         </button>
       </form>

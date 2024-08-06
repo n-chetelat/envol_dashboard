@@ -27,10 +27,12 @@ export default function RootLayout({
 
   return (
     <div className="h-screen">
-      <div className="fixed h-full w-48">
+      <div className="fixed h-full w-[--sidebar-width]">
         <SidebarWrapper />
       </div>
-      <div className="mt-[--navbar-height] pl-[14rem]">{children}</div>
+      <div className="mt-[--navbar-height] pl-[--sidebar-width] pt-8">
+        {children}
+      </div>
     </div>
   );
 }

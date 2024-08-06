@@ -4,7 +4,6 @@ import Stepper from "@/components/stepper/Stepper";
 import ProfileForm from "@/components/forms/ProfileForm";
 import ProfileTypeForm from "@/components/forms/ProfileTypeForm";
 import { Prisma } from "@prisma/client";
-import { ProfileTypeFormInput } from "@/validations/profileTypeForm";
 import { PROFILE_TYPES } from "@/constants";
 import { useRouter } from "@/libs/navigation";
 
@@ -36,8 +35,6 @@ export default function ProfileCreationStepper({
     }
   };
 
-  // - If the profile is not created, redirect to a 500 error page
-  // - If the profile is created, redirect to dashboard for the correct profile type
   const createProfile = async (
     profileType: string,
     profileCreateData: Prisma.ProfileCreateInput,

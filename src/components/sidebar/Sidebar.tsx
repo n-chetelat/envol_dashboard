@@ -3,26 +3,29 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/libs/navigation";
 import useProfileType from "@/hooks/useProfileType";
+import { Profile } from "@prisma/client";
 
-export default function Sidebar({ profile }) {
+export default function Sidebar({ profile }: { profile: Profile }) {
   const { profileType, setProfileType } = useProfileType(profile);
   const t = useTranslations("dashboard");
   const router = useRouter();
 
   return (
     <nav className="h-full bg-slate-100 p-4 pr-0">
-      <div
-        className=" m-0.5 cursor-pointer p-4 font-serif  uppercase hover:bg-slate-200"
-        onClick={() => {
-          router.push("/dashboard");
-        }}
-      >
-        {t("dashboard")}
-      </div>
+      {profile && (
+        <div
+          className="sidebar-item"
+          onClick={() => {
+            router.push("/dashboard");
+          }}
+        >
+          {t("dashboard")}
+        </div>
+      )}
       {profileType === "business" && (
         <div>
           <div
-            className=" m-0.5 cursor-pointer p-4 font-serif uppercase hover:bg-slate-200"
+            className="sidebar-item"
             onClick={() => {
               router.push("/dashboard/business/courses");
             }}
@@ -30,7 +33,7 @@ export default function Sidebar({ profile }) {
             {t("classes")}
           </div>
           <div
-            className=" m-0.5 cursor-pointer p-4 font-serif uppercase hover:bg-slate-200"
+            className="sidebar-item"
             onClick={() => {
               router.push("/dashboard/business/settings");
             }}
@@ -42,7 +45,7 @@ export default function Sidebar({ profile }) {
       {profileType === "instructor" && (
         <div>
           <div
-            className=" m-0.5 cursor-pointer p-4 font-serif  uppercase hover:bg-slate-200"
+            className="sidebar-item"
             onClick={() => {
               router.push("/dashboard/instructor/courses");
             }}
@@ -54,7 +57,7 @@ export default function Sidebar({ profile }) {
       {profileType === "student" && (
         <div>
           <div
-            className=" m-0.5 cursor-pointer p-4 font-serif  uppercase hover:bg-slate-200"
+            className="sidebar-item"
             onClick={() => {
               router.push("/dashboard/student/courses");
             }}
