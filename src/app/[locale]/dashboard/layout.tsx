@@ -1,6 +1,7 @@
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import SidebarWrapper from "@/components/sidebar/SidebarWrapper";
 import PageTransition from "@/components/transitions/PageTransition";
+import Navbar from "@/components/navbar/navbar/Navbar";
 
 export async function generateMetadata({
   params: { locale },
@@ -10,12 +11,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
-    title: t("mainLayout.title"),
-    description: t("mainLayout.description"),
+    title: t("dashboardLayout.title"),
+    description: t("dashboardLayout.description"),
   };
 }
 
-export default function RootLayout({
+export default function DashboardLayout({
   children,
   params: { locale },
 }: Readonly<{
@@ -27,13 +28,16 @@ export default function RootLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <div className="h-screen">
-      <div className="fixed h-full w-[--sidebar-width]">
-        <SidebarWrapper />
+    <>
+      <Navbar />
+      <div className="h-screen">
+        <div className="fixed h-full w-[--sidebar-width]">
+          <SidebarWrapper />
+        </div>
+        <div className="mt-[--navbar-height] pl-[--sidebar-width] pt-8">
+          <PageTransition>{children}</PageTransition>
+        </div>
       </div>
-      <div className="mt-[--navbar-height] pl-[--sidebar-width] pt-8">
-        <PageTransition>{children}</PageTransition>
-      </div>
-    </div>
+    </>
   );
 }

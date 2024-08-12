@@ -2,7 +2,11 @@
   "metadata": {
     "mainLayout": {
       "title": "Envol | Home",
-      "description": "Did you ever want to join the circus? Welcome to your hub for circus classes in Montréal. Hoop, silks, pole, burlesque - Oh my!"
+      "description": "Circus classes"
+    },
+    "dashboardLayout": {
+      "title": "Envol | Dashbaord",
+      "description": "Circus classes."
     }
   },
   "locales": {

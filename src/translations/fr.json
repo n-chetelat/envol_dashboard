@@ -2,7 +2,11 @@
   "metadata": {
     "mainLayout": {
       "title": "Envol | Accueil",
-      "description": "Avez-vous déjà eu envie de rejoindre le cirque ? Bienvenue dans votre hub de cours de cirque à Montréal. Cerceau, soies, pole-dance, burlesque - Oh mon Dieu !"
+      "description": "Circus classes. - FR"
+    },
+    "dashboardLayout": {
+      "title": "Envol | Tableau de bord",
+      "description": "Circus classes. - FR"
     }
   },
   "locales": {

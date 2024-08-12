@@ -10,26 +10,12 @@ import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems"
 import StudentSidebarItems from "@/components/sidebar/StudentSidebarItems";
 import { Gauge } from "@/libs/icons";
 import SidebarToggle from "@/components/sidebar/SidebarToggle";
-import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
 
 export default function Sidebar({ profile }: { profile: Profile }) {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { profileType } = useProfileType(profile);
   const t = useTranslations("dashboard");
   const ta = useTranslations("aria");
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileMenuOpen(false);
-      setIsExpanded(window.innerWidth >= 1024);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const getProfileSidebar = () => {
     const Component = profileSidebarMap[profileType] || null;
@@ -44,13 +30,9 @@ export default function Sidebar({ profile }: { profile: Profile }) {
 
   return (
     <>
-      <MobileMenuButton
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      />
       <nav
         className={`fixed top-0 bg-slate-100 transition-all duration-300 ease-in-out
           ${isExpanded ? "w-64" : "w-16"}
-          ${isMobileMenuOpen ? "left-0" : "-left-full"}
           z-50 h-full lg:relative lg:left-0`}
         aria-label={ta("dashboardNavigation")}
         role="navigation"
@@ -73,12 +55,6 @@ export default function Sidebar({ profile }: { profile: Profile }) {
           </div>
         </div>
       </nav>
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
     </>
   );
 }
