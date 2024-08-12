@@ -3,7 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function SidebarItem({ href, text, icon, isExpanded }) {
+interface SidebarItemProps {
+  href: string;
+  text: string;
+  icon: string;
+  isExpanded: boolean;
+  onClick: () => void;
+}
+
+export default function SidebarItem({
+  href,
+  text,
+  icon,
+  isExpanded,
+  onClick,
+}: SidebarItemProps) {
   const pathname = usePathname();
   const isActive = pathname.endsWith(href);
 
@@ -18,6 +32,7 @@ export default function SidebarItem({ href, text, icon, isExpanded }) {
       role="link"
       aria-label={text}
       aria-current={isActive ? "page" : undefined}
+      onClick={onClick}
     >
       {icon && (
         <span

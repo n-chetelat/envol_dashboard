@@ -1,7 +1,10 @@
+import { auth } from "@clerk/nextjs";
+import prisma from "@/libs/prisma";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import SidebarWrapper from "@/components/sidebar/SidebarWrapper";
 import PageTransition from "@/components/transitions/PageTransition";
-import Navbar from "@/components/navbar/navbar/Navbar";
+import DashboardWrapper from "@/components/dashboards/DashboardWrapper";
 
 export async function generateMetadata({
   params: { locale },
@@ -16,7 +19,7 @@ export async function generateMetadata({
   };
 }
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
   params: { locale },
 }: Readonly<{
@@ -26,18 +29,26 @@ export default function DashboardLayout({
   };
 }>) {
   unstable_setRequestLocale(locale);
+  const { userId } = auth();
+  const messages = await getMessages();
+  const profile = await prisma.profile.findFirst({
+    where: { userId },
+    include: {
+      students: true,
+      instructors: true,
+      businesses: true,
+    },
+  });
 
   return (
     <>
-      <Navbar />
-      <div className="h-screen">
-        <div className="fixed h-full w-[--sidebar-width]">
-          <SidebarWrapper />
-        </div>
-        <div className="mt-[--navbar-height] pl-[--sidebar-width] pt-8">
-          <PageTransition>{children}</PageTransition>
-        </div>
-      </div>
+      {profile ? (
+        <NextIntlClientProvider messages={messages}>
+          <DashboardWrapper profile={profile}>
+            <PageTransition>{children}</PageTransition>
+          </DashboardWrapper>
+        </NextIntlClientProvider>
+      ) : null}
     </>
   );
 }

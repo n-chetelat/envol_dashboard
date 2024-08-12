@@ -4,9 +4,11 @@ import { type TFunction } from "next-intl";
 export default function InstructorSidebarItems({
   t,
   isExpanded,
+  onClick,
 }: {
   t: TFunction;
   isExpanded: boolean;
+  onClick: () => void;
 }) {
   return (
     <>
@@ -15,6 +17,7 @@ export default function InstructorSidebarItems({
         text={t("classes")}
         icon={<Shapes />}
         isExpanded={isExpanded}
+        onClick={onClick}
       />
     </>
   );

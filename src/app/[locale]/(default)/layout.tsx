@@ -1,5 +1,5 @@
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import Navbar from "@/components/navbar/navbar/Navbar";
+import DefaultNavbar from "@/components/navbar/navbar/DefaultNavbar";
 
 export async function generateMetadata({
   params: { locale },
@@ -27,7 +27,7 @@ export default function DefaultLayout({
 
   return (
     <>
-      <Navbar />
+      <DefaultNavbar />
       <div className="mt-[--navbar-height]">{children}</div>
     </>
   );

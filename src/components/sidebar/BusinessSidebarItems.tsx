@@ -5,9 +5,11 @@ import { Shapes, Settings } from "@/libs/icons";
 export default function BusinessSidebarItems({
   t,
   isExpanded,
+  onClick,
 }: {
   t: TFunction;
   isExpanded: boolean;
+  onClick: () => void;
 }) {
   return (
     <>
@@ -16,12 +18,14 @@ export default function BusinessSidebarItems({
         text={t("classes")}
         icon={<Shapes />}
         isExpanded={isExpanded}
+        onClick={onClick}
       />
       <SidebarItem
         href="/dashboard/business/settings"
         text={t("settings")}
         icon={<Settings />}
         isExpanded={isExpanded}
+        onClick={onClick}
       />
     </>
   );

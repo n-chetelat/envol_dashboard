@@ -6,7 +6,7 @@ import AvatarMenu from "@/components/navbar/AvatarMenu";
 import { auth } from "@clerk/nextjs";
 import prisma from "@/libs/prisma";
 
-export default async function Navbar() {
+export default async function DefaultNavbar() {
   const { userId } = auth();
 
   const getProfile = async () => {
