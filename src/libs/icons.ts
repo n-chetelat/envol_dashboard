@@ -7,6 +7,7 @@ export {
   ChevronLeft,
   Loader,
   CircleCheckBig,
+  Menu,
   Gauge,
   Shapes,
   Settings,
