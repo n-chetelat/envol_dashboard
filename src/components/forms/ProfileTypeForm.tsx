@@ -106,7 +106,7 @@ export default function ProfileTypeForm({
       </h1>
       <form className="flx w-full flex-col">
         <RadioInput
-          inputParams={{ ...register("profileType"), required: true }}
+          inputParams={{ ...register("profileType", { required: true }) }}
           errors={errors.profileType}
           options={[
             {

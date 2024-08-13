@@ -51,7 +51,8 @@
     "invalidPhone": "Invalid phone number",
     "isRequired": "{field} is required",
     "selectOptions": "Select at least one option",
-    "invalidToken": "Invalid token"
+    "invalidToken": "Invalid token",
+    "invalidEmail": "Enter a valid email"
   },
   "aria": {
     "dashboardNavigation": "Dashboard navigation"

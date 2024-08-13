@@ -4,7 +4,7 @@ import { LANGUAGES, PRONOUNS } from "@/constants";
 import { isPossiblePhoneNumber } from "react-phone-number-input";
 
 export const createProfileFormSchema = (translations) => {
-  const ProfileFormSchema: ZodType<Prisma.ProfileCreateInput> = z.object({
+  const schema: ZodType<Prisma.ProfileCreateInput> = z.object({
     firstName: z
       .string()
       .min(1, {
@@ -29,5 +29,5 @@ export const createProfileFormSchema = (translations) => {
       message: translations("errors.invalidPhone"),
     }),
   });
-  return ProfileFormSchema;
+  return schema;
 };

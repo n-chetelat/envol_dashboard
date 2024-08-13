@@ -11,6 +11,7 @@ import { BusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 import { createBusiness, updateBusiness } from "@/actions/business";
 import CheckboxInput from "@/components/forms/CheckboxInput";
 import { BusinessWithStripeAccount } from "@/types";
+import { createBusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 
 interface BusinessFormProps {
   profileId: string;
@@ -21,6 +22,8 @@ export default function BusinessSettingsForm({
   profileId,
   business,
 }: BusinessFormProps) {
+  const t = useTranslations();
+  const BusinessSettingsFormSchema = createBusinessSettingsFormSchema(t);
   const {
     register,
     handleSubmit,
@@ -39,10 +42,8 @@ export default function BusinessSettingsForm({
         }
       : {},
     resolver: zodResolver(BusinessSettingsFormSchema),
+    mode: "onChange",
   });
-
-  const t = useTranslations("common");
-  const ts = useTranslations("settings");
 
   useEffect(() => {
     reset();
@@ -88,34 +89,34 @@ export default function BusinessSettingsForm({
   return (
     <div className="paper flex w-1/2 flex-col md:max-w-2xl">
       <h1 className="m-4 text-center text-2xl font-bold uppercase">
-        {ts("businessTitle")}
+        {t("settings.businessTitle")}
       </h1>
       <form className="flex flex-col items-center">
         <TextInput
-          inputParams={{ ...register("name"), required: true }}
+          inputParams={{ ...register("name", { required: true }) }}
           errors={errors.name}
-          label={t("name")}
+          label={t("common.name")}
         />
         <TextInput
-          inputParams={{ ...register("bio"), required: true }}
+          inputParams={{ ...register("bio", { required: true }) }}
           errors={errors.bio}
-          label={t("bio")}
+          label={t("common.bio")}
         />
         <TextInput
-          inputParams={{ ...register("contactEmail"), required: true }}
+          inputParams={{ ...register("contactEmail", { required: true }) }}
           errors={errors.contactEmail}
-          label={t("email")}
+          label={t("common.email")}
         />
         <PhoneNumberInput
-          inputParams={{ ...register("phoneNumber"), required: true }}
+          inputParams={{ ...register("phoneNumber", { required: true }) }}
           errors={errors.phoneNumber}
-          label={t("phoneNumber")}
+          label={t("common.phoneNumber")}
           formControl={control}
         />
         <CheckboxInput
           inputParams={{ ...register("published") }}
           errors={errors.published}
-          label={ts("published")}
+          label={t("settings.published")}
         />
         <button
           className="btn-primary w-10/12"
@@ -123,7 +124,7 @@ export default function BusinessSettingsForm({
           disabled={!isValid}
           type="button"
         >
-          {t("submit")}
+          {t("common.submit")}
         </button>
       </form>
     </div>

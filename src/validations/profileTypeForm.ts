@@ -8,7 +8,7 @@ export type ProfileTypeFormInput = {
 };
 
 export const createProfileTypeFormSchema = (translations: Function) => {
-  const ProfileTypeFormSchema: ZodType<ProfileTypeFormInput> = z
+  const schema: ZodType<ProfileTypeFormInput> = z
     .object({
       profileType: z.string().refine((val) => val && val.length > 0),
       token: z.string().optional(),
@@ -32,5 +32,5 @@ export const createProfileTypeFormSchema = (translations: Function) => {
       },
       { message: translations("errors.invalidToken"), path: ["token"] },
     );
-  return ProfileTypeFormSchema;
+  return schema;
 };

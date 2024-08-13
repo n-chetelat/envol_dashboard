@@ -68,12 +68,12 @@ export default function ProfileForm({
       <h3 className="my-4 text-center">{t("profile.description")}</h3>
       <form className="flex flex-col items-center">
         <TextInput
-          inputParams={{ ...register("firstName"), required: true }}
+          inputParams={{ ...register("firstName", { required: true }) }}
           errors={errors.firstName}
           label={t("common.firstName")}
         />
         <TextInput
-          inputParams={{ ...register("lastName"), required: true }}
+          inputParams={{ ...register("lastName", { required: true }) }}
           errors={errors.lastName}
           label={t("common.lastName")}
         />
@@ -83,7 +83,7 @@ export default function ProfileForm({
           label={t("common.preferredName")}
         />
         <MultiSelectInput<string>
-          inputParams={{ ...register("pronouns"), required: true }}
+          inputParams={{ ...register("pronouns", { required: true }) }}
           errors={errors.pronouns}
           label={t("common.pronoun")}
           options={pronounSelectorOptions}
@@ -91,7 +91,7 @@ export default function ProfileForm({
           placeholder={t("common.select")}
         />
         <PhoneNumberInput
-          inputParams={{ ...register("phoneNumber"), required: true }}
+          inputParams={{ ...register("phoneNumber", { required: true }) }}
           errors={errors.phoneNumber}
           label={t("common.phoneNumber")}
           formControl={control}
