@@ -10,6 +10,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { BusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 import { createBusiness, updateBusiness } from "@/actions/business";
 import CheckboxInput from "@/components/forms/CheckboxInput";
+import { BusinessWithStripeAccount } from "@/types";
+
+interface BusinessFormProps {
+  profileId: string;
+  business: BusinessWithStripeAccount | null;
+}
 
 export default function BusinessSettingsForm({
   profileId,
@@ -44,15 +50,37 @@ export default function BusinessSettingsForm({
 
   const handleCreateOrUpdateBusiness = async () => {
     const { name, bio, contactEmail, phoneNumber, published } = getValues();
-    const businessData = { name, bio, contactEmail, phoneNumber, published };
+    const businessData = {
+      name,
+      bio,
+      contactEmail,
+      phoneNumber,
+      published,
+    };
 
     try {
+      let response;
+
       if (business?.id) {
-        await updateBusiness(business.id, businessData);
+        response = await fetch(`/api/businesses/${business?.id}`, {
+          method: "PUT",
+          body: JSON.stringify(businessData),
+        });
       } else {
-        await createBusiness(businessData);
+        response = await fetch("api/businesses", {
+          method: "POST",
+          body: JSON.stringify({ profileId, ...businessData }),
+        });
+      }
+
+      if (!response.ok) {
+        throw new Error("Failed to save business");
+      } else {
+        // Show success message.
+        console.log("Saved businesses successfully");
       }
     } catch (error) {
+      // show message that something went wrong. toast or such.
       console.log(error);
     }
   };
@@ -101,8 +129,3 @@ export default function BusinessSettingsForm({
     </div>
   );
 }
-
-type BusinessFormProps = {
-  profileId: string;
-  business: Business;
-};

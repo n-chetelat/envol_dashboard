@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 interface SidebarItemProps {
   href: string;
   text: string;
-  icon: string;
+  icon: React.ReactElement;
   isExpanded: boolean;
   onClick: () => void;
 }
