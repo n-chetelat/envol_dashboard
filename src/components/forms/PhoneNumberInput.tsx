@@ -29,7 +29,7 @@ export default function PhoneNumberInput({
             onChange={onChange}
             international
             defaultCountry="CA"
-            className={`w-full rounded border border-gray-300 bg-white px-2 py-1.5 outline-none outline-offset-0  hover:border-gray-400 ${focused ? "outline-offset-0 outline-lilac" : "hover:border-gray-400"} ${errors ? "border-vermillion" : ""}`}
+            className={`w-full rounded border border-gray-300 bg-white px-2 py-1.5 outline-none outline-offset-0  hover:border-gray-400 ${focused ? "outline-offset-0 outline-lilac" : "hover:border-gray-400"} ${errors ? "border-error" : ""}`}
             aria-invalid={errors ? "true" : "false"}
             // The outline rules from Tailwind are not being recognized with the regular focus state.
             // These two handlers are a work-around.
@@ -38,7 +38,7 @@ export default function PhoneNumberInput({
           />
         )}
       />
-      <p className="h-8 text-vermillion">{errors?.message}</p>
+      <p className="text-error h-8">{errors?.message}</p>
     </div>
   );
 }

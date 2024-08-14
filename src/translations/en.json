@@ -52,7 +52,11 @@
     "isRequired": "{field} is required",
     "selectOptions": "Select at least one option",
     "invalidToken": "Invalid token",
-    "invalidEmail": "Enter a valid email"
+    "invalidEmail": "Enter a valid email",
+    "failedToSave": "There was an error saving your information."
+  },
+  "success": {
+    "saved": "Your information was saved successfully."
   },
   "aria": {
     "dashboardNavigation": "Dashboard navigation"

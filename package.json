@@ -24,6 +24,7 @@
     "react-hook-form": "^7.51.0",
     "react-phone-number-input": "^3.4.3",
     "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
     "stripe": "^14.21.0",
     "zod": "^3.22.4"
   },

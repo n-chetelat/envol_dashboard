@@ -1,5 +1,3 @@
-"use client";
-
 import { LoaderPinwheel } from "@/libs/icons";
 
 export default function SpinnerLoader() {

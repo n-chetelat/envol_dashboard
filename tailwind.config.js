@@ -22,15 +22,16 @@ module.exports = {
           DEFAULT: "#F48C7C",
           dark: "#D87C6E",
         },
-        vermillion: {
+        error: {
           DEFAULT: "#FB5644",
           dark: "#DD4C3C",
           light: "#FA6656",
         },
         success: {
-          DEFAULT: "#22C55E",
-          light: "#4ADE80",
-          dark: "#16A34A",
+          DEFAULT: "#63A583",
+        },
+        warning: {
+          DEFAULT: "#FADF43",
         },
       },
       boxShadow: {

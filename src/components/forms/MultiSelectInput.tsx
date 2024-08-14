@@ -94,7 +94,7 @@ export default function MultiSelectInput<T>({
           />
         )}
       />
-      <p className="h-8 text-vermillion">{errors?.message}</p>
+      <p className="text-error h-8">{errors?.message}</p>
     </div>
   );
 }

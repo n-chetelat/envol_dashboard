@@ -5,6 +5,10 @@
 :root {
   --navbar-height: 8rem;
   --sidebar-width: 16rem;
+  --toastify-color-info: theme('colors.violet.DEFAULT');
+  --toastify-color-success: theme('colors.success.DEFAULT');
+  --toastify-color-error: theme('colors.error.DEFAULT');
+  --toastify-color-warning: theme('colors.warning.DEFAULT');
 }
 
 @layer base {
@@ -47,8 +51,39 @@
   }
 }
 
+@keyframes fadeEnter {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeExit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 .back-forth-animation {
-  animation: backForth .5s ease-in-out 2;
+  animation: backForth 0.5s ease-in-out 2;
+}
+
+/* Needed for Toastify but reusable */
+.fade-enter {
+  animation: fadeEnter 0.4s ease-out;
+}
+
+.fade-exit {
+  animation: fadeExit 0.4s ease-in forwards;
 }
 
 /*** 3rd Party Component Overrides ***/
@@ -62,4 +97,24 @@
 .PhoneInputInput {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+/* Toastify */
+
+.toast-enter--top-right,
+.toast-enter--top-center,
+.toast-enter--top-left, 
+.toast-enter--bottom-right,
+.toast-enter--bottom-center,
+.toast-enter--bottom-left {
+  animation: fadeEnter 400ms ease-out;
+}
+
+.toast-exit--top-right,
+.toast-exit--top-center,
+.toast-exit--top-left,
+.toast-exit--bottom-right,
+.toast-exit--bottom-center,
+.toast-exit--bottom-left {
+  animation: fadeExit 400ms ease-in forwards;
 }

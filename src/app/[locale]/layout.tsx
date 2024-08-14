@@ -1,8 +1,10 @@
 import { clerkTheme } from "@/libs/clerk";
 import { getClerkLocale, locales } from "@/libs/i18n";
 import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
 import { Lato, Baskervville } from "next/font/google";
+import CustomToastContainer from "@/components/toast/CustomToastContainer";
+import "react-toastify/dist/ReactToastify.css";
+import "./globals.css"; // Keep it last so it overrides other CSS styles
 
 const lato = Lato({
   weight: ["300", "400", "700"],
@@ -38,7 +40,10 @@ export default function RootLayout({
         lang={locale}
         className={`${lato.variable} ${baskervville.variable} mono`}
       >
-        <body>{children}</body>
+        <body>
+          {children}
+          <CustomToastContainer />
+        </body>
       </html>
     </ClerkProvider>
   );

@@ -52,7 +52,11 @@
     "isRequired": "{field} is required - FR",
     "selectOptions": "Select at least one option - FR",
     "invalidToken": "Invalid token - FR",
-    "invalidEmail": "Enter a valid email - FR"
+    "invalidEmail": "Enter a valid email - FR",
+    "failedToSave": "There was an error saving your information - FR"
+  },
+  "success": {
+    "saved": "Your information was saved successfully. - FR"
   },
   "aria": {
     "dashboardNavigation": "Dashboard navigation - FR"

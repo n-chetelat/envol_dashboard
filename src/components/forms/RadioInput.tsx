@@ -39,7 +39,7 @@ export default function RadioInput({
         <legend className="mb-2 text-sm font-medium">
           {label}
           {label && inputParams.required && (
-            <span className="text-vermillion">*</span>
+            <span className="text-error">*</span>
           )}
         </legend>
         {options.map((option) => (
@@ -48,7 +48,7 @@ export default function RadioInput({
               id={`radio-${option.value}`}
               type="radio"
               value={option.value}
-              className={`mr-2 ${radioSizeClass} focus:shadow-radio-ring-focus cursor-pointer appearance-none rounded-full border-2 border-gray-300 transition-all duration-200 checked:border-0 checked:border-violet checked:bg-violet focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50`}
+              className={`mr-2 ${radioSizeClass} cursor-pointer appearance-none rounded-full border-2 border-gray-300 transition-all duration-200 checked:border-0 checked:border-violet checked:bg-violet focus:shadow-radio-ring-focus focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50`}
               aria-invalid={errors ? "true" : "false"}
               disabled={disabled}
               {...inputParams}
@@ -64,7 +64,7 @@ export default function RadioInput({
           </div>
         ))}
       </fieldset>
-      {errors && <p className="mt-1 h-8 text-vermillion">{errors?.message}</p>}
+      {errors && <p className="text-error mt-1 h-8">{errors?.message}</p>}
     </div>
   );
 }

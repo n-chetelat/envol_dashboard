@@ -12,6 +12,7 @@ import { createBusiness, updateBusiness } from "@/actions/business";
 import CheckboxInput from "@/components/forms/CheckboxInput";
 import { BusinessWithStripeAccount } from "@/types";
 import { createBusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
+import { showSuccessToast, showErrorToast } from "@/libs/toast";
 
 interface BusinessFormProps {
   profileId: string;
@@ -77,11 +78,10 @@ export default function BusinessSettingsForm({
       if (!response.ok) {
         throw new Error("Failed to save business");
       } else {
-        // Show success message.
-        console.log("Saved businesses successfully");
+        showSuccessToast(t("success.saved"));
       }
     } catch (error) {
-      // show message that something went wrong. toast or such.
+      showErrorToast(t("errors.failedToSave"));
       console.log(error);
     }
   };
