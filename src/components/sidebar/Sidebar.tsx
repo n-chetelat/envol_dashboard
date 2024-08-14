@@ -50,7 +50,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
 
   return (
     <nav
-      className={`fixed top-0 w-72 bg-slate-100 transition-all duration-300 ease-in-out
+      className={`fixed top-0 w-72 bg-gray-200 transition-all duration-300 ease-in-out
           ${isExpanded ? "lg:w-64" : "lg:w-16"}
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           z-50
