@@ -11,4 +11,5 @@ export {
   Gauge,
   Shapes,
   Settings,
+  LoaderPinwheel,
 } from "lucide-react";

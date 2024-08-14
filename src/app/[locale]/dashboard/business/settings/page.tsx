@@ -26,8 +26,6 @@ export default async function BusinessSettingsPage({
 
   return (
     <div className="flex flex-col">
-      {!profile && <p>Loading...</p>}
-
       {profile && business && (
         <div className="m-4 flex justify-center">
           <NextIntlClientProvider messages={messages}>

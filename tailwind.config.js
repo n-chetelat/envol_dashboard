@@ -37,6 +37,16 @@ module.exports = {
         "radio-ring-focus":
           "0 0 0 2px rgba(57, 49, 109, 0.3), 0 0 0 4px rgba(57, 49, 109, 0.2)",
       },
+      keyframes: {
+        "change-colors": {
+          "0%, 100%": { stroke: "#9F90C0" },
+          "50%": { stroke: "#39316D" },
+        },
+      },
+      animation: {
+        "spin-change-color":
+          "spin 3s linear infinite, change-colors 3s linear infinite",
+      },
     },
   },
   plugins: [],
