@@ -1,5 +1,4 @@
 import SidebarItem from "@/components/sidebar/SidebarItem";
-import { type TFunction } from "next-intl";
 import { Shapes, Settings } from "@/libs/icons";
 
 export default function BusinessSidebarItems({
@@ -7,7 +6,7 @@ export default function BusinessSidebarItems({
   isExpanded,
   onClick,
 }: {
-  t: TFunction;
+  t: Function;
   isExpanded: boolean;
   onClick: () => void;
 }) {

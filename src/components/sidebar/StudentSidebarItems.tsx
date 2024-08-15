@@ -1,12 +1,12 @@
 import SidebarItem from "@/components/sidebar/SidebarItem";
-import { type TFunction } from "next-intl";
+import { Shapes } from "lucide-react";
 
 export default function StudentSidebarItems({
   t,
   isExpanded,
   onClick,
 }: {
-  t: TFunction;
+  t: Function;
   isExpanded: boolean;
   onClick: () => void;
 }) {

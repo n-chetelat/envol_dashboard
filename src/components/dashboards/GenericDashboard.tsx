@@ -2,10 +2,10 @@
 
 import useProfileType from "@/hooks/useProfileType";
 import { useTranslations } from "next-intl";
-import { Prisma, Profile } from "@prisma/client";
+import { ProfileWithProfileTypes } from "@/types";
 
 export default function GenericDashboard({ profile }: GenericDashboardProps) {
-  const { profileType, setProfileType } = useProfileType(profile);
+  const { profileType } = useProfileType(profile);
   const t = useTranslations("common");
   const td = useTranslations("dashboard");
 
@@ -19,5 +19,5 @@ export default function GenericDashboard({ profile }: GenericDashboardProps) {
 }
 
 type GenericDashboardProps = {
-  profile: Profile & Prisma.ProfileInclude;
+  profile: ProfileWithProfileTypes;
 };

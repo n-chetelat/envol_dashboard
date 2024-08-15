@@ -3,13 +3,13 @@
 import { useState, useCallback } from "react";
 import DashboardNavbar from "@/components/navbar/navbar/DashboardNavbar";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { Profile } from "@prisma/client";
 import { Suspense } from "react";
 import PageTransition from "@/components/transitions/PageTransition";
 import SpinnerLoader from "@/components/loaders/SpinnerLoader";
+import { ProfileWithProfileTypes } from "@/types";
 
 interface DashboardWrapperProps {
-  profile: Profile;
+  profile: ProfileWithProfileTypes;
   children: React.ReactNode;
 }
 

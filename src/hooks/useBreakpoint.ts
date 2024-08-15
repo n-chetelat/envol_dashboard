@@ -7,18 +7,17 @@ const breakpoints = { xs: "0px", ...fullConfig.theme.screens };
 
 type BreakpointKey = keyof typeof breakpoints;
 
+const breakpointEntries = Object.entries(breakpoints) as [
+  BreakpointKey,
+  string,
+][];
+const sortedBreakpoints = breakpointEntries.sort(
+  ([, a], [, b]) => parseInt(b) - parseInt(a),
+);
+
 export default function useBreakpoint() {
   const [currentBreakpoint, setCurrentBreakpoint] =
     useState<BreakpointKey>("xs");
-
-  const breakpointEntries = Object.entries(breakpoints) as [
-    BreakpointKey,
-    string,
-  ][];
-
-  const sortedBreakpoints = breakpointEntries.sort(
-    ([, a], [, b]) => parseInt(b) - parseInt(a),
-  );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -54,6 +53,6 @@ export default function useBreakpoint() {
     isXl: currentBreakpoint === "xl",
     is2Xl: currentBreakpoint === "2xl",
     breakpoints,
-    breakpointValue: (bp: BreakpointKey) => parseInt(breakpoints[bp]),
+    getBreakpointValue: (bp: BreakpointKey) => parseInt(breakpoints[bp]),
   };
 }

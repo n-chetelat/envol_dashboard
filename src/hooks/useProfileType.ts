@@ -1,21 +1,30 @@
 import { useState, useEffect } from "react";
-import { Profile, Prisma } from "@prisma/client";
+import { ProfileType, ProfileWithProfileTypes } from "@/types";
+
+// Bad assumptions: the profile will only have one type at a time,
+// and the order here is the "preferred" order.
+const computeProfileType = (
+  profile: ProfileWithProfileTypes | null,
+): ProfileType => {
+  if (profile?.businesses?.length) return "business";
+  if (profile?.instructors?.length) return "instructor";
+  if (profile?.students?.length) return "student";
+  return null;
+};
 
 export default function useProfileType(
-  profile: Profile & Prisma.ProfileInclude,
+  profile: ProfileWithProfileTypes | null,
 ) {
-  const [profileType, setProfileType] = useState<string | null>(null);
+  const [profileType, setProfileType] = useState<
+    "business" | "instructor" | "student" | null
+  >(computeProfileType(profile));
 
   useEffect(() => {
-    if (profile) {
-      if (profile.businesses?.length) setProfileType("business");
-      else if (profile.instructors?.length) setProfileType("instructor");
-      else if (profile.students?.length) setProfileType("student");
-      else setProfileType("none");
-    } else {
-      setProfileType(null);
+    const newType = computeProfileType(profile);
+    if (newType !== profileType) {
+      setProfileType(newType);
     }
-  }, [profile, profile?.students, profile?.instructors, profile?.businesses]);
+  }, [profile]);
 
   return { profileType, setProfileType };
 }
