@@ -9,8 +9,7 @@ import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems"
 import StudentSidebarItems from "@/components/sidebar/StudentSidebarItems";
 import { Gauge } from "@/libs/icons";
 import SidebarToggle from "@/components/sidebar/SidebarToggle";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "./../../../tailwind.config.js";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 interface SidebarProps {
   profile: Profile;
@@ -27,11 +26,10 @@ export default function Sidebar({
   isExpanded,
   toggleExpanded,
 }: SidebarProps) {
-  const { profileType } = useProfileType(profile);
   const t = useTranslations("dashboard");
   const ta = useTranslations("aria");
-  const fullTailwindConfig = resolveConfig(tailwindConfig);
-  const lgBreakpoint = parseInt(fullTailwindConfig.theme.screens.lg);
+  const { profileType } = useProfileType(profile);
+  const { currentBreakpoint, breakpointValue } = useBreakpoint();
 
   const getProfileSidebar = () => {
     const Component = profileSidebarMap[profileType] || null;
@@ -49,7 +47,7 @@ export default function Sidebar({
   };
 
   const handleItemClick = () => {
-    if (window.innerWidth < lgBreakpoint) {
+    if (breakpointValue(currentBreakpoint) < breakpointValue("lg")) {
       onClose();
     }
   };
