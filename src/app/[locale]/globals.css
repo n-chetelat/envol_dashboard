@@ -4,7 +4,8 @@
 
 :root {
   --navbar-height: 8rem;
-  --sidebar-width: 16rem;
+  --sidebar-width-expanded: 16rem;
+  --sidebar-width-collapsed: 4rem;
   --toastify-color-info: theme('colors.violet.DEFAULT');
   --toastify-color-success: theme('colors.success.DEFAULT');
   --toastify-color-error: theme('colors.error.DEFAULT');

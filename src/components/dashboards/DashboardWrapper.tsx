@@ -18,12 +18,15 @@ export default function DashboardWrapper({
   children,
 }: DashboardWrapperProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
-  const toggleSidebar = useCallback(
-    () => setIsSidebarOpen((prev) => !prev),
-    [],
-  );
   const closeSidebar = useCallback(() => setIsSidebarOpen(false), []);
+  const toggleSidebar = useCallback(() => {
+    setIsSidebarOpen((prev) => !prev);
+  }, []);
+  const toggleExpanded = useCallback(() => {
+    setIsExpanded((prev) => !prev);
+  }, []);
 
   return (
     <div className="flex h-screen flex-col">
@@ -33,6 +36,8 @@ export default function DashboardWrapper({
           profile={profile}
           isOpen={isSidebarOpen}
           onClose={closeSidebar}
+          isExpanded={isExpanded}
+          toggleExpanded={toggleExpanded}
         />
         {isSidebarOpen && (
           <div
@@ -41,7 +46,9 @@ export default function DashboardWrapper({
             aria-hidden="true"
           />
         )}
-        <main className="mt-[--navbar-height] flex-1 overflow-auto lg:pl-[--sidebar-width]">
+        <main
+          className={`mt-[--navbar-height] flex-1 overflow-auto transition-all duration-300 ease-in-out ${isExpanded ? "lg:pl-[--sidebar-width-expanded]" : "lg:pl-[--sidebar-width-collapsed]"}`}
+        >
           <Suspense fallback={<SpinnerLoader />}>
             <PageTransition>{children}</PageTransition>
           </Suspense>

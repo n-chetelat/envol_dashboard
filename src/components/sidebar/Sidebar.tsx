@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import useProfileType from "@/hooks/useProfileType";
 import { Profile } from "@prisma/client";
@@ -16,11 +15,18 @@ import tailwindConfig from "./../../../tailwind.config.js";
 interface SidebarProps {
   profile: Profile;
   isOpen: boolean;
+  isExpanded: boolean;
   onClose: () => void;
+  toggleExpanded: () => void;
 }
 
-export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
-  const [isExpanded, setIsExpanded] = useState(true);
+export default function Sidebar({
+  profile,
+  isOpen,
+  onClose,
+  isExpanded,
+  toggleExpanded,
+}: SidebarProps) {
   const { profileType } = useProfileType(profile);
   const t = useTranslations("dashboard");
   const ta = useTranslations("aria");
@@ -51,7 +57,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
   return (
     <nav
       className={`fixed top-0 w-72 bg-gray-200 transition-all duration-300 ease-in-out
-          ${isExpanded ? "lg:w-64" : "lg:w-16"}
+          ${isExpanded ? "lg:w-[--sidebar-width-expanded]" : "lg:w-[--sidebar-width-collapsed]"}
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           z-50
           h-full lg:top-[var(--navbar-height)] lg:translate-x-0`}
@@ -70,10 +76,7 @@ export default function Sidebar({ profile, isOpen, onClose }: SidebarProps) {
         )}
         {getProfileSidebar()}
         <div className="absolute -right-4 bottom-48 hidden lg:block ">
-          <SidebarToggle
-            isExpanded={isExpanded}
-            onClick={() => setIsExpanded(!isExpanded)}
-          />
+          <SidebarToggle isExpanded={isExpanded} onClick={toggleExpanded} />
         </div>
       </div>
     </nav>
