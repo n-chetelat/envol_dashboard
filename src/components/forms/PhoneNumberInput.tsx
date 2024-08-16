@@ -10,13 +10,14 @@ export default function PhoneNumberInput({
   errors,
   label,
   formControl,
+  required,
 }) {
   const [focused, setFocused] = useState<boolean>(false);
   return (
     <div className="flex w-full flex-col">
       <label>
         {label}
-        {inputParams.required && <span>*</span>}
+        {required && <span className="font-bold text-violet">*</span>}
       </label>
       <Controller
         name={inputParams.name}
@@ -38,7 +39,7 @@ export default function PhoneNumberInput({
           />
         )}
       />
-      <p className="text-error h-8">{errors?.message}</p>
+      <p className="h-8 text-error">{errors?.message}</p>
     </div>
   );
 }

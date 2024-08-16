@@ -12,6 +12,7 @@ import CheckboxInput from "@/components/forms/CheckboxInput";
 import { BusinessWithStripeAccount } from "@/types";
 import { createBusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
+import { isFieldRequired } from "@/libs/validation";
 
 interface BusinessFormProps {
   profileId: string;
@@ -92,30 +93,35 @@ export default function BusinessSettingsForm({
       </h1>
       <form className="flex flex-col items-center">
         <TextInput
-          inputParams={{ ...register("name", { required: true }) }}
+          inputParams={register("name")}
           errors={errors.name}
           label={t("common.name")}
+          required={isFieldRequired(BusinessSettingsFormSchema, "name")}
         />
         <TextInput
-          inputParams={{ ...register("bio", { required: true }) }}
+          inputParams={register("bio")}
           errors={errors.bio}
           label={t("common.bio")}
+          required={isFieldRequired(BusinessSettingsFormSchema, "bio")}
         />
         <TextInput
-          inputParams={{ ...register("contactEmail", { required: true }) }}
+          inputParams={register("contactEmail")}
           errors={errors.contactEmail}
           label={t("common.email")}
+          required={isFieldRequired(BusinessSettingsFormSchema, "contactEmail")}
         />
         <PhoneNumberInput
-          inputParams={{ ...register("phoneNumber", { required: true }) }}
+          inputParams={register("phoneNumber")}
           errors={errors.phoneNumber}
           label={t("common.phoneNumber")}
           formControl={control}
+          required={isFieldRequired(BusinessSettingsFormSchema, "phoneNumber")}
         />
         <CheckboxInput
-          inputParams={{ ...register("published") }}
+          inputParams={register("published")}
           errors={errors.published}
           label={t("settings.published")}
+          required={isFieldRequired(BusinessSettingsFormSchema, "published")}
         />
         <button
           className="btn-primary w-10/12"

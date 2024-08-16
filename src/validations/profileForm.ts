@@ -1,10 +1,9 @@
 import { z, ZodType } from "zod";
 import { Prisma } from "@prisma/client";
-import { LANGUAGES, PRONOUNS } from "@/constants";
 import { isPossiblePhoneNumber } from "react-phone-number-input";
 
-export const createProfileFormSchema = (translations) => {
-  const schema: ZodType<Prisma.ProfileCreateInput> = z.object({
+export const createProfileFormSchema = (translations: Function) => {
+  const schema: ZodType<Partial<Prisma.ProfileCreateInput>> = z.object({
     firstName: z
       .string()
       .min(1, {
@@ -21,7 +20,7 @@ export const createProfileFormSchema = (translations) => {
         }),
       })
       .trim(),
-    preferredName: z.string().trim(),
+    preferredName: z.string().trim().optional(),
     pronouns: z
       .array(z.string())
       .nonempty({ message: translations("errors.selectOptions") }),

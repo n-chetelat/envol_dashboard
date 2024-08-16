@@ -15,6 +15,7 @@ import { verifyToken } from "@/libs/tokens";
 import { PROFILE_TYPES } from "@/constants";
 import { Loader, CircleCheckBig } from "@/libs/icons";
 import RadioInput from "@/components/forms/RadioInput";
+import { isFieldRequired } from "@/libs/validation";
 
 export default function ProfileTypeForm({
   userEmail,
@@ -106,7 +107,7 @@ export default function ProfileTypeForm({
       </h1>
       <form className="flx w-full flex-col">
         <RadioInput
-          inputParams={{ ...register("profileType", { required: true }) }}
+          inputParams={register("profileType")}
           errors={errors.profileType}
           options={[
             {
@@ -124,6 +125,7 @@ export default function ProfileTypeForm({
           ]}
           size="lg"
           disabled={isValid || isValidating}
+          required={isFieldRequired(ProfileTypeFormSchema, "profileType")}
         />
 
         {[PROFILE_TYPES.INSTRUCTOR_TYPE, PROFILE_TYPES.BUSINESS_TYPE].includes(
@@ -131,12 +133,10 @@ export default function ProfileTypeForm({
         ) && (
           <div className="m-2 translate-y-4 animate-[fadeInUp_0.3s_ease-out_forwards] space-y-4 opacity-0 transition-all duration-300 ease-out">
             <TextInput
-              inputParams={{
-                ...register("token"),
-                required: true,
-              }}
+              inputParams={register("token")}
               errors={errors.token}
               label={t("profile.token")}
+              required={false}
             />
             <button
               type="button"

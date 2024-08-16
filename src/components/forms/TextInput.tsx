@@ -1,11 +1,17 @@
 "use client";
+import { InputProps } from "@/types";
 
-export default function TextInput({ inputParams, errors, label }) {
+export default function TextInput({
+  inputParams,
+  errors,
+  label,
+  required,
+}: InputProps) {
   return (
     <div className="flex w-full flex-col">
       <label>
         {label}
-        {inputParams.required && <span>*</span>}
+        {required && <span className="font-bold text-violet">*</span>}
       </label>
       <input
         className={`rounded border border-gray-300 px-2 py-1.5 outline-none hover:border-gray-400 focus:outline-offset-0 focus:outline-lilac ${errors ? "border-error" : ""}`}
@@ -14,7 +20,7 @@ export default function TextInput({ inputParams, errors, label }) {
         {...inputParams}
       />
 
-      <p className="text-error h-8">{errors?.message}</p>
+      <p className="h-8 text-error">{errors?.message}</p>
     </div>
   );
 }

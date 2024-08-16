@@ -15,6 +15,7 @@ interface RadioInputProps {
   size?: "sm" | "md" | "lg";
   label?: string;
   disabled?: boolean;
+  required: boolean;
 }
 
 const sizeClasses: Record<RadioInputProps["size"] & string, string> = {
@@ -30,6 +31,7 @@ export default function RadioInput({
   size = "md",
   label,
   disabled = false,
+  required,
 }: RadioInputProps) {
   const radioSizeClass = sizeClasses[size] || sizeClasses.md;
 
@@ -38,9 +40,7 @@ export default function RadioInput({
       <fieldset aria-disabled={disabled}>
         <legend className="mb-2 text-sm font-medium">
           {label}
-          {label && inputParams.required && (
-            <span className="text-error">*</span>
-          )}
+          {label && required && <span className="text-error">*</span>}
         </legend>
         {options.map((option) => (
           <div key={option.value} className="mb-2 flex items-center">
@@ -64,7 +64,7 @@ export default function RadioInput({
           </div>
         ))}
       </fieldset>
-      {errors && <p className="text-error mt-1 h-8">{errors?.message}</p>}
+      {errors && <p className="mt-1 h-8 text-error">{errors?.message}</p>}
     </div>
   );
 }

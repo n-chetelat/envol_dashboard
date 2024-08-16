@@ -1,6 +1,9 @@
 import { Prisma } from "@prisma/client";
+import { UseFormRegisterReturn, FieldError } from "react-hook-form";
 
 export { type ProfileType } from "@prisma/client";
+
+// Prisma
 
 export type ProfileWithProfileTypes = Prisma.ProfileGetPayload<{
   include: {
@@ -15,3 +18,12 @@ export type BusinessWithStripeAccount = Prisma.BusinessGetPayload<{
     stripeAccount: true;
   };
 }>;
+
+// Forms
+
+export type InputProps = {
+  inputParams: UseFormRegisterReturn;
+  errors: FieldError | undefined;
+  label: string;
+  required: boolean;
+};

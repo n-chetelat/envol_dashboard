@@ -1,6 +1,12 @@
 "use client";
 
-export default function CheckboxInput({ inputParams, errors, label }) {
+import { InputProps } from "@/types";
+export default function CheckboxInput({
+  inputParams,
+  errors,
+  label,
+  required,
+}: InputProps) {
   return (
     <div className="flex w-full flex-col">
       <div className="flex">
@@ -15,11 +21,11 @@ export default function CheckboxInput({ inputParams, errors, label }) {
 
         <label>
           {label}
-          {inputParams.required && <span>*</span>}
+          {required && <span className="font-bold text-violet">*</span>}
         </label>
       </div>
 
-      <p className="text-error h-8">{errors?.message}</p>
+      <p className="h-8 text-error">{errors?.message}</p>
     </div>
   );
 }

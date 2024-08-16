@@ -11,6 +11,7 @@ import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProfileFormSchema } from "@/validations/profileForm";
 import { StepComponentProps } from "@/components/stepper/Stepper";
+import { isFieldRequired } from "@/libs/validation";
 
 export default function ProfileForm({
   data,
@@ -68,33 +69,38 @@ export default function ProfileForm({
       <h3 className="my-4 text-center">{t("profile.description")}</h3>
       <form className="flex flex-col items-center">
         <TextInput
-          inputParams={{ ...register("firstName", { required: true }) }}
+          inputParams={register("firstName")}
           errors={errors.firstName}
           label={t("common.firstName")}
+          required={isFieldRequired(ProfileFormSchema, "firstName")}
         />
         <TextInput
-          inputParams={{ ...register("lastName", { required: true }) }}
+          inputParams={register("lastName")}
           errors={errors.lastName}
           label={t("common.lastName")}
+          required={isFieldRequired(ProfileFormSchema, "lastName")}
         />
         <TextInput
-          inputParams={{ ...register("preferredName") }}
+          inputParams={register("preferredName")}
           errors={errors.preferredName}
           label={t("common.preferredName")}
+          required={isFieldRequired(ProfileFormSchema, "preferredName")}
         />
         <MultiSelectInput<string>
-          inputParams={{ ...register("pronouns", { required: true }) }}
+          inputParams={register("pronouns")}
           errors={errors.pronouns}
           label={t("common.pronoun")}
           options={pronounSelectorOptions}
           formControl={control}
           placeholder={t("common.select")}
+          required={isFieldRequired(ProfileFormSchema, "pronouns")}
         />
         <PhoneNumberInput
-          inputParams={{ ...register("phoneNumber", { required: true }) }}
+          inputParams={register("phoneNumber")}
           errors={errors.phoneNumber}
           label={t("common.phoneNumber")}
           formControl={control}
+          required={isFieldRequired(ProfileFormSchema, "phoneNumber")}
         />
       </form>
     </div>

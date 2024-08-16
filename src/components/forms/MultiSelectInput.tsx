@@ -19,6 +19,7 @@ interface MultiSelectInputProps<T> {
   options: OptionType<T>[];
   placeholder: string;
   formControl: Control<any>;
+  required: boolean;
 }
 
 export default function MultiSelectInput<T>({
@@ -28,6 +29,7 @@ export default function MultiSelectInput<T>({
   options,
   placeholder,
   formControl,
+  required,
 }: MultiSelectInputProps<T>) {
   const selectId = useId();
 
@@ -71,7 +73,7 @@ export default function MultiSelectInput<T>({
     <div className="flex w-full flex-col">
       <label>
         {label}
-        {inputParams.required && <span>*</span>}
+        {required && <span className="font-bold text-violet">*</span>}
       </label>
       <Controller
         name={inputParams.name}
@@ -94,7 +96,7 @@ export default function MultiSelectInput<T>({
           />
         )}
       />
-      <p className="text-error h-8">{errors?.message}</p>
+      <p className="h-8 text-error">{errors?.message}</p>
     </div>
   );
 }
