@@ -6,10 +6,10 @@ import { Link } from "@/libs/navigation";
 import Image from "next/image";
 import AvatarMenu from "@/components/navbar/AvatarMenu";
 import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
-import { Profile } from "@prisma/client";
+import { ProfileWithProfileTypes } from "@/types";
 
 interface DashboardNavbarProps {
-  profile: Profile;
+  profile: ProfileWithProfileTypes | null;
   toggleMobileSidebar: () => void;
 }
 

@@ -1,12 +1,14 @@
+import { PROFILE_TYPES } from "@/constants";
+
 export const verifyToken = async (
   token: string,
   profileType: string,
   email: string,
 ) => {
   let result;
-  if (profileType === "business") {
+  if (profileType === PROFILE_TYPES.BUSINESS_TYPE) {
     result = await verifyBusinessToken(token, email);
-  } else if (profileType === "instructor") {
+  } else if (profileType === PROFILE_TYPES.INSTRUCTOR_TYPE) {
     result = await verifyInstructorToken(token, email);
   } else {
     throw new Error(`Invalid Token Type ${profileType}`);

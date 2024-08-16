@@ -9,7 +9,7 @@ import SpinnerLoader from "@/components/loaders/SpinnerLoader";
 import { ProfileWithProfileTypes } from "@/types";
 
 interface DashboardWrapperProps {
-  profile: ProfileWithProfileTypes;
+  profile: ProfileWithProfileTypes | null;
   children: React.ReactNode;
 }
 

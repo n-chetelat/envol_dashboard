@@ -52,9 +52,9 @@ export default function Sidebar({
   };
 
   const profileSidebarMap = {
-    business: BusinessSidebarItems,
-    instructor: InstructorSidebarItems,
-    student: StudentSidebarItems,
+    BUSINESS: BusinessSidebarItems,
+    INSTRUCTOR: InstructorSidebarItems,
+    STUDENT: StudentSidebarItems,
   };
 
   const handleItemClick = () => {

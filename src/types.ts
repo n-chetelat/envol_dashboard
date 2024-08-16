@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-export type ProfileType = "business" | "instructor" | "student" | null;
+export { type ProfileType } from "@prisma/client";
 
 export type ProfileWithProfileTypes = Prisma.ProfileGetPayload<{
   include: {

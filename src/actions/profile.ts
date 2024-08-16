@@ -1,23 +1,23 @@
 "use server";
 
 import prisma from "@/libs/prisma";
-import { currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 
 export const getUserProfile = async () => {
-  const user = await currentUser();
-  if (!user?.id) return null;
+  const { userId } = auth();
+  if (!userId) return null;
 
   return await prisma.profile.findFirst({
-    where: { userId: user.id },
+    where: { userId },
   });
 };
 
 export const getUserProfileWithProfileTypes = async () => {
-  const user = await currentUser();
-  if (!user?.id) return null;
+  const { userId } = auth();
+  if (!userId) return null;
 
   return await prisma.profile.findFirst({
-    where: { userId: user.id },
+    where: { userId },
     include: {
       students: true,
       instructors: true,

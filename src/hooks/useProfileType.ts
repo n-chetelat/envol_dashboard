@@ -5,19 +5,19 @@ import { ProfileType, ProfileWithProfileTypes } from "@/types";
 // and the order here is the "preferred" order.
 const computeProfileType = (
   profile: ProfileWithProfileTypes | null,
-): ProfileType => {
-  if (profile?.businesses?.length) return "business";
-  if (profile?.instructors?.length) return "instructor";
-  if (profile?.students?.length) return "student";
+): ProfileType | null => {
+  if (profile?.businesses?.length) return "BUSINESS";
+  if (profile?.instructors?.length) return "INSTRUCTOR";
+  if (profile?.students?.length) return "STUDENT";
   return null;
 };
 
 export default function useProfileType(
   profile: ProfileWithProfileTypes | null,
 ) {
-  const [profileType, setProfileType] = useState<
-    "business" | "instructor" | "student" | null
-  >(computeProfileType(profile));
+  const [profileType, setProfileType] = useState<ProfileType | null>(
+    computeProfileType(profile),
+  );
 
   useEffect(() => {
     const newType = computeProfileType(profile);

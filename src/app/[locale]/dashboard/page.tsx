@@ -15,7 +15,7 @@ export default async function DashboardPage({
 }) {
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
-  const user: User = await currentUser();
+  const user: User | null = await currentUser();
 
   if (!user) {
     redirect("/");

@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import DashboardWrapper from "@/components/dashboards/DashboardWrapper";
+import { ProfileWithProfileTypes } from "@/types";
 
 export async function generateMetadata({
   params: { locale },
@@ -28,24 +29,27 @@ export default async function DashboardLayout({
   };
 }>) {
   unstable_setRequestLocale(locale);
-  const { userId } = auth();
   const messages = await getMessages();
-  const profile = await prisma.profile.findFirst({
-    where: { userId },
-    include: {
-      students: true,
-      instructors: true,
-      businesses: true,
-    },
-  });
+  const { userId } = auth();
+  let profile = null;
+  if (userId) {
+    profile = await prisma.profile.findFirst({
+      where: { userId },
+      include: {
+        students: true,
+        instructors: true,
+        businesses: true,
+      },
+    });
+  }
 
   return (
     <>
-      {profile ? (
-        <NextIntlClientProvider messages={messages}>
-          <DashboardWrapper profile={profile}>{children}</DashboardWrapper>
-        </NextIntlClientProvider>
-      ) : null}
+      <NextIntlClientProvider messages={messages}>
+        <DashboardWrapper profile={profile as ProfileWithProfileTypes | null}>
+          {children}
+        </DashboardWrapper>
+      </NextIntlClientProvider>
     </>
   );
 }
