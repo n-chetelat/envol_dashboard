@@ -1,42 +1,32 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import prisma from "@/libs/prisma";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import StudentCourses from "@/components/dashboards/student/StudentCourses";
-import { Prisma, Student } from "@prisma/client";
+import prisma from "@/libs/prisma";
+import { ProfileWithProfileTypes } from "@/types";
+import { Student } from "@prisma/client";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 
-export default async function BusinessCoursesPage({
+export default async function StudentCoursesPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
-  const { userId } = auth();
 
-  if (!userId) {
-    redirect("/");
-  }
+  let profile: ProfileWithProfileTypes | null;
+  let student: Student | null;
 
-  type ProfileWithStudentProfile = Prisma.ProfileGetPayload<{
-    include: {
-      studentProfile: true;
-    };
-  }>;
+  try {
+    profile = await getUserProfileWithProfileTypes();
 
-  const profile: ProfileWithStudentProfile | null =
-    await prisma.profile.findFirst({
-      where: { userId },
-      include: {
-        studentProfile: true,
-      },
+    student = await prisma.student.findFirst({
+      where: { profileId: profile?.id },
     });
-
-  const student: Student | null = await prisma.student.findFirst({
-    where: { studentProfileId: profile?.studentProfile?.id },
-  });
+  } catch {
+    profile = null;
+    student = null;
+  }
 
   return (
     <div className="flex">

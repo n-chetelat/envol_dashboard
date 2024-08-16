@@ -1,12 +1,12 @@
-import { unstable_setRequestLocale } from "next-intl/server";
-import { redirect } from "next/navigation";
-import prisma from "@/libs/prisma";
-import { currentUser } from "@clerk/nextjs";
-import ProfileCreationStepper from "@/components/stepper/ProfileCreationStepper";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import GenericDashboard from "@/components/dashboards/GenericDashboard";
+import ProfileCreationStepper from "@/components/stepper/ProfileCreationStepper";
+import { ProfileWithProfileTypes } from "@/types";
+import { currentUser } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage({
   params: { locale },
@@ -21,14 +21,8 @@ export default async function DashboardPage({
     redirect("/");
   }
 
-  const profile = await prisma.profile.findFirst({
-    where: { userId: user.id },
-    include: {
-      students: true,
-      instructors: true,
-      businesses: true,
-    },
-  });
+  const profile: ProfileWithProfileTypes | null =
+    await getUserProfileWithProfileTypes();
 
   return (
     <>

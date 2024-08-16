@@ -1,10 +1,12 @@
-import { auth } from "@clerk/nextjs";
-import prisma from "@/libs/prisma";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import DashboardWrapper from "@/components/dashboards/DashboardWrapper";
 import { ProfileWithProfileTypes } from "@/types";
+import { NextIntlClientProvider } from "next-intl";
+import {
+  getMessages,
+  getTranslations,
+  unstable_setRequestLocale,
+} from "next-intl/server";
 
 export async function generateMetadata({
   params: { locale },
@@ -30,25 +32,13 @@ export default async function DashboardLayout({
 }>) {
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
-  const { userId } = auth();
-  let profile = null;
-  if (userId) {
-    profile = await prisma.profile.findFirst({
-      where: { userId },
-      include: {
-        students: true,
-        instructors: true,
-        businesses: true,
-      },
-    });
-  }
+  const profile: ProfileWithProfileTypes | null =
+    await getUserProfileWithProfileTypes();
 
   return (
     <>
       <NextIntlClientProvider messages={messages}>
-        <DashboardWrapper profile={profile as ProfileWithProfileTypes | null}>
-          {children}
-        </DashboardWrapper>
+        <DashboardWrapper profile={profile}>{children}</DashboardWrapper>
       </NextIntlClientProvider>
     </>
   );

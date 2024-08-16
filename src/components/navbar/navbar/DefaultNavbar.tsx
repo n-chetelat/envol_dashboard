@@ -1,27 +1,18 @@
-import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
-import { SignedIn } from "@clerk/nextjs";
-import { Link } from "@/libs/navigation";
-import Image from "next/image";
+import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import AvatarMenu from "@/components/navbar/AvatarMenu";
-import { auth } from "@clerk/nextjs";
-import prisma from "@/libs/prisma";
+import { Link } from "@/libs/navigation";
+import { ProfileWithProfileTypes } from "@/types";
+import { SignedIn } from "@clerk/nextjs";
+import Image from "next/image";
+import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
 
 export default async function DefaultNavbar() {
-  const { userId } = auth();
-
-  const getProfile = async () => {
-    if (userId) {
-      const profile = await prisma.profile.findFirst({
-        where: { userId },
-        include: {
-          students: true,
-          instructors: true,
-          businesses: true,
-        },
-      });
-      return profile;
-    }
-  };
+  let profile: ProfileWithProfileTypes | null;
+  try {
+    profile = await getUserProfileWithProfileTypes();
+  } catch {
+    profile = null;
+  }
 
   return (
     <nav className="fixed top-0 z-40 flex h-[--navbar-height] w-full flex-row justify-between bg-lilac p-6 shadow-sm">
@@ -37,7 +28,7 @@ export default async function DefaultNavbar() {
         <SignedIn>
           <p>|</p>
           <div className="m-4">
-            <AvatarMenu profile={getProfile()} />
+            <AvatarMenu profile={profile} />
           </div>
         </SignedIn>
       </div>
