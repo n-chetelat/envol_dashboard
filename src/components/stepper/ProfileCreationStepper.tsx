@@ -19,11 +19,13 @@ export default function ProfileCreationStepper({
     }
     const profileCreateInput: Prisma.ProfileCreateInput = {
       userId,
+      defaultDashboard: profileTypeData.profileType,
       ...profileData,
     };
     if (profileTypeData["tokenIsValid"] === true) {
       try {
         await createProfile(profileTypeData.profileType, profileCreateInput);
+        // TODO: Redirect to whatever specific dashboard for the profile type chosen
         router.replace("/dashboard");
       } catch (error) {
         // redirect to 500 error page

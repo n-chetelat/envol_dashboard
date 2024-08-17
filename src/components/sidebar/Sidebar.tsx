@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import useProfileType from "@/hooks/useProfileType";
 import { ProfileWithProfileTypes } from "@/libs/types";
 import SidebarItem from "@/components/sidebar/SidebarItem";
 import BusinessSidebarItems from "@/components/sidebar/BusinessSidebarItems";
@@ -28,7 +27,6 @@ export default function Sidebar({
 }: SidebarProps) {
   const t = useTranslations("dashboard");
   const ta = useTranslations("aria");
-  const { profileType } = useProfileType(profile);
   const { currentBreakpoint, getBreakpointValue } = useBreakpoint();
 
   const effectiveExpanded =
@@ -36,8 +34,8 @@ export default function Sidebar({
     isExpanded;
 
   const getProfileSidebar = () => {
-    if (profileType) {
-      const Component = profileSidebarMap[profileType];
+    if (profile?.defaultDashboard) {
+      const Component = profileSidebarMap[profile.defaultDashboard];
       return (
         Component && (
           <Component

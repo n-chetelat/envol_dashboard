@@ -35,9 +35,11 @@ export default function DashboardNavbar({
           <div className="m-4">
             <AvatarMenu profile={profile} />
           </div>
-          <div className="block lg:hidden">
-            <MobileMenuButton onToggleMenu={toggleMobileSidebar} />
-          </div>
+          {profile && (
+            <div className="block lg:hidden">
+              <MobileMenuButton onToggleMenu={toggleMobileSidebar} />
+            </div>
+          )}
         </SignedIn>
       </div>
     </nav>

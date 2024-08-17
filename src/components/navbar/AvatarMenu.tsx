@@ -1,11 +1,13 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import useProfileType from "@/hooks/useProfileType";
+import { ProfileWithProfileTypes } from "@/libs/types";
 
-export default function AvatarMenu({ profile }) {
-  const { profileType } = useProfileType(profile);
+interface AvatarMenuProps {
+  profile: ProfileWithProfileTypes;
+}
 
+export default function AvatarMenu({ profile }: AvatarMenuProps) {
   return (
     <UserButton
       appearance={{
@@ -14,7 +16,9 @@ export default function AvatarMenu({ profile }) {
         },
       }}
       userProfileMode="navigation"
-      userProfileUrl={`/dashboard/${profileType}/settings`}
+      userProfileUrl={
+        profile ? `/dashboard/${profile.defaultDashboard}/settings` : ""
+      }
       afterSignOutUrl="/"
     />
   );
