@@ -3,7 +3,6 @@ import { getBusiness, getBusnessCourseListings } from "@/actions/business";
 import { ProfileWithProfileTypes, Business, CourseListing } from "@/libs/types";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
-import BusinessCourses from "@/components/dashboards/business/BusinessCourses";
 
 export default async function BusinessCoursesPage({
   params: { locale },
@@ -36,11 +35,7 @@ export default async function BusinessCoursesPage({
     <div className="flex">
       {business && business.name ? (
         <NextIntlClientProvider messages={messages}>
-          <BusinessCourses
-            profile={profile}
-            business={business}
-            courseListings={courseListings}
-          />
+          <div>{JSON.stringify(courseListings)}</div>
         </NextIntlClientProvider>
       ) : (
         <p>

@@ -21,7 +21,8 @@ export async function POST(request: Request) {
     return Response.json(student);
   } catch (error) {
     let statusCode;
-    if (error.name === "PrismaClientValidationError") statusCode = 400;
+    if ((error as Error).name === "PrismaClientValidationError")
+      statusCode = 400;
     else statusCode = 500;
     return Response.json({ error }, { status: statusCode });
   }
