@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod";
-import { PROFILE_TYPES } from "@/constants";
+import { PROFILE_TYPES } from "@/libs/constants";
 
 export type ProfileTypeFormInput = {
   profileType: string;

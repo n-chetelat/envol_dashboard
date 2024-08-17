@@ -1,6 +1,6 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import DashboardWrapper from "@/components/dashboards/DashboardWrapper";
-import { ProfileWithProfileTypes } from "@/types";
+import { ProfileWithProfileTypes } from "@/libs/types";
 import { NextIntlClientProvider } from "next-intl";
 import {
   getMessages,

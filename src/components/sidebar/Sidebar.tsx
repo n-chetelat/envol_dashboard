@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import useProfileType from "@/hooks/useProfileType";
-import { ProfileWithProfileTypes } from "@/types";
+import { ProfileWithProfileTypes } from "@/libs/types";
 import SidebarItem from "@/components/sidebar/SidebarItem";
 import BusinessSidebarItems from "@/components/sidebar/BusinessSidebarItems";
 import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems";

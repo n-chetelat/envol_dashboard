@@ -1,6 +1,6 @@
 "use client";
 
-import { InputProps } from "@/types";
+import { InputProps } from "@/libs/types";
 export default function CheckboxInput({
   inputParams,
   errors,

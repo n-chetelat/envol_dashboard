@@ -1,7 +1,7 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import AvatarMenu from "@/components/navbar/AvatarMenu";
 import { Link } from "@/libs/navigation";
-import { ProfileWithProfileTypes } from "@/types";
+import { ProfileWithProfileTypes } from "@/libs/types";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";

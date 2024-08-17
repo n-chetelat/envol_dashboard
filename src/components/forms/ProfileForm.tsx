@@ -3,7 +3,7 @@
 import { useMemo, useEffect } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Prisma } from "@prisma/client";
-import { PRONOUNS } from "@/constants";
+import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";

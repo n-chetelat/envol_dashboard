@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ProfileType, ProfileWithProfileTypes } from "@/types";
+import { ProfileType, ProfileWithProfileTypes } from "@/libs/types";
 
 // Bad assumptions: the profile will only have one type at a time,
 // and the order here is the "preferred" order.

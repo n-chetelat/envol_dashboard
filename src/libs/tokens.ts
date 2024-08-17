@@ -1,4 +1,4 @@
-import { PROFILE_TYPES } from "@/constants";
+import { PROFILE_TYPES } from "@/libs/constants";
 
 export const verifyToken = async (
   token: string,

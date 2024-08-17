@@ -3,7 +3,7 @@
 import ProfileForm from "@/components/forms/ProfileForm";
 import ProfileTypeForm from "@/components/forms/ProfileTypeForm";
 import Stepper from "@/components/stepper/Stepper";
-import { PROFILE_TYPES } from "@/constants";
+import { PROFILE_TYPES } from "@/libs/constants";
 import { useRouter } from "@/libs/navigation";
 import { Prisma } from "@prisma/client";
 

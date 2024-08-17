@@ -1,10 +1,9 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
-import BusinessCourses from "@/components/dashboards/business/BusinessCourses";
-import prisma from "@/libs/prisma";
-import { ProfileWithProfileTypes } from "@/types";
-import { Business, CourseListing } from "@prisma/client";
+import { getBusiness, getBusnessCourseListings } from "@/actions/business";
+import { ProfileWithProfileTypes, Business, CourseListing } from "@/libs/types";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import BusinessCourses from "@/components/dashboards/business/BusinessCourses";
 
 export default async function BusinessCoursesPage({
   params: { locale },
@@ -14,21 +13,21 @@ export default async function BusinessCoursesPage({
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
 
-  let profile: ProfileWithProfileTypes | null;
-  let business: Business | null;
+  let profile: ProfileWithProfileTypes | null = null;
+  let business: Business | null = null;
   let courseListings: CourseListing[] = [];
 
   try {
     profile = await getUserProfileWithProfileTypes();
 
-    business = await prisma.business.findFirst({
-      where: { profileId: profile?.id },
-    });
+    if (profile) {
+      business = await getBusiness(profile.id);
 
-    courseListings = await prisma.courseListing.findMany({
-      where: { businessId: business?.id },
-    });
-  } catch {
+      if (business)
+        courseListings = await getBusnessCourseListings(business.id);
+    }
+  } catch (error) {
+    console.error(error);
     profile = null;
     business = null;
   }
@@ -45,7 +44,7 @@ export default async function BusinessCoursesPage({
         </NextIntlClientProvider>
       ) : (
         <p>
-          Please fill out your business profile under Settings before crating
+          Please fill out your business profile under Settings before creating
           your classes
         </p>
       )}

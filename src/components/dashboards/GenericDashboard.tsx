@@ -2,8 +2,8 @@
 
 import useProfileType from "@/hooks/useProfileType";
 import { useTranslations } from "next-intl";
-import { ProfileWithProfileTypes } from "@/types";
-import { PROFILE_TYPES } from "@/constants";
+import { ProfileWithProfileTypes } from "@/libs/types";
+import { PROFILE_TYPES } from "@/libs/constants";
 
 export default function GenericDashboard({ profile }: GenericDashboardProps) {
   const { profileType } = useProfileType(profile);

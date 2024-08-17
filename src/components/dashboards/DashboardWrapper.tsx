@@ -6,7 +6,7 @@ import Sidebar from "@/components/sidebar/Sidebar";
 import { Suspense } from "react";
 import PageTransition from "@/components/transitions/PageTransition";
 import SpinnerLoader from "@/components/loaders/SpinnerLoader";
-import { ProfileWithProfileTypes } from "@/types";
+import { ProfileWithProfileTypes } from "@/libs/types";
 
 interface DashboardWrapperProps {
   profile: ProfileWithProfileTypes | null;

@@ -1,7 +1,7 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import GenericDashboard from "@/components/dashboards/GenericDashboard";
 import ProfileCreationStepper from "@/components/stepper/ProfileCreationStepper";
-import { ProfileWithProfileTypes } from "@/types";
+import { ProfileWithProfileTypes } from "@/libs/types";
 import { currentUser } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 import { NextIntlClientProvider } from "next-intl";

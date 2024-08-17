@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { getUserProfile } from "@/actions/profile";
 import { getBusinessWithStripeAccount } from "@/actions/business";
-import { BusinessWithStripeAccount } from "@/types";
+import { BusinessWithStripeAccount } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";
 

@@ -6,7 +6,7 @@ import { Link } from "@/libs/navigation";
 import Image from "next/image";
 import AvatarMenu from "@/components/navbar/AvatarMenu";
 import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
-import { ProfileWithProfileTypes } from "@/types";
+import { ProfileWithProfileTypes } from "@/libs/types";
 
 interface DashboardNavbarProps {
   profile: ProfileWithProfileTypes | null;
