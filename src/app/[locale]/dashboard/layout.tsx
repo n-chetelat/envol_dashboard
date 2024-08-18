@@ -7,6 +7,7 @@ import {
   getTranslations,
   unstable_setRequestLocale,
 } from "next-intl/server";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params: { locale },
@@ -35,11 +36,13 @@ export default async function DashboardLayout({
   const profile: ProfileWithProfileTypes | null =
     await getUserProfileWithProfileTypes();
 
+  if (!profile) {
+    redirect("/profile_setup");
+  }
+
   return (
-    <>
-      <NextIntlClientProvider messages={messages}>
-        <DashboardWrapper profile={profile}>{children}</DashboardWrapper>
-      </NextIntlClientProvider>
-    </>
+    <NextIntlClientProvider messages={messages}>
+      <DashboardWrapper profile={profile}>{children}</DashboardWrapper>
+    </NextIntlClientProvider>
   );
 }

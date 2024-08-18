@@ -11,7 +11,7 @@ import SidebarToggle from "@/components/sidebar/SidebarToggle";
 import useBreakpoint from "@/hooks/useBreakpoint";
 
 interface SidebarProps {
-  profile: ProfileWithProfileTypes;
+  profile: ProfileWithProfileTypes | null;
   isOpen: boolean;
   isExpanded: boolean;
   onClose: () => void;

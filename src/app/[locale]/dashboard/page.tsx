@@ -1,25 +1,15 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
-import GenericDashboard from "@/components/dashboards/GenericDashboard";
+import { PROFILE_TYPES } from "@/libs/constants";
+import { redirect } from "@/libs/navigation";
 import { ProfileWithProfileTypes } from "@/libs/types";
-import { currentUser } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
-import { redirect } from "next/navigation";
+
+interface DashboardPageParams {
+  params: { locale: string };
+}
 
 export default async function DashboardPage({
   params: { locale },
-}: {
-  params: { locale: string };
-}) {
-  unstable_setRequestLocale(locale);
-  const messages = await getMessages();
-  const user: User | null = await currentUser();
-
-  if (!user) {
-    redirect("/");
-  }
-
+}: DashboardPageParams) {
   const profile: ProfileWithProfileTypes | null =
     await getUserProfileWithProfileTypes();
 
@@ -28,8 +18,16 @@ export default async function DashboardPage({
   }
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <GenericDashboard profile={profile} />
-    </NextIntlClientProvider>
+    <div>
+      {profile.defaultDashboard === PROFILE_TYPES.BUSINESS_TYPE && (
+        <div>The business dashboard</div>
+      )}
+      {profile.defaultDashboard === PROFILE_TYPES.INSTRUCTOR_TYPE && (
+        <div>The instructor dashboard</div>
+      )}
+      {profile.defaultDashboard === PROFILE_TYPES.STUDENT_TYPE && (
+        <div>The student dashboard</div>
+      )}
+    </div>
   );
 }
