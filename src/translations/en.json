@@ -48,6 +48,8 @@
     "validating": "Validating"
   },
   "errors": {
+    "wrong": "Something went wrong",
+    "pageNotFound": "Page not found",
     "invalidPhone": "Invalid phone number",
     "isRequired": "{field} is required",
     "selectOptions": "Select at least one option",

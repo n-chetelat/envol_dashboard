@@ -1,6 +1,8 @@
 import { clerkTheme } from "@/libs/clerk";
-import { getClerkLocale, locales } from "@/libs/i18n";
+import { getClerkLocale } from "@/libs/i18n";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { Lato, Baskervville } from "next/font/google";
 import CustomToastContainer from "@/components/toast/CustomToastContainer";
 import "./globals.css";
@@ -21,7 +23,7 @@ const baskervville = Baskervville({
   variable: "--font-serif",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: Readonly<{
@@ -30,20 +32,24 @@ export default function RootLayout({
     locale: string;
   };
 }>) {
+  unstable_setRequestLocale(locale);
+  const messages = await getMessages();
   return (
     <ClerkProvider
       appearance={clerkTheme}
       localization={getClerkLocale(locale)}
     >
-      <html
-        lang={locale}
-        className={`${lato.variable} ${baskervville.variable} mono`}
-      >
-        <body>
-          {children}
-          <CustomToastContainer />
-        </body>
-      </html>
+      <NextIntlClientProvider messages={messages}>
+        <html
+          lang={locale}
+          className={`${lato.variable} ${baskervville.variable} mono`}
+        >
+          <body>
+            {children}
+            <CustomToastContainer />
+          </body>
+        </html>
+      </NextIntlClientProvider>
     </ClerkProvider>
   );
 }

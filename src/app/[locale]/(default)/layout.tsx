@@ -1,4 +1,4 @@
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import DefaultNavbar from "@/components/navbar/navbar/DefaultNavbar";
 
 export async function generateMetadata({
@@ -23,8 +23,6 @@ export default function DefaultLayout({
     locale: string;
   };
 }>) {
-  unstable_setRequestLocale(locale);
-
   return (
     <>
       <DefaultNavbar />

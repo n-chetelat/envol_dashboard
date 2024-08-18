@@ -1,12 +1,7 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
 import DashboardWrapper from "@/components/dashboards/DashboardWrapper";
 import { ProfileWithProfileTypes } from "@/libs/types";
-import { NextIntlClientProvider } from "next-intl";
-import {
-  getMessages,
-  getTranslations,
-  unstable_setRequestLocale,
-} from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 export async function generateMetadata({
@@ -31,8 +26,6 @@ export default async function DashboardLayout({
     locale: string;
   };
 }>) {
-  unstable_setRequestLocale(locale);
-  const messages = await getMessages();
   const profile: ProfileWithProfileTypes | null =
     await getUserProfileWithProfileTypes();
 
@@ -40,9 +33,5 @@ export default async function DashboardLayout({
     redirect("/profile_setup");
   }
 
-  return (
-    <NextIntlClientProvider messages={messages}>
-      <DashboardWrapper profile={profile}>{children}</DashboardWrapper>
-    </NextIntlClientProvider>
-  );
+  return <DashboardWrapper profile={profile}>{children}</DashboardWrapper>;
 }

@@ -48,6 +48,8 @@
     "validating": "Validating - FR"
   },
   "errors": {
+    "wrong": "Something went wrong - FR",
+    "pageNotFound": "Page not found",
     "invalidPhone": "Invalid phone number - FR",
     "isRequired": "{field} is required - FR",
     "selectOptions": "Select at least one option - FR",
