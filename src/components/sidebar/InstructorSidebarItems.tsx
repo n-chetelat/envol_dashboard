@@ -1,5 +1,5 @@
 import SidebarItem from "@/components/sidebar/SidebarItem";
-import { Shapes } from "lucide-react";
+import { Shapes, Gauge } from "lucide-react";
 
 export default function InstructorSidebarItems({
   t,
@@ -12,6 +12,13 @@ export default function InstructorSidebarItems({
 }) {
   return (
     <>
+      <SidebarItem
+        href="/dashboard/instructor"
+        text={t("dashboard")}
+        icon={<Gauge />}
+        isExpanded={isExpanded}
+        onClick={onClick}
+      />
       <SidebarItem
         href="/dashboard/instructor/courses"
         text={t("classes")}

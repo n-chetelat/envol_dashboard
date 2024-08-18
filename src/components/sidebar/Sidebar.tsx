@@ -2,11 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { ProfileWithProfileTypes } from "@/libs/types";
-import SidebarItem from "@/components/sidebar/SidebarItem";
 import BusinessSidebarItems from "@/components/sidebar/BusinessSidebarItems";
 import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems";
 import StudentSidebarItems from "@/components/sidebar/StudentSidebarItems";
-import { Gauge } from "@/libs/icons";
 import SidebarToggle from "@/components/sidebar/SidebarToggle";
 import useBreakpoint from "@/hooks/useBreakpoint";
 
@@ -72,15 +70,6 @@ export default function Sidebar({
       role="navigation"
     >
       <div>
-        {profile && (
-          <SidebarItem
-            href="/dashboard"
-            text={t("dashboard")}
-            icon={<Gauge />}
-            isExpanded={effectiveExpanded}
-            onClick={handleItemClick}
-          />
-        )}
         {getProfileSidebar()}
         <div className="absolute -right-4 bottom-48 hidden lg:block ">
           <SidebarToggle
