@@ -25,9 +25,7 @@ export default function ProfileCreationStepper({
     if (profileTypeData["tokenIsValid"] === true) {
       try {
         await createProfile(profileTypeData.profileType, profileCreateInput);
-        router.replace(
-          `/dashboard/${profileTypeData.profileType}`.toLocaleLowerCase(),
-        );
+        router.replace("/dashboard");
       } catch (error) {
         // redirect to 500 error page
         console.error("Error while creating profile:");

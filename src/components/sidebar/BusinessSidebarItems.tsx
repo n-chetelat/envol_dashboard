@@ -13,7 +13,7 @@ export default function BusinessSidebarItems({
   return (
     <>
       <SidebarItem
-        href="/dashboard/business"
+        href="/dashboard"
         text={t("dashboard")}
         icon={<Gauge />}
         isExpanded={isExpanded}

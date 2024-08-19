@@ -13,7 +13,7 @@ export default function InstructorSidebarItems({
   return (
     <>
       <SidebarItem
-        href="/dashboard/instructor"
+        href="/dashboard"
         text={t("dashboard")}
         icon={<Gauge />}
         isExpanded={isExpanded}

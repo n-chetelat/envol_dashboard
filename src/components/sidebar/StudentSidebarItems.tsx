@@ -13,7 +13,7 @@ export default function StudentSidebarItems({
   return (
     <>
       <SidebarItem
-        href="/dashboard/student"
+        href="/dashboard"
         text={t("dashboard")}
         icon={<Gauge />}
         isExpanded={isExpanded}
