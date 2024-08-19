@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import React from "react";
 
-const PageTransition = ({ children }) => (
+const PageTransition = ({ children }: { children: React.ReactNode }) => (
   <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}

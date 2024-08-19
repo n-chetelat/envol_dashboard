@@ -19,9 +19,9 @@ export const getUserProfileWithProfileTypes = async () => {
   return await prisma.profile.findFirst({
     where: { userId },
     include: {
-      students: true,
-      instructors: true,
-      businesses: true,
+      student: true,
+      instructor: true,
+      business: true,
     },
   });
 };

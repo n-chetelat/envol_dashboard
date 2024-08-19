@@ -13,8 +13,8 @@ export {
 
 export type ProfileWithProfileTypes = Prisma.ProfileGetPayload<{
   include: {
-    businesses: true;
-    instructors: true;
+    business: true;
+    instructor: true;
     students: true;
   };
 }>;

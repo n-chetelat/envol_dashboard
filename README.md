@@ -51,4 +51,11 @@ npx prisma format # Clean up schema file
 npx prisma generate # Create types for TypeScript
 npx prisma db push # Migrate database
 npx prisma studio # Open studio UI in browser
+npx prisma db seed
+```
+
+### How to make a db backup
+
+```bash
+pg_dump "postgres://<username>:<password>@<dbname>" -f backup.dump
 ```
