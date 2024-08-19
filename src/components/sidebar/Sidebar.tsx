@@ -1,31 +1,24 @@
 "use client";
 
+import clsx from "clsx";
 import { useTranslations } from "next-intl";
-import { ProfileWithProfileTypes } from "@/libs/types";
 import BusinessSidebarItems from "@/components/sidebar/BusinessSidebarItems";
 import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems";
 import StudentSidebarItems from "@/components/sidebar/StudentSidebarItems";
 import SidebarToggle from "@/components/sidebar/SidebarToggle";
 import useBreakpoint from "@/hooks/useBreakpoint";
+import { useDashboardContext } from "@/contexts/DashboardContext";
 
 interface SidebarProps {
-  profile: ProfileWithProfileTypes | null;
-  isOpen: boolean;
-  isExpanded: boolean;
-  onClose: () => void;
-  toggleExpanded: () => void;
+  className?: string;
 }
 
-export default function Sidebar({
-  profile,
-  isOpen,
-  onClose,
-  isExpanded,
-  toggleExpanded,
-}: SidebarProps) {
+export default function Sidebar({ className }: SidebarProps) {
   const t = useTranslations("dashboard");
   const ta = useTranslations("aria");
   const { currentBreakpoint, getBreakpointValue } = useBreakpoint();
+  const { profile, isSidebarOpen, closeSidebar, isExpanded, toggleExpanded } =
+    useDashboardContext();
 
   const effectiveExpanded =
     getBreakpointValue(currentBreakpoint) < getBreakpointValue("lg") ||
@@ -55,17 +48,18 @@ export default function Sidebar({
 
   const handleItemClick = () => {
     if (getBreakpointValue(currentBreakpoint) < getBreakpointValue("lg")) {
-      onClose();
+      closeSidebar();
     }
   };
 
   return (
     <nav
-      className={`fixed top-0 w-72 bg-gray-200 transition-all duration-300 ease-in-out
+      className={clsx(
+        ` h-full w-72 bg-gray-200 transition-all duration-300 ease-in-out 
           ${effectiveExpanded ? "lg:w-[--sidebar-width-expanded]" : "lg:w-[--sidebar-width-collapsed]"}
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          z-50
-          h-full lg:top-[var(--navbar-height)] lg:translate-x-0`}
+          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`,
+        className,
+      )}
       aria-label={ta("dashboardNavigation")}
       role="navigation"
     >

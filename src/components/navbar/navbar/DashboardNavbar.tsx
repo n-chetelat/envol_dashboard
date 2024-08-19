@@ -6,17 +6,10 @@ import { Link } from "@/libs/navigation";
 import Image from "next/image";
 import AvatarMenu from "@/components/navbar/AvatarMenu";
 import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
-import { ProfileWithProfileTypes } from "@/libs/types";
+import { useDashboardContext } from "@/contexts/DashboardContext";
 
-interface DashboardNavbarProps {
-  profile: ProfileWithProfileTypes | null;
-  toggleMobileSidebar: () => void;
-}
-
-export default function DashboardNavbar({
-  profile,
-  toggleMobileSidebar,
-}: DashboardNavbarProps) {
+export default function DashboardNavbar() {
+  const { profile, toggleSidebar } = useDashboardContext();
   return (
     <nav className="fixed top-0 z-40 flex h-[--navbar-height] w-full flex-row justify-between bg-lilac p-6 shadow-sm">
       <div className="flex items-center">
@@ -37,7 +30,7 @@ export default function DashboardNavbar({
           </div>
           {profile && (
             <div className="block lg:hidden">
-              <MobileMenuButton onToggleMenu={toggleMobileSidebar} />
+              <MobileMenuButton onToggleMenu={toggleSidebar} />
             </div>
           )}
         </SignedIn>

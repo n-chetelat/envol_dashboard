@@ -1,8 +1,14 @@
 import { getUserProfileWithProfileTypes } from "@/actions/profile";
-import DashboardWrapper from "@/components/dashboards/DashboardWrapper";
+import DashboardNavbar from "@/components/navbar/navbar/DashboardNavbar";
+import { Suspense } from "react";
+import SpinnerLoader from "@/components/loaders/SpinnerLoader";
+import Sidebar from "@/components/sidebar/Sidebar";
+import DashboardContent from "@/components/dashboards/DashboardContent";
+import DashboardOverlay from "@/components/dashboards/DashboardOverlay";
 import { ProfileWithProfileTypes } from "@/libs/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
+import { DashboardProvider } from "@/contexts/DashboardContext";
 
 export async function generateMetadata({
   params: { locale },
@@ -33,5 +39,20 @@ export default async function DashboardLayout({
     redirect("/profile_setup");
   }
 
-  return <DashboardWrapper profile={profile}>{children}</DashboardWrapper>;
+  return (
+    <DashboardProvider profile={profile}>
+      <div className="flex h-screen flex-col">
+        <DashboardNavbar />
+        <div className="flex flex-1 overflow-hidden">
+          <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height)]" />
+          <DashboardOverlay />
+          <Suspense fallback={<SpinnerLoader />}>
+            <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto ">
+              {children}
+            </DashboardContent>
+          </Suspense>
+        </div>
+      </div>
+    </DashboardProvider>
+  );
 }
