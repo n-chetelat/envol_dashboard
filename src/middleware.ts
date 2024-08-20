@@ -7,7 +7,7 @@ const PUBLIC_PAGES = [
   "/:locale",
   "/:locale/sign-in",
   "/:locale/sign-up",
-  "/sing-in",
+  "/sign-in",
 ];
 
 const i18nMiddleware = createIntlMiddleware({

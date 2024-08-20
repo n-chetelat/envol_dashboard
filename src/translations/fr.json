@@ -49,7 +49,7 @@
   },
   "errors": {
     "wrong": "Something went wrong - FR",
-    "pageNotFound": "Page not found",
+    "pageNotFound": "Page not found - FR",
     "invalidPhone": "Invalid phone number - FR",
     "isRequired": "{field} is required - FR",
     "selectOptions": "Select at least one option - FR",
