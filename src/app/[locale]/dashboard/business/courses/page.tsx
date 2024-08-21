@@ -1,5 +1,5 @@
-import { getUserProfileWithProfileTypes } from "@/actions/profile";
-import { getBusiness, getBusnessCourseListings } from "@/actions/business";
+import { getUserProfileWithProfileTypes } from "@/queries/profile";
+import { getBusiness, getBusnessCourseListings } from "@/queries/business";
 import { ProfileWithProfileTypes, Business, CourseListing } from "@/libs/types";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";

@@ -1,4 +1,4 @@
-import { getUserProfileWithProfileTypes } from "@/actions/profile";
+import { getUserProfileWithProfileTypes } from "@/queries/profile";
 import { redirect } from "@/libs/navigation";
 import { ProfileWithProfileTypes } from "@/libs/types";
 import { PROFILE_TYPES } from "@/libs/constants";

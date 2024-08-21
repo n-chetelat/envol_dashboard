@@ -1,4 +1,4 @@
-import { getUserProfileWithProfileTypes } from "@/actions/profile";
+import { getUserProfileWithProfileTypes } from "@/queries/profile";
 import AvatarMenu from "@/components/navbar/AvatarMenu";
 import { Link } from "@/libs/navigation";
 import { ProfileWithProfileTypes } from "@/libs/types";
