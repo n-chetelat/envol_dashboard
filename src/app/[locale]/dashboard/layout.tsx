@@ -9,6 +9,9 @@ import { ProfileWithProfileTypes } from "@/libs/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { DashboardProvider } from "@/contexts/DashboardContext";
+import { auth } from "@clerk/nextjs";
+
+export const revalidate = 3600; // revalidate cached data at most every hour
 
 export async function generateMetadata({
   params: { locale },
@@ -32,9 +35,12 @@ export default async function DashboardLayout({
     locale: string;
   };
 }>) {
+  const { userId } = auth();
+  if (!userId) {
+    redirect("/");
+  }
   const profile: ProfileWithProfileTypes | null =
-    await getUserProfileWithProfileTypes();
-
+    await getUserProfileWithProfileTypes(userId);
   if (!profile) {
     redirect("/profile_setup");
   }

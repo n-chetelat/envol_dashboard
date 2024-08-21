@@ -5,13 +5,17 @@ import { ProfileWithProfileTypes } from "@/libs/types";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
+import { auth } from "@clerk/nextjs";
 
 export default async function DefaultNavbar() {
-  let profile: ProfileWithProfileTypes | null;
-  try {
-    profile = await getUserProfileWithProfileTypes();
-  } catch {
-    profile = null;
+  const { userId } = auth();
+  if (!userId) {
+    redirect("/");
+  }
+  const profile: ProfileWithProfileTypes | null =
+    await getUserProfileWithProfileTypes(userId);
+  if (!profile) {
+    redirect("/profile_setup");
   }
 
   return (

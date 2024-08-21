@@ -49,7 +49,6 @@ export default function RadioInput({
               type="radio"
               value={option.value}
               className={`mr-2 ${radioSizeClass} cursor-pointer appearance-none rounded-full border-2 border-gray-300 transition-all duration-200 checked:border-0 checked:border-violet checked:bg-violet focus:shadow-radio-ring-focus focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50`}
-              aria-invalid={errors ? "true" : "false"}
               disabled={disabled}
               {...inputParams}
             />

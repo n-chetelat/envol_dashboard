@@ -7,6 +7,7 @@ import { getBusinessWithStripeAccount } from "@/queries/business";
 import { BusinessWithStripeAccount } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";
+import { auth } from "@clerk/nextjs";
 
 export default async function BusinessSettingsPage({
   locale,
@@ -16,8 +17,10 @@ export default async function BusinessSettingsPage({
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
 
-  const profile = await getUserProfile();
-  if (!profile) {
+  let profile;
+  const { userId } = auth();
+  if (userId) profile = await getUserProfile(userId);
+  if (!userId || !profile) {
     redirect("/");
   }
 

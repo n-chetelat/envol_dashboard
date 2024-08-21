@@ -15,7 +15,7 @@ export type ProfileWithProfileTypes = Prisma.ProfileGetPayload<{
   include: {
     business: true;
     instructor: true;
-    students: true;
+    student: true;
   };
 }>;
 
