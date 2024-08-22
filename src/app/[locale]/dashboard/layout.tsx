@@ -9,7 +9,7 @@ import { ProfileWithProfileTypes } from "@/libs/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { DashboardProvider } from "@/contexts/DashboardContext";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export const revalidate = 3600; // revalidate cached data at most every hour
 

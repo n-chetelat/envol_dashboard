@@ -1,5 +1,5 @@
 import ProfileCreationStepper from "@/components/stepper/ProfileCreationStepper";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@clerk/nextjs/server";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";

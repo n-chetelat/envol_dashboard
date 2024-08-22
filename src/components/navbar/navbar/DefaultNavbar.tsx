@@ -1,23 +1,10 @@
-import { getUserProfileWithProfileTypes } from "@/queries/profile";
-import AvatarMenu from "@/components/navbar/AvatarMenu";
+import SignOutButton from "@/components/navbar/SignOutButton";
 import { Link } from "@/libs/navigation";
-import { ProfileWithProfileTypes } from "@/libs/types";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
 import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
-import { auth } from "@clerk/nextjs";
 
 export default async function DefaultNavbar() {
-  const { userId } = auth();
-  if (!userId) {
-    redirect("/");
-  }
-  const profile: ProfileWithProfileTypes | null =
-    await getUserProfileWithProfileTypes(userId);
-  if (!profile) {
-    redirect("/profile_setup");
-  }
-
   return (
     <nav className="fixed top-0 z-40 flex h-[--navbar-height] w-full flex-row justify-between bg-lilac p-6 shadow-sm">
       <div className="relative w-48">
@@ -32,7 +19,7 @@ export default async function DefaultNavbar() {
         <SignedIn>
           <p>|</p>
           <div className="m-4">
-            <AvatarMenu profile={profile} />
+            <SignOutButton />
           </div>
         </SignedIn>
       </div>

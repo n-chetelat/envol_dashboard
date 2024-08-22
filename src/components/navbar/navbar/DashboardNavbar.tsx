@@ -4,12 +4,12 @@ import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
 import { SignedIn } from "@clerk/nextjs";
 import { Link } from "@/libs/navigation";
 import Image from "next/image";
-import AvatarMenu from "@/components/navbar/AvatarMenu";
+import SignOutButton from "@/components/navbar/SignOutButton";
 import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 
 export default function DashboardNavbar() {
-  const { profile, toggleSidebar } = useDashboardContext();
+  const { toggleSidebar } = useDashboardContext();
   return (
     <nav className="fixed top-0 z-40 flex h-[--navbar-height] w-full flex-row justify-between bg-lilac p-6 shadow-sm">
       <div className="flex items-center">
@@ -26,13 +26,12 @@ export default function DashboardNavbar() {
         <SignedIn>
           <p>|</p>
           <div className="m-4">
-            <AvatarMenu profile={profile} />
+            <SignOutButton />
           </div>
-          {profile && (
-            <div className="block lg:hidden">
-              <MobileMenuButton onToggleMenu={toggleSidebar} />
-            </div>
-          )}
+
+          <div className="block lg:hidden">
+            <MobileMenuButton onToggleMenu={toggleSidebar} />
+          </div>
         </SignedIn>
       </div>
     </nav>

@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/libs/utils";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 
 interface DashboardContentProps {
@@ -16,7 +16,7 @@ export default function DashboardContent({
 
   return (
     <main
-      className={clsx(
+      className={cn(
         `transition-all duration-300 ease-in-out ${
           isExpanded
             ? "lg:pl-[--sidebar-width-expanded]"

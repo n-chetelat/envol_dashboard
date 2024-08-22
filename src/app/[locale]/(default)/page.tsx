@@ -2,7 +2,7 @@ import { Link } from "@/libs/navigation";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export default function Home({
   params: { locale },

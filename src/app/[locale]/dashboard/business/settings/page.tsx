@@ -7,7 +7,7 @@ import { getBusinessWithStripeAccount } from "@/queries/business";
 import { BusinessWithStripeAccount } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function BusinessSettingsPage({
   locale,

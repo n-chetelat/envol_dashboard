@@ -3,7 +3,7 @@ import { getBusiness, getBusnessCourseListings } from "@/queries/business";
 import { ProfileWithProfileTypes, Business, CourseListing } from "@/libs/types";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "@/libs/navigation";
 
 export default async function BusinessCoursesPage({

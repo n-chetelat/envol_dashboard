@@ -1,8 +1,7 @@
-import { z, ZodType } from "zod";
-import { Prisma } from "@prisma/client";
+import { z } from "zod";
 import { isPossiblePhoneNumber } from "react-phone-number-input";
 
-export const createBusinessSettingsFormSchema = (translations) => {
+export const createBusinessSettingsFormSchema = (translations: Function) => {
   return z.object({
     name: z
       .string()

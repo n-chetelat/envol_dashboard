@@ -5,7 +5,7 @@ import { PROFILE_TYPES } from "@/libs/constants";
 import BusinessDashboard from "@/components/dashboards/BusinessDashboard";
 import InstructorDashboard from "@/components/dashboards/InstructorDashboard";
 import StudentDashboard from "@/components/dashboards/StudentDashboard";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 interface DashboardPageParams {
   params: { locale: string };

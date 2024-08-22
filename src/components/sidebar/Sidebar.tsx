@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/libs/utils";
 import { useTranslations } from "next-intl";
 import BusinessSidebarItems from "@/components/sidebar/BusinessSidebarItems";
 import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems";
@@ -54,7 +54,7 @@ export default function Sidebar({ className }: SidebarProps) {
 
   return (
     <nav
-      className={clsx(
+      className={cn(
         ` h-full w-72 bg-gray-200 transition-all duration-300 ease-in-out 
           ${effectiveExpanded ? "lg:w-[--sidebar-width-expanded]" : "lg:w-[--sidebar-width-collapsed]"}
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`,
