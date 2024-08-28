@@ -1,5 +1,5 @@
 import { getUserProfileWithProfileTypes } from "@/queries/profile";
-import DashboardNavbar from "@/components/navbar/navbar/DashboardNavbar";
+import Navbar from "@/components/navbar/navbar/Navbar";
 import { Suspense } from "react";
 import SpinnerLoader from "@/components/loaders/SpinnerLoader";
 import Sidebar from "@/components/sidebar/Sidebar";
@@ -48,7 +48,7 @@ export default async function DashboardLayout({
   return (
     <DashboardProvider profile={profile}>
       <div className="flex h-screen flex-col">
-        <DashboardNavbar />
+        <Navbar isDashboard={true} />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height)]" />
           <DashboardOverlay />

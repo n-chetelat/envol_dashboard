@@ -2,9 +2,14 @@ import SignOutButton from "@/components/navbar/SignOutButton";
 import { Link } from "@/libs/navigation";
 import { SignedIn } from "@clerk/nextjs";
 import Image from "next/image";
-import LocaleSwitcher from "../localeSwitcher/LocaleSwitcher";
+import LocaleSwitcher from "@/components/navbar/localeSwitcher/LocaleSwitcher";
+import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
 
-export default async function DefaultNavbar() {
+type NavbarProps = {
+  isDashboard?: boolean;
+};
+
+export default async function tNavbar({ isDashboard }: NavbarProps) {
   return (
     <nav className="fixed top-0 z-40 flex h-[--navbar-height] w-full flex-row justify-between bg-lilac p-6 shadow-sm">
       <div className="relative w-48">
@@ -21,6 +26,11 @@ export default async function DefaultNavbar() {
           <div className="m-4">
             <SignOutButton />
           </div>
+          {isDashboard && (
+            <div className="block p-2 lg:hidden">
+              <MobileMenuButton />
+            </div>
+          )}
         </SignedIn>
       </div>
     </nav>
