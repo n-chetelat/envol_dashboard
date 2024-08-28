@@ -74,6 +74,7 @@ export default function ProfileCreationStepper({
     await fetch("/api/businesses", {
       method: "POST",
       body: JSON.stringify({ profileId }),
+      next: { tags: ["business"] },
     });
   };
 

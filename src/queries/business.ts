@@ -14,6 +14,7 @@ export const getBusiness = unstable_cache(
     });
   },
   ["business"],
+  { tags: ["business"] },
 );
 
 export const getBusinessWithStripeAccount = unstable_cache(
@@ -25,7 +26,8 @@ export const getBusinessWithStripeAccount = unstable_cache(
       },
     });
   },
-  ["business-with-stripe-account"],
+  ["business"],
+  { tags: ["business"] },
 );
 
 export const getBusnessCourseListings = unstable_cache(
@@ -34,5 +36,6 @@ export const getBusnessCourseListings = unstable_cache(
       where: { businessId },
     });
   },
-  ["business-with-course-listings"],
+  ["business"],
+  { tags: ["business"] },
 );
