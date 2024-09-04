@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
 import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,18 +12,21 @@ import {
 import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
 import MultiSelectInput from "@/components/forms/MultiSelectInput";
+import Button from "@/components/forms/Button";
 import { isFieldRequired } from "@/libs/validation";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import { translateError } from "@/libs/utils";
 
 export default function ProfileForm() {
   const t = useTranslations();
-  const te = (keyErrors) => translateError(t, keyErrors);
-  const isRequired = isFieldRequired.bind(ProfileFormSchema);
+  const te = (keyErrors: FieldError | undefined) =>
+    translateError(t, keyErrors);
+  const isRequired = (fieldName: string) =>
+    isFieldRequired(ProfileFormSchema, fieldName);
   const { profile } = useDashboardContext();
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
     control,
     handleSubmit,
   } = useForm<ProfileFormSchemaType>({
@@ -87,9 +90,9 @@ export default function ProfileForm() {
         formControl={control}
         required={isRequired("phoneNumber")}
       />
-      <button className="btn-primary" disabled={!isValid} type="button">
+      <Button isValid={isValid} isSubmitting={isSubmitting}>
         {t("common.submit")}
-      </button>
+      </Button>
     </form>
   );
 }

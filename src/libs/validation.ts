@@ -4,7 +4,7 @@ type InferShape<T> = T extends z.ZodType<infer R> ? R : never;
 
 export const isFieldRequired = <T extends z.ZodType<any>>(
   schema: T,
-  fieldName: keyof InferShape<T>,
+  fieldName: string,
 ): boolean => {
   if (!schema || !fieldName) return false;
 

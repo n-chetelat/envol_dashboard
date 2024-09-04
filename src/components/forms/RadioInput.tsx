@@ -11,7 +11,7 @@ interface Option {
 interface RadioInputProps {
   options: Option[];
   inputParams: UseFormRegisterReturn;
-  errors?: FieldError;
+  errors?: Partial<FieldError> | undefined;
   size?: "sm" | "md" | "lg";
   label?: string;
   disabled?: boolean;

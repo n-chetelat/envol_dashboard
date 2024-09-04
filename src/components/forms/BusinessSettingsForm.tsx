@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
@@ -26,8 +26,10 @@ export default function BusinessSettingsForm({
   business,
 }: BusinessFormProps) {
   const t = useTranslations();
-  const te = (keyErrors) => translateError(t, keyErrors);
-  const isRequired = isFieldRequired.bind(BusinessSettingsFormSchema);
+  const te = (keyErrors: FieldError | undefined) =>
+    translateError(t, keyErrors);
+  const isRequired = (fieldName: string) =>
+    isFieldRequired(BusinessSettingsFormSchema, fieldName);
   const {
     register,
     formState: { errors, isValid },

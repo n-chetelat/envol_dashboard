@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
@@ -27,8 +27,10 @@ export default function ProfileCreationForm({
   onDataChange,
 }: StepComponentProps & ProfileTypeFormProps) {
   const t = useTranslations();
-  const te = (keyErrors) => translateError(t, keyErrors);
-  const isRequired = isFieldRequired.bind(ProfileFormSchema);
+  const te = (keyErrors: FieldError | undefined) =>
+    translateError(t, keyErrors);
+  const isRequired = (fieldName: string) =>
+    isFieldRequired(ProfileFormSchema, fieldName);
   const {
     getFieldState,
     trigger,
@@ -46,7 +48,7 @@ export default function ProfileCreationForm({
   useEffect(() => {
     // Update form values when data prop changes
     Object.entries(data).forEach(([key, value]) => {
-      setValue(key as keyof Prisma.ProfileCreateInput, value);
+      setValue(key as keyof ProfileFormSchemaType, value as string);
     });
     // Validate contents of pronoun array as value is seemingly non-reactive
     if (getFieldState("pronouns").isDirty) {

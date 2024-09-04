@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -16,6 +16,7 @@ import { PROFILE_TYPES } from "@/libs/constants";
 import { Loader, CircleCheckBig } from "@/libs/icons";
 import RadioInput from "@/components/forms/RadioInput";
 import { isFieldRequired } from "@/libs/validation";
+import { translateError } from "@/libs/utils";
 
 export default function ProfileTypeForm({
   userEmail,
@@ -24,6 +25,8 @@ export default function ProfileTypeForm({
   onDataChange,
 }: StepComponentProps & ProfileTypeFormProps) {
   const t = useTranslations();
+  const te = (keyErrors: FieldError | undefined) =>
+    translateError(t, keyErrors);
   const {
     trigger,
     register,
@@ -65,7 +68,7 @@ export default function ProfileTypeForm({
   }, [watch, onValidityChange, getValues]);
 
   useEffect(() => {
-    const subscription = watch((value) => onDataChange(value));
+    const subscription = watch((value: unknown) => onDataChange(value));
     return () => subscription.unsubscribe();
   }, [watch, onDataChange]);
 
@@ -107,7 +110,7 @@ export default function ProfileTypeForm({
       <form className="flx w-full flex-col">
         <RadioInput
           inputParams={register("profileType")}
-          errors={errors.profileType}
+          errors={te(errors.profileType)}
           options={[
             {
               value: PROFILE_TYPES.STUDENT_TYPE,
@@ -133,7 +136,7 @@ export default function ProfileTypeForm({
           <div className="m-2 translate-y-4 animate-[fadeInUp_0.3s_ease-out_forwards] space-y-4 opacity-0 transition-all duration-300 ease-out">
             <TextInput
               inputParams={register("token")}
-              errors={errors.token}
+              errors={te(errors.token)}
               label={t("profile.token")}
               required={false}
             />

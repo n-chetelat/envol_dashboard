@@ -14,7 +14,7 @@ type OptionType<T> = {
 // Update the props interface to use generics
 interface MultiSelectInputProps<T> {
   inputParams: any;
-  errors: FieldError | undefined;
+  errors: Partial<FieldError> | undefined;
   label: string;
   options: OptionType<T>[];
   placeholder: string;

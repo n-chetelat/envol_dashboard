@@ -30,7 +30,7 @@ export type BusinessWithStripeAccount = Prisma.BusinessGetPayload<{
 
 export type InputProps = {
   inputParams: UseFormRegisterReturn;
-  errors: FieldError | undefined;
+  errors: Partial<FieldError> | undefined;
   label: string;
   required: boolean;
 };
