@@ -1,30 +1,21 @@
 import SidebarItem from "@/components/sidebar/SidebarItem";
-import { Shapes, Gauge } from "lucide-react";
+import { Shapes, Gauge, CircleUserRound } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-export default function StudentSidebarItems({
-  t,
-  isExpanded,
-  onClick,
-}: {
-  t: Function;
-  isExpanded: boolean;
-  onClick: () => void;
-}) {
+export default function StudentSidebarItems() {
+  const t = useTranslations("dashboard");
   return (
     <>
+      <SidebarItem href="/dashboard" text={t("dashboard")} icon={<Gauge />} />
       <SidebarItem
-        href="/dashboard"
-        text={t("dashboard")}
-        icon={<Gauge />}
-        isExpanded={isExpanded}
-        onClick={onClick}
+        href="/dashboard/profile"
+        text={t("profile")}
+        icon={<CircleUserRound />}
       />
       <SidebarItem
         href="/dashboard/student/courses"
         text={t("classes")}
         icon={<Shapes />}
-        isExpanded={isExpanded}
-        onClick={onClick}
       />
     </>
   );

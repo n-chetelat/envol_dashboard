@@ -1,6 +1,6 @@
 "use client";
 
-import ProfileForm from "@/components/forms/ProfileForm";
+import ProfileCreationForm from "@/components/forms/ProfileCreationForm";
 import ProfileTypeForm from "@/components/forms/ProfileTypeForm";
 import Stepper from "@/components/stepper/Stepper";
 import { PROFILE_TYPES } from "@/libs/constants";
@@ -82,7 +82,7 @@ export default function ProfileCreationStepper({
     <Stepper onComplete={handleProfileStepperComplete}>
       {
         // @ts-ignore: Ignore missing props. They are added in Stepper component.
-        <ProfileForm />
+        <ProfileCreationForm />
       }
       {
         // @ts-ignore: Ignore missing props. They are added in Stepper component.

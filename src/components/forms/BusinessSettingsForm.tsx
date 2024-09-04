@@ -2,17 +2,19 @@
 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Prisma, Business } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
+import {
+  BusinessSettingsFormSchema,
+  BusinessSettingsFormSchemaType,
+} from "@/validations/businessSettingsForm";
 import CheckboxInput from "@/components/forms/CheckboxInput";
 import { BusinessWithStripeAccount } from "@/libs/types";
-import { createBusinessSettingsFormSchema } from "@/validations/businessSettingsForm";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
+import { translateError } from "@/libs/utils";
 
 interface BusinessFormProps {
   profileId: string;
@@ -24,15 +26,15 @@ export default function BusinessSettingsForm({
   business,
 }: BusinessFormProps) {
   const t = useTranslations();
-  const BusinessSettingsFormSchema = createBusinessSettingsFormSchema(t);
+  const te = (keyErrors) => translateError(t, keyErrors);
+  const isRequired = isFieldRequired.bind(BusinessSettingsFormSchema);
   const {
     register,
-    handleSubmit,
     formState: { errors, isValid },
     control,
     reset,
     getValues,
-  } = useForm<Prisma.BusinessCreateInput>({
+  } = useForm<BusinessSettingsFormSchemaType>({
     defaultValues: business
       ? {
           name: business.name || "",
@@ -94,34 +96,34 @@ export default function BusinessSettingsForm({
       <form className="flex flex-col items-center">
         <TextInput
           inputParams={register("name")}
-          errors={errors.name}
+          errors={te(errors.name)}
           label={t("common.name")}
-          required={isFieldRequired(BusinessSettingsFormSchema, "name")}
+          required={isRequired("name")}
         />
         <TextInput
           inputParams={register("bio")}
-          errors={errors.bio}
+          errors={te(errors.bio)}
           label={t("common.bio")}
-          required={isFieldRequired(BusinessSettingsFormSchema, "bio")}
+          required={isRequired("bio")}
         />
         <TextInput
           inputParams={register("contactEmail")}
-          errors={errors.contactEmail}
+          errors={te(errors.contactEmail)}
           label={t("common.email")}
-          required={isFieldRequired(BusinessSettingsFormSchema, "contactEmail")}
+          required={isRequired("contactEmail")}
         />
         <PhoneNumberInput
           inputParams={register("phoneNumber")}
-          errors={errors.phoneNumber}
+          errors={te(errors.phoneNumber)}
           label={t("common.phoneNumber")}
           formControl={control}
-          required={isFieldRequired(BusinessSettingsFormSchema, "phoneNumber")}
+          required={isRequired("phoneNumber")}
         />
         <CheckboxInput
           inputParams={register("published")}
-          errors={errors.published}
+          errors={te(errors.published)}
           label={t("settings.published")}
-          required={isFieldRequired(BusinessSettingsFormSchema, "published")}
+          required={isRequired("published")}
         />
         <button
           className="btn-primary w-10/12"

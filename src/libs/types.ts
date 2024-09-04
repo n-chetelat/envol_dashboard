@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { UseFormRegisterReturn, FieldError } from "react-hook-form";
 
 export {
+  type Profile,
   type ProfileType,
   type Business,
   type Instructor,

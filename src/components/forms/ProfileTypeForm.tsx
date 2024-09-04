@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  createProfileTypeFormSchema,
-  type ProfileTypeFormInput,
+  ProfileTypeFormSchema,
+  type ProfileTypeFormType,
 } from "@/validations/profileTypeForm";
 import { StepComponentProps } from "@/components/stepper/Stepper";
 import { useTranslations } from "next-intl";
@@ -24,7 +24,6 @@ export default function ProfileTypeForm({
   onDataChange,
 }: StepComponentProps & ProfileTypeFormProps) {
   const t = useTranslations();
-  const ProfileTypeFormSchema = createProfileTypeFormSchema(t);
   const {
     trigger,
     register,
@@ -32,7 +31,7 @@ export default function ProfileTypeForm({
     watch,
     setValue,
     getValues,
-  } = useForm<ProfileTypeFormInput>({
+  } = useForm<ProfileTypeFormType>({
     resolver: zodResolver(ProfileTypeFormSchema),
     mode: "onChange",
     defaultValues: data, // Set default values from the passed data
@@ -47,10 +46,10 @@ export default function ProfileTypeForm({
   // Update form values when data prop changes
   useEffect(() => {
     Object.entries(data).forEach(([key, value]) => {
-      const currentValue = getValues(key as keyof ProfileTypeFormInput);
+      const currentValue = getValues(key as keyof ProfileTypeFormType);
       if (currentValue !== value) {
         // Update value for validation purposes
-        setValue(key as keyof ProfileTypeFormInput, value as any);
+        setValue(key as keyof ProfileTypeFormType, value as any);
         // Update value for data tracking purposes
         data[key] = value;
       }

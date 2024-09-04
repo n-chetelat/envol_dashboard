@@ -12,4 +12,5 @@ export {
   Shapes,
   Settings,
   LoaderPinwheel,
+  CircleUserRound,
 } from "lucide-react";

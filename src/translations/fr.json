@@ -52,7 +52,7 @@
     "wrong": "Something went wrong - FR",
     "pageNotFound": "Page not found - FR",
     "invalidPhone": "Invalid phone number - FR",
-    "isRequired": "{field} is required - FR",
+    "Required": "Field is required - FR",
     "selectOptions": "Select at least one option - FR",
     "invalidToken": "Invalid token - FR",
     "invalidEmail": "Enter a valid email - FR",
@@ -62,7 +62,8 @@
     "saved": "Your information was saved successfully. - FR"
   },
   "aria": {
-    "dashboardNavigation": "Dashboard navigation - FR"
+    "dashboardNavigation": "Dashboard navigation - FR",
+    "toggleMobileMenu": "Toggle mobile menu - FR"
   },
   "home": {
     "subtitle": "Envol offers booking solutions - FR",
@@ -84,7 +85,8 @@
   "dashboard": {
     "dashboard": "Tableau de bord",
     "classes": "Cours",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "profile": "Profile - FR"
   },
   "settings": {
     "createStripe": "Se connecter à Stripe",

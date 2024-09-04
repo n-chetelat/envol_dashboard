@@ -52,7 +52,7 @@
     "wrong": "Something went wrong",
     "pageNotFound": "Page not found",
     "invalidPhone": "Invalid phone number",
-    "isRequired": "{field} is required",
+    "Required": "Field is required",
     "selectOptions": "Select at least one option",
     "invalidToken": "Invalid token",
     "invalidEmail": "Enter a valid email",
@@ -62,7 +62,8 @@
     "saved": "Your information was saved successfully."
   },
   "aria": {
-    "dashboardNavigation": "Dashboard navigation"
+    "dashboardNavigation": "Dashboard navigation",
+    "toggleMobileMenu": "Toggle mobile menu"
   },
   "home": {
     "subtitle": "Envol offers booking solutions",
@@ -84,7 +85,8 @@
   "dashboard": {
     "dashboard": "Dashboard",
     "classes": "Classes",
-    "settings": "Settings"
+    "settings": "Settings",
+    "profile": "Profile"
   },
   "settings": {
     "createStripe": "Connect to Stripe",

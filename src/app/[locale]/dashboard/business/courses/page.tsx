@@ -1,8 +1,7 @@
 import { getUserProfileWithProfileTypes } from "@/queries/profile";
 import { getBusiness, getBusnessCourseListings } from "@/queries/business";
 import { ProfileWithProfileTypes, Business, CourseListing } from "@/libs/types";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "@/libs/navigation";
 
@@ -12,7 +11,6 @@ export default async function BusinessCoursesPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  const messages = await getMessages();
 
   const { userId } = auth();
   if (!userId) {
@@ -41,9 +39,7 @@ export default async function BusinessCoursesPage({
   return (
     <div className="flex">
       {business && business.name ? (
-        <NextIntlClientProvider messages={messages}>
-          <div>{JSON.stringify(courseListings)}</div>
-        </NextIntlClientProvider>
+        <div>{JSON.stringify(courseListings)}</div>
       ) : (
         <p>
           Please fill out your business profile under Settings before creating

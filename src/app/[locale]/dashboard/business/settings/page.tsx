@@ -1,7 +1,5 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 import { getUserProfile } from "@/queries/profile";
 import { getBusinessWithStripeAccount } from "@/queries/business";
 import { BusinessWithStripeAccount } from "@/libs/types";
@@ -15,7 +13,6 @@ export default async function BusinessSettingsPage({
   locale: string;
 }) {
   unstable_setRequestLocale(locale);
-  const messages = await getMessages();
 
   let profile;
   const { userId } = auth();
@@ -31,17 +28,13 @@ export default async function BusinessSettingsPage({
     <div className="flex flex-col">
       {profile && business && (
         <div className="m-4 flex justify-center">
-          <NextIntlClientProvider messages={messages}>
-            <BusinessSettingsForm profileId={profile.id} business={business} />
-          </NextIntlClientProvider>
+          <BusinessSettingsForm profileId={profile.id} business={business} />
         </div>
       )}
 
       {business && business.name && (
         <div className="m-4 flex justify-center">
-          <NextIntlClientProvider messages={messages}>
-            <StripeConnectForm business={business} />
-          </NextIntlClientProvider>
+          <StripeConnectForm business={business} />
         </div>
       )}
     </div>
