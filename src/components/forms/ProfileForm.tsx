@@ -13,6 +13,7 @@ import TextInput from "@/components/forms/TextInput";
 import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
 import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import Button from "@/components/forms/Button";
+import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
 import { useDashboardContext } from "@/contexts/DashboardContext";
 import { translateError } from "@/libs/utils";
@@ -32,6 +33,15 @@ export default function ProfileForm() {
   } = useForm<ProfileFormSchemaType>({
     resolver: zodResolver(ProfileFormSchema),
     mode: "onChange",
+    defaultValues: profile
+      ? {
+          firstName: profile.firstName || "",
+          lastName: profile.lastName || "",
+          preferredName: profile.preferredName || "",
+          pronouns: profile.pronouns || [],
+          phoneNumber: profile.phoneNumber || "",
+        }
+      : {},
   });
 
   const pronounSelectorOptions = useMemo(() => {
@@ -49,6 +59,22 @@ export default function ProfileForm() {
       pronouns: formData.pronouns,
       phoneNumber: formData.phoneNumber,
     };
+
+    try {
+      const response = await fetch(`/api/profiles/${profile?.id}`, {
+        method: "PUT",
+        body: JSON.stringify(profileData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save profile");
+      } else {
+        showSuccessToast(t("success.saved"));
+      }
+    } catch (error) {
+      showErrorToast(t("errors.failedToSave"));
+      console.log(error);
+    }
   };
 
   return (
@@ -76,7 +102,7 @@ export default function ProfileForm() {
       />
       <MultiSelectInput<string>
         inputParams={register("pronouns")}
-        errors={te(errors.pronouns)}
+        errors={te(errors.pronouns as FieldError)}
         label={t("common.pronoun")}
         options={pronounSelectorOptions}
         formControl={control}

@@ -43,6 +43,7 @@ export default function ProfileCreationStepper({
     const response = await fetch("/api/profiles", {
       method: "POST",
       body: JSON.stringify(profileCreateData),
+      next: { tags: ["profile"] },
     });
     const profile = await response.json();
     if (profileType === PROFILE_TYPES.STUDENT_TYPE) {
@@ -60,6 +61,7 @@ export default function ProfileCreationStepper({
     await fetch("/api/students", {
       method: "POST",
       body: JSON.stringify({ profileId }),
+      next: { tags: ["student"] },
     });
   };
 
@@ -67,6 +69,7 @@ export default function ProfileCreationStepper({
     await fetch("/api/instructors", {
       method: "POST",
       body: JSON.stringify({ profileId }),
+      next: { tags: ["instructor"] },
     });
   };
 

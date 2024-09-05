@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Select, { StylesConfig, MultiValue, GroupBase } from "react-select";
 import { Controller, Control, FieldError } from "react-hook-form";
 import { useId } from "react";

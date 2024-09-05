@@ -1,4 +1,3 @@
-import React from "react";
 import { Loader } from "@/libs/icons";
 import { useTranslations } from "next-intl";
 
@@ -8,7 +7,11 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-export default function Button({ isValid, isSubmitting, children }) {
+export default function Button({
+  isValid,
+  isSubmitting,
+  children,
+}: ButtonProps) {
   const t = useTranslations("common");
   return (
     <button
