@@ -7,6 +7,7 @@ import InstructorSidebarItems from "@/components/sidebar/InstructorSidebarItems"
 import StudentSidebarItems from "@/components/sidebar/StudentSidebarItems";
 import SidebarToggle from "@/components/sidebar/SidebarToggle";
 import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useProfile } from "@/store/ProfileProvider";
 
 interface SidebarProps {
   className?: string;
@@ -14,7 +15,8 @@ interface SidebarProps {
 
 export default function Sidebar({ className }: SidebarProps) {
   const ta = useTranslations("aria");
-  const { profile, isSidebarOpen, toggleExpanded, effectiveExpanded } =
+  const profile = useProfile()((state) => state.profile);
+  const { isSidebarOpen, toggleExpanded, effectiveExpanded } =
     useDashboardContext();
 
   const getProfileSidebar = () => {

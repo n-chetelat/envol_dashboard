@@ -2,27 +2,18 @@
 
 import { createContext, useContext } from "react";
 import { useDashboardState } from "@/hooks/useDashboardState";
-import { ProfileWithProfileTypes } from "@/libs/types";
 
-type DashboardContextType = ReturnType<typeof useDashboardState> & {
-  profile: ProfileWithProfileTypes | null;
-};
+type DashboardContextType = ReturnType<typeof useDashboardState>;
 
 const DashboardContext = createContext<DashboardContextType | undefined>(
   undefined,
 );
 
-export function DashboardProvider({
-  children,
-  profile,
-}: {
-  children: React.ReactNode;
-  profile: ProfileWithProfileTypes | null;
-}) {
+export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const dashboardState = useDashboardState();
 
   return (
-    <DashboardContext.Provider value={{ ...dashboardState, profile }}>
+    <DashboardContext.Provider value={{ ...dashboardState }}>
       {children}
     </DashboardContext.Provider>
   );

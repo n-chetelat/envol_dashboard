@@ -15,7 +15,7 @@ import MultiSelectInput from "@/components/forms/MultiSelectInput";
 import Button from "@/components/forms/Button";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
-import { useDashboardContext } from "@/contexts/DashboardContext";
+import { useProfile } from "@/store/ProfileProvider";
 import { translateError } from "@/libs/utils";
 
 export default function ProfileForm() {
@@ -24,7 +24,10 @@ export default function ProfileForm() {
     translateError(t, keyErrors);
   const isRequired = (fieldName: string) =>
     isFieldRequired(ProfileFormSchema, fieldName);
-  const { profile } = useDashboardContext();
+  const [profile, setProfile] = useProfile()((state) => [
+    state.profile,
+    state.setProfile,
+  ]);
   const {
     register,
     formState: { errors, isValid, isSubmitting },
@@ -69,6 +72,7 @@ export default function ProfileForm() {
       if (!response.ok) {
         throw new Error("Failed to save profile");
       } else {
+        setProfile(await response.json());
         showSuccessToast(t("success.saved"));
       }
     } catch (error) {

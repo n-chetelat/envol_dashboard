@@ -9,6 +9,11 @@ export async function PUT(
     const profile = await prisma.profile.update({
       where: { id: params.id },
       data,
+      include: {
+        student: true,
+        instructor: true,
+        business: true,
+      },
     });
     return Response.json(profile);
   } catch (error) {

@@ -9,7 +9,7 @@ import { ProfileWithProfileTypes } from "@/libs/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { DashboardProvider } from "@/contexts/DashboardContext";
-import { auth } from "@clerk/nextjs/server";
+import { ProfileProvider } from "@/store/ProfileProvider";
 
 export const revalidate = 3600; // revalidate cached data at most every hour
 
@@ -35,28 +35,26 @@ export default async function DashboardLayout({
     locale: string;
   };
 }>) {
-  const { userId } = auth();
-  if (!userId) {
-    redirect("/");
-  }
-  const profile: ProfileWithProfileTypes | null = await getProfile(userId);
+  const profile: ProfileWithProfileTypes | null = await getProfile();
   if (!profile) {
     redirect("/profile_setup");
   }
 
   return (
-    <DashboardProvider profile={profile}>
+    <DashboardProvider>
       <div className="flex h-screen flex-col">
         <Navbar isDashboard={true} />
-        <div className="flex flex-1 overflow-hidden">
-          <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height)]" />
-          <DashboardOverlay />
-          <Suspense fallback={<SpinnerLoader />}>
-            <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto ">
-              {children}
-            </DashboardContent>
-          </Suspense>
-        </div>
+        <ProfileProvider profile={profile}>
+          <div className="flex flex-1 overflow-hidden">
+            <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height)]" />
+            <DashboardOverlay />
+            <Suspense fallback={<SpinnerLoader />}>
+              <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto ">
+                {children}
+              </DashboardContent>
+            </Suspense>
+          </div>
+        </ProfileProvider>
       </div>
     </DashboardProvider>
   );

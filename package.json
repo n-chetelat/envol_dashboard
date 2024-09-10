@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@clerk/localizations": "^1.26.16",
-    "@clerk/nextjs": "^5.3.3",
+    "@clerk/nextjs": "^5.4.1",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.14.0",
     "clsx": "^2.1.1",
@@ -29,7 +29,8 @@
     "react-tooltip": "^5.28.0",
     "stripe": "^14.21.0",
     "tailwind-merge": "^2.5.2",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@types/node": "^20.16.1",

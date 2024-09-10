@@ -5,7 +5,6 @@ import { PROFILE_TYPES } from "@/libs/constants";
 import BusinessDashboard from "@/components/dashboards/BusinessDashboard";
 import InstructorDashboard from "@/components/dashboards/InstructorDashboard";
 import StudentDashboard from "@/components/dashboards/StudentDashboard";
-import { auth } from "@clerk/nextjs/server";
 
 interface DashboardPageParams {
   params: { locale: string };
@@ -14,12 +13,7 @@ interface DashboardPageParams {
 export default async function DashboardPage({
   params: { locale },
 }: DashboardPageParams) {
-  const { userId } = auth();
-  if (!userId) {
-    redirect("/");
-  }
-  let profile: ProfileWithProfileTypes | null = null;
-  if (userId) profile = await getProfile(userId);
+  const profile: ProfileWithProfileTypes | null = await getProfile();
   if (!profile) {
     redirect("/profile_setup");
   }

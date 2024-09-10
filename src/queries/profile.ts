@@ -1,16 +1,17 @@
 import prisma from "@/libs/prisma";
-import { unstable_cache } from "next/cache";
+import { auth } from "@clerk/nextjs/server";
 
-export const getProfile = unstable_cache(
-  async (userId: string) => {
-    return await prisma.profile.findFirst({
-      where: { userId },
-      include: {
-        student: true,
-        instructor: true,
-        business: true,
-      },
-    });
-  },
-  ["profile-with-profile-types"],
-);
+export const getProfile = async () => {
+  const { userId } = auth();
+  if (!userId) {
+    return null;
+  }
+  return await prisma.profile.findFirst({
+    where: { userId },
+    include: {
+      student: true,
+      instructor: true,
+      business: true,
+    },
+  });
+};
