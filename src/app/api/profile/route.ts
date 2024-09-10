@@ -3,22 +3,23 @@ import { auth } from "@clerk/nextjs/server";
 
 export async function POST(request: Request) {
   const profileData = await request.json();
+  const { userId } = auth();
   let profile;
 
-  // Ensure no profile already exists for this user
-  profile = await prisma.profile.findFirst({
-    where: { userId: profileData.userId },
-  });
-  if (profile) {
-    return Response.json(
-      { error: "A profile already exists for this user." },
-      { status: 400 },
-    );
-  }
-
   try {
+    // Ensure no profile already exists for this user
+    profile = await prisma.profile.findFirst({
+      where: { userId: userId || "" },
+    });
+    if (profile) {
+      return Response.json(
+        { error: "A profile already exists for this user." },
+        { status: 400 },
+      );
+    }
+
     profile = await prisma.profile.create({
-      data: profileData,
+      data: { ...profileData, userId },
     });
     return Response.json(profile);
   } catch (error) {

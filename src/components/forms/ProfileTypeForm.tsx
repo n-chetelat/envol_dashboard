@@ -17,9 +17,9 @@ import { Loader, CircleCheckBig } from "@/libs/icons";
 import RadioInput from "@/components/forms/RadioInput";
 import { isFieldRequired } from "@/libs/validation";
 import { translateError } from "@/libs/utils";
+import { useUser } from "@clerk/nextjs";
 
 export default function ProfileTypeForm({
-  userEmail,
   data,
   onValidityChange,
   onDataChange,
@@ -40,6 +40,8 @@ export default function ProfileTypeForm({
     defaultValues: data, // Set default values from the passed data
   });
   const [isValidating, setIsValidating] = useState<boolean>(false);
+  const { user } = useUser();
+  const userEmail = user?.primaryEmailAddress?.emailAddress;
 
   // Register a value for token validation without making an input field for it
   useEffect(() => {
@@ -169,6 +171,5 @@ export default function ProfileTypeForm({
 }
 
 type ProfileTypeFormProps = {
-  userEmail: string;
   data: Partial<Prisma.ProfileCreateInput>;
 };

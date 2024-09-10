@@ -5,20 +5,17 @@ import ProfileTypeForm from "@/components/forms/ProfileTypeForm";
 import Stepper from "@/components/stepper/Stepper";
 import { PROFILE_TYPES } from "@/libs/constants";
 import { useRouter } from "@/libs/navigation";
-import { Prisma } from "@prisma/client";
+import { createProfile as createProfileAction } from "@/queries/profile";
+import { ProfileFormSchemaType } from "@/validations/profileForm";
 
-export default function ProfileCreationStepper({
-  userId,
-  userEmail,
-}: ProfileCreationStepperProps) {
+export default function ProfileCreationStepper() {
   const router = useRouter();
   const handleProfileStepperComplete = async (data: any) => {
     const [profileData, profileTypeData] = data;
     if (profileTypeData.profileType === PROFILE_TYPES.STUDENT_TYPE) {
       profileTypeData["tokenIsValid"] = true;
     }
-    const profileCreateInput: Prisma.ProfileCreateInput = {
-      userId,
+    const profileCreateInput: ProfileFormSchemaType = {
       defaultDashboard: profileTypeData.profileType,
       ...profileData,
     };
@@ -27,7 +24,6 @@ export default function ProfileCreationStepper({
         await createProfile(profileTypeData.profileType, profileCreateInput);
         router.replace("/dashboard");
       } catch (error) {
-        // redirect to 500 error page
         console.error("Error while creating profile:");
         console.error(error);
       }
@@ -38,22 +34,21 @@ export default function ProfileCreationStepper({
 
   const createProfile = async (
     profileType: string,
-    profileCreateData: Prisma.ProfileCreateInput,
+    profileCreateData: ProfileFormSchemaType,
   ) => {
-    const response = await fetch("/api/profile", {
-      method: "POST",
-      body: JSON.stringify(profileCreateData),
-      next: { tags: ["profile"] },
-    });
-    const profile = await response.json();
-    if (profileType === PROFILE_TYPES.STUDENT_TYPE) {
-      await createStudent(profile.id);
-    } else if (profileType === PROFILE_TYPES.INSTRUCTOR_TYPE) {
-      await createInstructor(profile.id);
-    } else if (profileType === PROFILE_TYPES.BUSINESS_TYPE) {
-      await createBusiness(profile.id);
+    const profile = await createProfileAction(profileCreateData);
+    if (profile) {
+      if (profileType === PROFILE_TYPES.STUDENT_TYPE) {
+        await createStudent(profile.id);
+      } else if (profileType === PROFILE_TYPES.INSTRUCTOR_TYPE) {
+        await createInstructor(profile.id);
+      } else if (profileType === PROFILE_TYPES.BUSINESS_TYPE) {
+        await createBusiness(profile.id);
+      } else {
+        throw new Error(`Invalid profile type ${profileType}`);
+      }
     } else {
-      throw new Error(`Invalid profile type ${profileType}`);
+      throw new Error("Failed to create profile");
     }
   };
 
@@ -89,13 +84,8 @@ export default function ProfileCreationStepper({
       }
       {
         // @ts-ignore: Ignore missing props. They are added in Stepper component.
-        <ProfileTypeForm userEmail={userEmail} />
+        <ProfileTypeForm />
       }
     </Stepper>
   );
 }
-
-type ProfileCreationStepperProps = {
-  userId: string;
-  userEmail: string;
-};

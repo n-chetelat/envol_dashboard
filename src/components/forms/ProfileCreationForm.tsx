@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useEffect } from "react";
-import { useForm, FieldError } from "react-hook-form";
+import { useForm, FieldError, Field } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
@@ -99,7 +99,7 @@ export default function ProfileCreationForm({
         />
         <MultiSelectInput<string>
           inputParams={register("pronouns")}
-          errors={te(errors.pronouns)}
+          errors={te(errors.pronouns as FieldError)}
           label={t("common.pronoun")}
           options={pronounSelectorOptions}
           formControl={control}

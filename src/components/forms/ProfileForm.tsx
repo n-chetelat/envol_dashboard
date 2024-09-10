@@ -17,6 +17,7 @@ import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
 import { useProfile } from "@/store/ProfileProvider";
 import { translateError } from "@/libs/utils";
+import { updateProfile } from "@/queries/profile";
 
 export default function ProfileForm() {
   const t = useTranslations();
@@ -64,16 +65,16 @@ export default function ProfileForm() {
     };
 
     try {
-      const response = await fetch(`/api/profile/${profile?.id}`, {
-        method: "PUT",
-        body: JSON.stringify(profileData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save profile");
-      } else {
-        setProfile(await response.json());
-        showSuccessToast(t("success.saved"));
+      let response;
+      if (profile?.id) {
+        response = await updateProfile(profile.id, profileData);
+        if (response) {
+          setProfile(response);
+          showSuccessToast(t("success.saved"));
+        }
+      }
+      if (!profile?.id || !response) {
+        throw new Error("Failed to save profile: No Profile ID was given");
       }
     } catch (error) {
       showErrorToast(t("errors.failedToSave"));
