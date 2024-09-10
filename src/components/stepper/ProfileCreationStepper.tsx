@@ -36,7 +36,8 @@ export default function ProfileCreationStepper() {
     profileType: string,
     profileCreateData: ProfileFormSchemaType,
   ) => {
-    const profile = await createProfileAction(profileCreateData);
+    const { email: _, ...rest } = profileCreateData;
+    const profile = await createProfileAction(rest);
     if (profile) {
       if (profileType === PROFILE_TYPES.STUDENT_TYPE) {
         await createStudent(profile.id);

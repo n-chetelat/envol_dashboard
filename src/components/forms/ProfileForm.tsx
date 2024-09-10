@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useForm, FieldError } from "react-hook-form";
 import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
@@ -18,8 +18,10 @@ import { isFieldRequired } from "@/libs/validation";
 import { useProfile } from "@/store/ProfileProvider";
 import { translateError } from "@/libs/utils";
 import { updateProfile } from "@/queries/profile";
+import { useUser } from "@clerk/nextjs";
 
 export default function ProfileForm() {
+  const { user } = useUser();
   const t = useTranslations();
   const te = (keyErrors: FieldError | undefined) =>
     translateError(t, keyErrors);
@@ -34,6 +36,7 @@ export default function ProfileForm() {
     formState: { errors, isValid, isSubmitting },
     control,
     handleSubmit,
+    setValue,
   } = useForm<ProfileFormSchemaType>({
     resolver: zodResolver(ProfileFormSchema),
     mode: "onChange",
@@ -43,6 +46,7 @@ export default function ProfileForm() {
           lastName: profile.lastName || "",
           preferredName: profile.preferredName || "",
           pronouns: profile.pronouns || [],
+          email: user?.primaryEmailAddress?.emailAddress || "",
           phoneNumber: profile.phoneNumber || "",
         }
       : {},
@@ -55,19 +59,25 @@ export default function ProfileForm() {
     }));
   }, [t]);
 
+  useEffect(() => {
+    setValue("email", user?.primaryEmailAddress?.emailAddress || "");
+  }, [user]);
+
   const handleSubmitProfile = async (formData: ProfileFormSchemaType) => {
     const profileData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       preferredName: formData.preferredName,
       pronouns: formData.pronouns,
+      email: formData.email,
       phoneNumber: formData.phoneNumber,
     };
 
     try {
       let response;
       if (profile?.id) {
-        response = await updateProfile(profile.id, profileData);
+        const { email: _, ...rest } = profileData;
+        response = await updateProfile(profile.id, rest);
         if (response) {
           setProfile(response);
           showSuccessToast(t("success.saved"));
@@ -120,6 +130,15 @@ export default function ProfileForm() {
         label={t("common.phoneNumber")}
         formControl={control}
         required={isRequired("phoneNumber")}
+      />
+      <TextInput
+        inputParams={{
+          ...register("email"),
+          disabled: true,
+        }}
+        errors={te(errors.email)}
+        label={t("common.email")}
+        required={isRequired("email")}
       />
       <Button isValid={isValid} isSubmitting={isSubmitting}>
         {t("common.submit")}

@@ -14,7 +14,7 @@ export default function TextInput({
         {required && <span className="font-bold text-violet">*</span>}
       </label>
       <input
-        className={`rounded border border-gray-300 px-2 py-1.5 outline-none hover:border-gray-400 focus:outline-offset-0 focus:outline-lilac ${errors ? "border-error" : ""}`}
+        className={`rounded border border-gray-300 px-2 py-1.5 outline-none hover:border-gray-400 focus:outline-offset-0 focus:outline-lilac ${errors ? "border-error" : ""} ${inputParams.disabled ? "bg-gray-200 hover:border-gray-300" : ""}`}
         type="text"
         aria-invalid={errors ? "true" : "false"}
         {...inputParams}

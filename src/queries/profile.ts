@@ -1,8 +1,11 @@
 "use server";
 
 import prisma from "@/libs/prisma";
-import { auth } from "@clerk/nextjs/server";
-import { ProfileFormSchemaType } from "@/validations/profileForm";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import {
+  ProfileFormSchemaType,
+  ProfileFormWithoutEmail,
+} from "@/validations/profileForm";
 
 export const getProfile = async () => {
   const { userId } = auth();
@@ -19,7 +22,7 @@ export const getProfile = async () => {
   });
 };
 
-export const createProfile = async (data: ProfileFormSchemaType) => {
+export const createProfile = async (data: ProfileFormWithoutEmail) => {
   const { userId } = auth();
   if (!userId) {
     return null;
@@ -27,7 +30,7 @@ export const createProfile = async (data: ProfileFormSchemaType) => {
   let profile;
 
   profile = await prisma.profile.findFirst({
-    where: { userId },
+    where: { userId: userId },
   });
   if (profile) {
     throw new Error("A profile already exists for this user.");
@@ -39,14 +42,19 @@ export const createProfile = async (data: ProfileFormSchemaType) => {
     });
     return profile;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to create profile.");
   }
 };
 
 export const updateProfile = async (
   id: string,
-  data: ProfileFormSchemaType,
+  data: ProfileFormWithoutEmail,
 ) => {
+  const user = await currentUser();
+  if (!user) {
+    return null;
+  }
   try {
     const profile = await prisma.profile.update({
       where: { id },
@@ -59,6 +67,7 @@ export const updateProfile = async (
     });
     return profile;
   } catch (error) {
+    console.log(error);
     throw new Error("Failed to save profile.");
   }
 };

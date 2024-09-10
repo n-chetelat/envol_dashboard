@@ -41,7 +41,7 @@ export default function ProfileTypeForm({
   });
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const { user } = useUser();
-  const userEmail = user?.primaryEmailAddress?.emailAddress;
+  const userEmail = user?.primaryEmailAddress?.emailAddress || "";
 
   // Register a value for token validation without making an input field for it
   useEffect(() => {

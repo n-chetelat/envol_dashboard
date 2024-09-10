@@ -20,28 +20,28 @@ model Profile {
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @default(now()) @updatedAt
   defaultDashboard ProfileType     @default(STUDENT)
-  business       Business?
-  instructor      Instructor?
+  business         Business?
+  instructor       Instructor?
   stripeCustomer   StripeCustomer?
-  student         Student?
+  student          Student?
 
   @@index([userId])
 }
 
 model Business {
-  id                      String           @id @default(uuid()) @db.Uuid
-  name                    String?          @db.VarChar(50)
+  id                      String            @id @default(uuid()) @db.Uuid
+  name                    String?           @db.VarChar(50)
   bio                     String?
-  phoneNumber             String?          @db.VarChar(30)
-  contactEmail            String?          @db.VarChar(30)
-  published               Boolean          @default(false)
-  profileId               String           @unique @db.Uuid
-  createdAt               DateTime         @default(now())
-  updatedAt               DateTime         @updatedAt
-  profile                 Profile          @relation(fields: [profileId], references: [id])
+  phoneNumber             String?           @db.VarChar(30)
+  contactEmail            String?           @db.VarChar(30)
+  published               Boolean           @default(false)
+  profileId               String            @unique @db.Uuid
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+  profile                 Profile           @relation(fields: [profileId], references: [id])
   courses                 Course[]
   courseListings          CourseListing[]
-  instructorProfileTokens InstructorToken?
+  instructorProfileTokens InstructorToken[]
   locations               Location[]
   stripeAccount           StripeAccount?
 }
@@ -80,7 +80,7 @@ model InstructorToken {
   token      String   @db.VarChar(250)
   used       Boolean  @default(false)
   email      String   @db.VarChar(50)
-  businessId String   @unique @db.Uuid
+  businessId String   @db.Uuid
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   expiresAt  DateTime @default(dbgenerated("((now() AT TIME ZONE 'UTC'::text) + '1 day'::interval)")) @db.Timestamptz(6)
