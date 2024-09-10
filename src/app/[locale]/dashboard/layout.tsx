@@ -1,4 +1,4 @@
-import { getUserProfileWithProfileTypes } from "@/queries/profile";
+import { getProfile } from "@/queries/profile";
 import Navbar from "@/components/navbar/navbar/Navbar";
 import { Suspense } from "react";
 import SpinnerLoader from "@/components/loaders/SpinnerLoader";
@@ -39,8 +39,7 @@ export default async function DashboardLayout({
   if (!userId) {
     redirect("/");
   }
-  const profile: ProfileWithProfileTypes | null =
-    await getUserProfileWithProfileTypes(userId);
+  const profile: ProfileWithProfileTypes | null = await getProfile(userId);
   if (!profile) {
     redirect("/profile_setup");
   }

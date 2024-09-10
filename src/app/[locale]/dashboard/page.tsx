@@ -1,4 +1,4 @@
-import { getUserProfileWithProfileTypes } from "@/queries/profile";
+import { getProfile } from "@/queries/profile";
 import { redirect } from "@/libs/navigation";
 import { ProfileWithProfileTypes } from "@/libs/types";
 import { PROFILE_TYPES } from "@/libs/constants";
@@ -19,7 +19,7 @@ export default async function DashboardPage({
     redirect("/");
   }
   let profile: ProfileWithProfileTypes | null = null;
-  if (userId) profile = await getUserProfileWithProfileTypes(userId);
+  if (userId) profile = await getProfile(userId);
   if (!profile) {
     redirect("/profile_setup");
   }

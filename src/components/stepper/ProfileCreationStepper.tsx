@@ -40,7 +40,7 @@ export default function ProfileCreationStepper({
     profileType: string,
     profileCreateData: Prisma.ProfileCreateInput,
   ) => {
-    const response = await fetch("/api/profiles", {
+    const response = await fetch("/api/profile", {
       method: "POST",
       body: JSON.stringify(profileCreateData),
       next: { tags: ["profile"] },

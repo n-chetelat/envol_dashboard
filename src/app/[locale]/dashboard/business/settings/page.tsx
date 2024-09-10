@@ -1,7 +1,7 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { getUserProfile } from "@/queries/profile";
-import { getBusinessWithStripeAccount } from "@/queries/business";
+import { getProfile } from "@/queries/profile";
+import { getBusiness } from "@/queries/business";
 import { BusinessWithStripeAccount } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";
@@ -16,13 +16,14 @@ export default async function BusinessSettingsPage({
 
   let profile;
   const { userId } = auth();
-  if (userId) profile = await getUserProfile(userId);
+  if (userId) profile = await getProfile(userId);
   if (!userId || !profile) {
     redirect("/");
   }
 
-  const business: BusinessWithStripeAccount | null =
-    await getBusinessWithStripeAccount(profile.id);
+  const business: BusinessWithStripeAccount | null = await getBusiness(
+    profile.id,
+  );
 
   return (
     <div className="flex flex-col">

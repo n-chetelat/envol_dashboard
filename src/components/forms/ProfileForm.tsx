@@ -61,7 +61,7 @@ export default function ProfileForm() {
     };
 
     try {
-      const response = await fetch(`/api/profiles/${profile?.id}`, {
+      const response = await fetch(`/api/profile/${profile?.id}`, {
         method: "PUT",
         body: JSON.stringify(profileData),
       });
