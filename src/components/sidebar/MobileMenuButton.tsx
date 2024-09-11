@@ -8,7 +8,7 @@ export default function MobileMenuButton() {
   const t = useTranslations("aria");
   return (
     <button
-      className="text-slate-700 hover:bg-slate-200"
+      className="text-gray-700 hover:bg-gray-200"
       onClick={toggleSidebar}
       aria-label={t("toggleMobileMenu")}
     >

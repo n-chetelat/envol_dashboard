@@ -80,7 +80,10 @@
     "amInstructor": "Je suis instructeur",
     "amBusiness": "Je gère une entreprise",
     "haveToken": "J'ai reçu un code",
-    "token": "Entrez votre code"
+    "token": "Entrez votre code",
+    "deleteProfile": "Delete Profile - FR",
+    "deleteProfileMessage": "Clicking this button will delete your profile from Envol and all of your information. This action is irreversible. - FR",
+    "profileInformation": "Profile Information - FR"
   },
   "dashboard": {
     "dashboard": "Tableau de bord",

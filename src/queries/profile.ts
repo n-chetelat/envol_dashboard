@@ -71,3 +71,14 @@ export const updateProfile = async (
     throw new Error("Failed to save profile.");
   }
 };
+
+export const deleteProfile = async (id: string) => {
+  try {
+    await prisma.profile.delete({
+      where: { id },
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to delete profile.");
+  }
+};

@@ -38,7 +38,7 @@ model Business {
   profileId               String            @unique @db.Uuid
   createdAt               DateTime          @default(now())
   updatedAt               DateTime          @updatedAt
-  profile                 Profile           @relation(fields: [profileId], references: [id])
+  profile                 Profile           @relation(fields: [profileId], references: [id], onDelete: Cascade)
   courses                 Course[]
   courseListings          CourseListing[]
   instructorProfileTokens InstructorToken[]
@@ -52,7 +52,7 @@ model Instructor {
   profileId String   @unique @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  profile   Profile  @relation(fields: [profileId], references: [id])
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 model Student {
@@ -62,7 +62,7 @@ model Student {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   courseSessions CourseSession[]
-  profile        Profile         @relation(fields: [profileId], references: [id])
+  profile        Profile         @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 model BusinessToken {
@@ -84,7 +84,7 @@ model InstructorToken {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   expiresAt  DateTime @default(dbgenerated("((now() AT TIME ZONE 'UTC'::text) + '1 day'::interval)")) @db.Timestamptz(6)
-  business   Business @relation(fields: [businessId], references: [id])
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 }
 
 model Course {
@@ -95,7 +95,7 @@ model Course {
   businessId     String          @db.Uuid
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
-  business       Business        @relation(fields: [businessId], references: [id])
+  business       Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
   courseListings CourseListing[]
 }
 
@@ -107,10 +107,10 @@ model CourseListing {
   timePeriodId   String          @db.Uuid
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
-  business       Business        @relation(fields: [businessId], references: [id])
-  course         Course          @relation(fields: [courseId], references: [id])
-  location       Location        @relation(fields: [locationId], references: [id])
-  timePeriod     TimePeriod      @relation(fields: [timePeriodId], references: [id])
+  business       Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  course         Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  location       Location        @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  timePeriod     TimePeriod      @relation(fields: [timePeriodId], references: [id], onDelete: Cascade)
   courseSessions CourseSession[]
 }
 
@@ -120,8 +120,8 @@ model CourseSession {
   studentId       String        @db.Uuid
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @default(now()) @updatedAt
-  courseListing   CourseListing @relation(fields: [courseListingId], references: [id])
-  student         Student       @relation(fields: [studentId], references: [id])
+  courseListing   CourseListing @relation(fields: [courseListingId], references: [id], onDelete: Cascade)
+  student         Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
 }
 
 model Location {
@@ -133,7 +133,7 @@ model Location {
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @default(now()) @updatedAt
   coursesListings CourseListing[]
-  business        Business        @relation(fields: [businessId], references: [id])
+  business        Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
 }
 
 model TimePeriod {
@@ -158,7 +158,7 @@ model StripeAccount {
   businessId         String   @unique @db.Uuid
   createdAt          DateTime @default(now())
   updatedAt          DateTime @default(now()) @updatedAt
-  business           Business @relation(fields: [businessId], references: [id])
+  business           Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 }
 
 model StripeCustomer {
@@ -167,7 +167,7 @@ model StripeCustomer {
   profileId        String   @unique @db.Uuid
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now()) @updatedAt
-  profile          Profile  @relation(fields: [profileId], references: [id])
+  profile          Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 model WebhookEvent {

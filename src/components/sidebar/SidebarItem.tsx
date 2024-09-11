@@ -35,7 +35,7 @@ export default function SidebarItem({ href, text, icon }: SidebarItemProps) {
         className={`flex cursor-pointer items-center p-4 font-serif ${
           effectiveExpanded ? "justify-start" : "justify-center"
         } uppercase transition-all duration-200 ease-in-out ${
-          isActive ? "bg-violet text-white" : "hover:bg-slate-200"
+          isActive ? "bg-violet text-white" : "hover:bg-gray-200"
         }`}
         role="link"
         aria-label={text}

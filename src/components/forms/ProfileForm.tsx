@@ -140,7 +140,7 @@ export default function ProfileForm() {
         label={t("common.email")}
         required={isRequired("email")}
       />
-      <Button isValid={isValid} isSubmitting={isSubmitting}>
+      <Button isValid={isValid} isSubmitting={isSubmitting} className="w-3/6">
         {t("common.submit")}
       </Button>
     </form>
