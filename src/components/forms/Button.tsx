@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/libs/utils";
 
 interface ButtonProps {
-  isValid: boolean;
+  isValid?: boolean;
   isSubmitting: boolean;
   buttonType?: "info" | "alert";
   className?: string;
@@ -12,21 +12,19 @@ interface ButtonProps {
 }
 
 export default function Button({
-  isValid,
+  isValid = true,
   isSubmitting,
   children,
   buttonType = "info",
   className,
   ...nativeButtonProps
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
-  console.log(nativeButtonProps);
   const t = useTranslations("common");
   const buttonClasses = cn(
     "btn-primary",
     buttonType === "alert" ? "bg-error hover:bg-error-dark" : "",
     className,
   );
-  console.log("other", buttonClasses);
   return (
     <button
       className={buttonClasses}
@@ -37,7 +35,7 @@ export default function Button({
       {...nativeButtonProps}
     >
       {isSubmitting ? (
-        <span className="flex items-center">
+        <span className="flex items-center justify-center">
           <Loader className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" />
           {`${t("submitting")}...`}
         </span>

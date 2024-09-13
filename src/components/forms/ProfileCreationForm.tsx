@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useEffect } from "react";
-import { useForm, FieldError, Field } from "react-hook-form";
+import { useForm, FieldError } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
@@ -16,7 +16,6 @@ import {
 import { StepComponentProps } from "@/components/stepper/Stepper";
 import { isFieldRequired } from "@/libs/validation";
 import { translateError } from "@/libs/utils";
-import { useUser } from "@clerk/nextjs";
 
 type ProfileTypeFormProps = {
   data: Partial<Prisma.ProfileCreateInput>;
@@ -27,7 +26,6 @@ export default function ProfileCreationForm({
   onValidityChange,
   onDataChange,
 }: StepComponentProps & ProfileTypeFormProps) {
-  const { user } = useUser();
   const t = useTranslations();
   const te = (keyErrors: FieldError | undefined) =>
     translateError(t, keyErrors);
@@ -44,7 +42,7 @@ export default function ProfileCreationForm({
   } = useForm<ProfileFormSchemaType>({
     resolver: zodResolver(ProfileFormSchema),
     mode: "onChange",
-    defaultValues: { ...data, email: user?.primaryEmailAddress?.emailAddress }, // Set default values from the passed data
+    defaultValues: data,
   });
 
   useEffect(() => {
@@ -114,15 +112,6 @@ export default function ProfileCreationForm({
           label={t("common.phoneNumber")}
           formControl={control}
           required={isRequired("phoneNumber")}
-        />
-        <TextInput
-          inputParams={{
-            ...register("email"),
-            disabled: true,
-          }}
-          errors={te(errors.email)}
-          label={t("common.email")}
-          required={isRequired("email")}
         />
       </form>
     </div>

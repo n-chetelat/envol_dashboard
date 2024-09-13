@@ -2,15 +2,13 @@
 
 import prisma from "@/libs/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import {
-  ProfileFormSchemaType,
-  ProfileFormWithoutEmail,
-} from "@/validations/profileForm";
+import { ProfileFormSchemaType } from "@/validations/profileForm";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export const getProfile = async () => {
   const { userId } = auth();
   if (!userId) {
-    return null;
+    throw new Error("No authenticated user was found to retrieve profile.");
   }
   return await prisma.profile.findFirst({
     where: { userId },
@@ -22,10 +20,10 @@ export const getProfile = async () => {
   });
 };
 
-export const createProfile = async (data: ProfileFormWithoutEmail) => {
+export const createProfile = async (data: ProfileFormSchemaType) => {
   const { userId } = auth();
   if (!userId) {
-    return null;
+    throw new Error("No authenticated user was found to create profile.");
   }
   let profile;
 
@@ -49,11 +47,11 @@ export const createProfile = async (data: ProfileFormWithoutEmail) => {
 
 export const updateProfile = async (
   id: string,
-  data: ProfileFormWithoutEmail,
+  data: ProfileFormSchemaType,
 ) => {
   const user = await currentUser();
   if (!user) {
-    return null;
+    throw new Error("No authenticated user was found to update profile.");
   }
   try {
     const profile = await prisma.profile.update({
@@ -73,10 +71,17 @@ export const updateProfile = async (
 };
 
 export const deleteProfile = async (id: string) => {
+  const { userId } = auth();
+  if (!userId) {
+    throw new Error("No authenticated user was found to delete profile.");
+  }
   try {
-    await prisma.profile.delete({
+    const profile = await prisma.profile.delete({
       where: { id },
     });
+    if (profile) {
+      await clerkClient().users.deleteUser(userId);
+    }
   } catch (error) {
     console.log(error);
     throw new Error("Failed to delete profile.");

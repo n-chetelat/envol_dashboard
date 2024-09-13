@@ -46,7 +46,9 @@
     "back": "Précedent",
     "validate": "Valider",
     "validated": "Validated - FR",
-    "validating": "Validating - FR"
+    "validating": "Validating - FR",
+    "confirm": "Confirm - FR",
+    "cancel": "Cancel - FR"
   },
   "errors": {
     "wrong": "Something went wrong - FR",
@@ -83,7 +85,13 @@
     "token": "Entrez votre code",
     "deleteProfile": "Delete Profile - FR",
     "deleteProfileMessage": "Clicking this button will delete your profile from Envol and all of your information. This action is irreversible. - FR",
-    "profileInformation": "Profile Information - FR"
+    "profileInformation": "Profile Information - FR",
+    "deleteProfileWarning": "Clicking this button will delete your profile and all of your information. This action is irreversible. - FR",
+    "deleteProfileConfrmationTitle": "Confirm Profile Deletion - FR",
+    "deleteProfileConfrmation": "Are you sure you want to delete your profile? This action cannot be undone. - FR",
+    "emailUpdate": "Update Email - FR",
+    "primaryEmail": "Existing email - FR",
+    "secondaryEmail": "New email, FR"
   },
   "dashboard": {
     "dashboard": "Tableau de bord",

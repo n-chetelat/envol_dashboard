@@ -49,7 +49,7 @@ export default async function DashboardLayout({
             <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height)]" />
             <DashboardOverlay />
             <Suspense fallback={<SpinnerLoader />}>
-              <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto ">
+              <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto bg-gray-100 ">
                 {children}
               </DashboardContent>
             </Suspense>

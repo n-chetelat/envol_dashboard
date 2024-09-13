@@ -28,7 +28,7 @@
     disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-violet;
   }
   .paper {
-    @apply rounded bg-gray-200 p-4 shadow-md;
+    @apply rounded bg-gray-50 p-4 shadow-md;
   }
 
   .title {

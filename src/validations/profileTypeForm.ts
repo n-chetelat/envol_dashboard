@@ -1,4 +1,4 @@
-import { z, ZodType } from "zod";
+import { z } from "zod";
 import { PROFILE_TYPES } from "@/libs/constants";
 
 export const ProfileTypeFormSchema = z
@@ -9,7 +9,7 @@ export const ProfileTypeFormSchema = z
       .boolean()
       .optional()
       .refine((val) => !!val, {
-        message: "errors.invalidToken",
+        message: "invalidToken",
       }),
   })
   .refine(
@@ -22,7 +22,7 @@ export const ProfileTypeFormSchema = z
         ) && schema.tokenIsValid
       );
     },
-    { message: "errors.invalidToken", path: ["token"] },
+    { message: "invalidToken", path: ["token"] },
   );
 
-export type ProfileTypeFormType = z.infer<typeof profileTypeFormSchema>;
+export type ProfileTypeFormType = z.infer<typeof ProfileTypeFormSchema>;
