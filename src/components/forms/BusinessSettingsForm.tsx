@@ -91,51 +91,46 @@ export default function BusinessSettingsForm({
   };
 
   return (
-    <div className="paper flex w-1/2 flex-col md:max-w-2xl">
-      <h1 className="m-4 text-center text-2xl font-bold uppercase">
-        {t("settings.businessTitle")}
-      </h1>
-      <form className="flex flex-col items-center">
-        <TextInput
-          inputParams={register("name")}
-          errors={te(errors.name)}
-          label={t("common.name")}
-          required={isRequired("name")}
-        />
-        <TextInput
-          inputParams={register("bio")}
-          errors={te(errors.bio)}
-          label={t("common.bio")}
-          required={isRequired("bio")}
-        />
-        <TextInput
-          inputParams={register("contactEmail")}
-          errors={te(errors.contactEmail)}
-          label={t("common.email")}
-          required={isRequired("contactEmail")}
-        />
-        <PhoneNumberInput
-          inputParams={register("phoneNumber")}
-          errors={te(errors.phoneNumber)}
-          label={t("common.phoneNumber")}
-          formControl={control}
-          required={isRequired("phoneNumber")}
-        />
-        <CheckboxInput
-          inputParams={register("published")}
-          errors={te(errors.published)}
-          label={t("settings.published")}
-          required={isRequired("published")}
-        />
-        <button
-          className="btn-primary w-10/12"
-          onClick={handleCreateOrUpdateBusiness}
-          disabled={!isValid}
-          type="button"
-        >
-          {t("common.submit")}
-        </button>
-      </form>
-    </div>
+    <form className="flex flex-col items-center">
+      <TextInput
+        inputParams={register("name")}
+        errors={te(errors.name)}
+        label={t("common.name")}
+        required={isRequired("name")}
+      />
+      <TextInput
+        inputParams={register("bio")}
+        errors={te(errors.bio)}
+        label={t("common.bio")}
+        required={isRequired("bio")}
+      />
+      <TextInput
+        inputParams={register("contactEmail")}
+        errors={te(errors.contactEmail)}
+        label={t("common.email")}
+        required={isRequired("contactEmail")}
+      />
+      <PhoneNumberInput
+        inputParams={register("phoneNumber")}
+        errors={te(errors.phoneNumber)}
+        label={t("common.phoneNumber")}
+        formControl={control}
+        required={isRequired("phoneNumber")}
+      />
+      <CheckboxInput
+        inputParams={register("published")}
+        errors={te(errors.published)}
+        label={t("settings.published")}
+        required={isRequired("published")}
+      />
+      <button
+        className="btn-primary w-10/12"
+        onClick={handleCreateOrUpdateBusiness}
+        disabled={!isValid}
+        type="button"
+      >
+        {t("common.submit")}
+      </button>
+    </form>
   );
 }

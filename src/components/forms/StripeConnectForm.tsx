@@ -23,14 +23,7 @@ export default function StripeConnectForm({ business }) {
   };
 
   return (
-    <div className="paper flex w-1/2 flex-col justify-center md:max-w-2xl">
-      <h1 className="m-4 text-center text-2xl font-bold uppercase">
-        {t("payments")}
-      </h1>
-      {business?.stripeAccount?.onboardingComplete && (
-        <div>payment history component, and link to stripe dashboard</div>
-      )}
-
+    <>
       {!business?.stripeAccount && (
         <form
           action={handleCreateStripeAccount}
@@ -53,6 +46,6 @@ export default function StripeConnectForm({ business }) {
             </button>
           </form>
         )}
-    </div>
+    </>
   );
 }
