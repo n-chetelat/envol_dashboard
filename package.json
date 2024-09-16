@@ -11,7 +11,7 @@
   "dependencies": {
     "@clerk/backend": "^1.9.2",
     "@clerk/localizations": "^1.26.16",
-    "@clerk/nextjs": "^5.4.1",
+    "@clerk/nextjs": "^5.5.3",
     "@headlessui/react": "^2.1.8",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.14.0",

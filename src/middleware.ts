@@ -21,7 +21,7 @@ const isPublicRoute = createRouteMatcher(PUBLIC_PAGES);
 
 export default clerkMiddleware((auth, request) => {
   if (!auth().userId && !isPublicRoute(request)) {
-    return auth().redirectToSignIn();
+    auth().protect();
   }
 
   if (request.url.includes("/api/")) return NextResponse.next();
