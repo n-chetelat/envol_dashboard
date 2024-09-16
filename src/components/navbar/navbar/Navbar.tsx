@@ -1,8 +1,8 @@
-import SignOutButton from "@/components/navbar/SignOutButton";
 import { Link } from "@/libs/navigation";
 import { SignedIn } from "@clerk/nextjs";
+import UserMenu from "@/components/navbar/UserMenu";
 import Image from "next/image";
-import LocaleSwitcher from "@/components/navbar/localeSwitcher/LocaleSwitcher";
+import LocaleSwitcher from "@/components/navbar/LocaleSwitcher";
 import MobileMenuButton from "@/components/sidebar/MobileMenuButton";
 
 type NavbarProps = {
@@ -24,13 +24,12 @@ export default async function tNavbar({ isDashboard }: NavbarProps) {
         </Link>
       </div>
       <div className="flex flex-row items-center">
-        <div className="m-2 lg:m-4">
+        <div className="m-2">
           <LocaleSwitcher />
         </div>
         <SignedIn>
-          <p>|</p>
-          <div className="m-2 lg:m-4">
-            <SignOutButton />
+          <div className="m-2">
+            <UserMenu />
           </div>
           {isDashboard && (
             <div className="block p-2 lg:hidden">

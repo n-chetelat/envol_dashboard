@@ -13,4 +13,5 @@ export {
   Settings,
   LoaderPinwheel,
   CircleUserRound,
+  LogOut,
 } from "lucide-react";

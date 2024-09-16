@@ -65,7 +65,10 @@
   },
   "aria": {
     "dashboardNavigation": "Dashboard navigation - FR",
-    "toggleMobileMenu": "Toggle mobile menu - FR"
+    "toggleMobileMenu": "Toggle mobile menu - FR",
+    "currentLocale": "Current locale - FR",
+    "languageNavLabel": "Locale switcher - FR",
+    "switchTo": "Switch to language - FR"
   },
   "home": {
     "subtitle": "Envol offers booking solutions - FR",
