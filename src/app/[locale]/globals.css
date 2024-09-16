@@ -5,7 +5,8 @@
 @import '~react-toastify/dist/ReactToastify.min.css';
 
 :root {
-  --navbar-height: 8rem;
+  --navbar-height-lg: 8rem;
+  --navbar-height: 4rem;
   --sidebar-width-expanded: 16rem;
   --sidebar-width-collapsed: 4rem;
   --toastify-color-info: theme('colors.violet.DEFAULT');

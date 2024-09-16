@@ -15,7 +15,7 @@ export default function SignOutButton({ className }: SignOutButtonProps) {
     signOut();
   };
   return (
-    <button onClick={onSignOut} className="btn-primary p-4">
+    <button onClick={onSignOut} className="btn-primary p-2 lg:p-4">
       {t("signOut")}
     </button>
   );

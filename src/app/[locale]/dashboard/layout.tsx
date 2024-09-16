@@ -46,10 +46,10 @@ export default async function DashboardLayout({
         <Navbar isDashboard={true} />
         <ProfileProvider profile={profile}>
           <div className="flex flex-1 overflow-hidden">
-            <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height)]" />
+            <Sidebar className="fixed top-0 z-50 lg:top-[var(--navbar-height-lg)]" />
             <DashboardOverlay />
             <Suspense fallback={<SpinnerLoader />}>
-              <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto bg-gray-100 ">
+              <DashboardContent className="mt-[--navbar-height] flex-1 overflow-auto bg-gray-100 lg:mt-[--navbar-height-lg] ">
                 {children}
               </DashboardContent>
             </Suspense>

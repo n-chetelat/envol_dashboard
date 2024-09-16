@@ -26,7 +26,9 @@ export default function DefaultLayout({
   return (
     <>
       <Navbar />
-      <div className="mt-[--navbar-height]">{children}</div>
+      <div className="mt-[--navbar-height] lg:mt-[--navbar-height-lg]">
+        {children}
+      </div>
     </>
   );
 }

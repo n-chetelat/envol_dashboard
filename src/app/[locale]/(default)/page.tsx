@@ -13,7 +13,7 @@ export default function Home({
   const t = useTranslations("home");
   const { userId } = auth();
   return (
-    <main className="flex h-[calc(100vh-var(--navbar-height))] w-full flex-col items-center">
+    <main className="flex h-[calc(100vh-var(--navbar-height))] w-full flex-col items-center lg:h-[calc(100vh-var(--navbar-height-lg))]">
       <div className="flex w-3/6 flex-col">
         <div className="m-4 mt-16">
           <Image
