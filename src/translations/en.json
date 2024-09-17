@@ -48,7 +48,8 @@
     "validated": "Validated",
     "validating": "Validating",
     "confirm": "Confirm",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "errors": {
     "wrong": "Something went wrong",
@@ -58,10 +59,15 @@
     "selectOptions": "Select at least one option",
     "invalidToken": "Invalid token",
     "invalidEmail": "Enter a valid email",
-    "failedToSave": "There was an error saving your information."
+    "failedToSave": "There was an error saving your information.",
+    "noEmailToVerify": "There is no email to verify",
+    "verificationFailed": "Email verification failed",
+    "invalidCode": "Invalid code"
   },
   "success": {
-    "saved": "Your information was saved successfully."
+    "saved": "Your information was saved successfully.",
+    "verificationEmailSent": "Check your email for a verification code.",
+    "verificationCancelled": "Email update has been successfully canceled."
   },
   "aria": {
     "dashboardNavigation": "Dashboard navigation",
@@ -94,7 +100,9 @@
     "deleteProfileConfrmation": "Are you sure you want to delete your profile? This action cannot be undone.",
     "emailUpdate": "Update Email",
     "primaryEmail": "Existing email",
-    "secondaryEmail": "New email"
+    "secondaryEmail": "New email",
+    "verificationCode": "Verification code",
+    "resend": "Resend code"
   },
   "dashboard": {
     "dashboard": "Dashboard",

@@ -1,6 +1,6 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import ProfileForm from "@/components/forms/ProfileForm";
-// import EmailForm from "@/components/forms/EmailForm";
+import EmailForm from "@/components/forms/EmailForm";
 import DeleteProfileForm from "@/components/forms/DeleteProfileForm";
 import { getTranslations } from "next-intl/server";
 
@@ -13,10 +13,10 @@ export default async function ProfilePage({ locale }: { locale: string }) {
         <h2 className="title mb-4">{t("profileInformation")}</h2>
         <ProfileForm />
       </div>
-      {/* <div className="paper mt-8">
+      <div className="paper mt-8">
         <h2 className="title mb-4">{t("emailUpdate")}</h2>
         <EmailForm />
-      </div> */}
+      </div>
       <div className="paper mt-8">
         <h2 className="title mb-4">{t("deleteProfile")}</h2>
         <DeleteProfileForm />

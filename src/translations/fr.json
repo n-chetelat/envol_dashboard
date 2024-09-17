@@ -48,7 +48,8 @@
     "validated": "Validated - FR",
     "validating": "Validating - FR",
     "confirm": "Confirm - FR",
-    "cancel": "Cancel - FR"
+    "cancel": "Cancel - FR",
+    "delete": "Delete - FR"
   },
   "errors": {
     "wrong": "Something went wrong - FR",
@@ -58,10 +59,15 @@
     "selectOptions": "Select at least one option - FR",
     "invalidToken": "Invalid token - FR",
     "invalidEmail": "Enter a valid email - FR",
-    "failedToSave": "There was an error saving your information - FR"
+    "failedToSave": "There was an error saving your information - FR",
+    "noEmailToVerify": "There is no email to verify - FR",
+    "verificationFailed": "Email verification failed - FR",
+    "invalidCode": "Invalid code - FR"
   },
   "success": {
-    "saved": "Your information was saved successfully. - FR"
+    "saved": "Your information was saved successfully. - FR",
+    "verificationEmailSent": "Check your email for a verification code. - FR",
+    "verificationCancelled": "Email update has been canceled successfully. - FR"
   },
   "aria": {
     "dashboardNavigation": "Dashboard navigation - FR",
@@ -94,7 +100,9 @@
     "deleteProfileConfrmation": "Are you sure you want to delete your profile? This action cannot be undone. - FR",
     "emailUpdate": "Update Email - FR",
     "primaryEmail": "Existing email - FR",
-    "secondaryEmail": "New email, FR"
+    "secondaryEmail": "New email, FR",
+    "verificationCode": "Verification code - FR",
+    "resend": "Resend code - FR"
   },
   "dashboard": {
     "dashboard": "Tableau de bord",

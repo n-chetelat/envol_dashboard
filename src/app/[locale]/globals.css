@@ -23,7 +23,7 @@
 
 @layer components {
   .btn-primary {
-    @apply rounded bg-violet p-6 font-bold text-white 
+    @apply rounded bg-violet font-bold text-white 
     transition-[opacity,background-color] duration-300 ease-in
     hover:bg-violet-light hover:transition-none
     disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-violet;
