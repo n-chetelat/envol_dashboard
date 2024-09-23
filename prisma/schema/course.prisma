@@ -1,24 +1,25 @@
-model Course {
-  id           String        @id @default(uuid()) @db.Uuid
-  name         String        @db.VarChar(225)
-  description  String
-  requirements String
-  businessId   String        @db.Uuid
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  business     Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  CourseImage  CourseImage[]
+model CourseTopic {
+  id                String             @id @default(uuid()) @db.Uuid
+  name              String             @db.VarChar(225)
+  description       String
+  requirements      String
+  businessId        String             @db.Uuid
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  business          Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  courseTopicImages CourseTopicImage[]
+  courseTemplates   CourseTemplate[]
 }
 
-model CourseImage {
-  id        String   @id @default(uuid()) @db.Uuid
-  imageId   String   @db.Uuid
-  courseId  String   @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model CourseTopicImage {
+  id            String   @id @default(uuid()) @db.Uuid
+  imageId       String   @db.Uuid
+  courseTopicId String   @db.Uuid
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  image  Image  @relation(fields: [imageId], references: [id], onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  image       Image       @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  courseTopic CourseTopic @relation(fields: [courseTopicId], references: [id], onDelete: Cascade)
 }
 
 model Location {
@@ -32,8 +33,9 @@ model Location {
   updatedAt   DateTime @default(now()) @updatedAt
   business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
-  images LocationImage[]
-  videos LocationVideo[]
+  images          LocationImage[]
+  videos          LocationVideo[]
+  courseTemplates CourseTemplate[]
 }
 
 model LocationImage {
@@ -56,4 +58,47 @@ model LocationVideo {
 
   image    Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
   location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model CourseTemplate {
+  id            String    @id @default(uuid()) @db.Uuid
+  courseTopicId String    @db.Uuid
+  locationId    String    @db.Uuid
+  weekdays      Weekday[]
+  startDate     DateTime  @db.Date
+  endDate       DateTime  @db.Date
+  startTime     DateTime  @db.Time()
+  endTime       DateTime  @db.Time()
+  enrollmentMin Int?      @default(0)
+  enrollmentMax Int
+  timezone      String    @db.VarChar(30)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  courseTemplateInstructorProfiles CourseTemplateInstructorProfiles[]
+  location                         Location                           @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  courseTopic                      CourseTopic                        @relation(fields: [courseTopicId], references: [id], onDelete: Cascade)
+  CourseSession                    CourseSession[]
+}
+
+model CourseTemplateInstructorProfiles {
+  id                          String                    @id @default(uuid()) @db.Uuid
+  courseTemplateId            String                    @db.Uuid
+  businessInstructorProfileId String                    @db.Uuid
+  createdAt                   DateTime                  @default(now())
+  updatedAt                   DateTime                  @updatedAt
+  courseTemplate              CourseTemplate            @relation(fields: [courseTemplateId], references: [id], onDelete: Cascade)
+  businessInstructorProfile   BusinessInstructorProfile @relation(fields: [businessInstructorProfileId], references: [id], onDelete: Cascade)
+}
+
+model CourseSession {
+  id               String   @id @default(uuid()) @db.Uuid
+  courseTemplateId String   @db.Uuid
+  enrollment       Int      @default(0)
+  startDate        DateTime @db.Date
+  endDate          DateTime @db.Date
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  courseTemplate CourseTemplate @relation(fields: [courseTemplateId], references: [id], onDelete: Cascade)
 }

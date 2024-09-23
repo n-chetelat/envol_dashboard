@@ -9,11 +9,11 @@ model Business {
   createdAt               DateTime             @default(now())
   updatedAt               DateTime             @updatedAt
   profile                 Profile              @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  courses                 Course[]
+  courseTopics            CourseTopic[]
   instructorProfileTokens InstructorToken[]
   locations               Location[]
   stripeAccount           StripeAccount?
-  BusinessInstructor      BusinessInstructor[]
+  businessInstructor      BusinessInstructor[]
 }
 
 model BusinessToken {
@@ -39,19 +39,20 @@ model BusinessInstructor {
 }
 
 model BusinessInstructorProfile {
-  id                             String                           @id @default(uuid()) @db.Uuid
-  businessInstructorId           String                           @db.Uuid
-  name                           String?                          @db.VarChar(50)
-  description                    String?
-  createdAt                      DateTime                         @default(now())
-  updatedAt                      DateTime                         @updatedAt
-  BusinessInstructorProfileImage BusinessInstructorProfileImage[]
+  id                               String                             @id @default(uuid()) @db.Uuid
+  businessInstructorId             String                             @db.Uuid
+  name                             String?                            @db.VarChar(50)
+  description                      String?
+  createdAt                        DateTime                           @default(now())
+  updatedAt                        DateTime                           @updatedAt
+  BusinessInstructorProfileImages  BusinessInstructorProfileImage[]
+  courseTemplateInstructorProfiles CourseTemplateInstructorProfiles[]
 }
 
 model BusinessInstructorProfileImage {
   id                          String   @id @default(uuid()) @db.Uuid
-  businessInstructorProfileId String   @db.Uuid()
-  imageId                     String   @db.Uuid()
+  businessInstructorProfileId String   @db.Uuid
+  imageId                     String   @db.Uuid
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
 

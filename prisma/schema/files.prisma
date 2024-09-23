@@ -3,10 +3,10 @@ model Image {
     url                            String
     createdAt                      DateTime                         @default(now())
     updatedAt                      DateTime                         @default(now()) @updatedAt
-    CourseImage                    CourseImage[]
-    LocationImage                  LocationImage[]
-    LocationVideo                  LocationVideo[]
-    BusinessInstructorProfileImage BusinessInstructorProfileImage[]
+    courseTopicImage               CourseTopicImage[]
+    locationImage                  LocationImage[]
+    locationVideo                  LocationVideo[]
+    businessInstructorProfileImage BusinessInstructorProfileImage[]
 }
 
 model Video {

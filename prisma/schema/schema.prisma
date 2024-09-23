@@ -30,11 +30,6 @@ enum ProfileType {
   STUDENT
 }
 
-enum Frequency {
-  ONCE
-  RECURRING
-}
-
 enum Weekday {
   MON
   TUE

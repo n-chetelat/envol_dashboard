@@ -5,7 +5,7 @@ model Instructor {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   profile            Profile              @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  BusinessInstructor BusinessInstructor[]
+  businessInstructor BusinessInstructor[]
 }
 
 model InstructorToken {
