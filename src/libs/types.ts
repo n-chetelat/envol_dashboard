@@ -2,16 +2,15 @@ import { Prisma } from "@prisma/client";
 import { UseFormRegisterReturn, FieldError } from "react-hook-form";
 
 export {
-  type Profile,
   type ProfileType,
-  type Business,
   type Instructor,
   type Student,
+  type CourseDescription,
 } from "@prisma/client";
 
 // Prisma
 
-export type ProfileWithProfileTypes = Prisma.ProfileGetPayload<{
+export type Profile = Prisma.ProfileGetPayload<{
   include: {
     business: true;
     instructor: true;
@@ -19,7 +18,7 @@ export type ProfileWithProfileTypes = Prisma.ProfileGetPayload<{
   };
 }>;
 
-export type BusinessWithStripeAccount = Prisma.BusinessGetPayload<{
+export type Business = Prisma.BusinessGetPayload<{
   include: {
     stripeAccount: true;
   };

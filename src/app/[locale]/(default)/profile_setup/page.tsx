@@ -13,7 +13,7 @@ export default async function ProfileSetup({
   // If the user has a profile, send them back to the dashboard
   const profile = await getProfile();
   if (profile) {
-    redirect("/dashboard");
+    redirect("/dashboard/main");
   }
 
   return <ProfileCreationStepper />;

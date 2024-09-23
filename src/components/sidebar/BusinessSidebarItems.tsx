@@ -6,7 +6,11 @@ export default function BusinessSidebarItems() {
   const t = useTranslations("dashboard");
   return (
     <>
-      <SidebarItem href="/dashboard" text={t("dashboard")} icon={<Gauge />} />
+      <SidebarItem
+        href="/dashboard/main"
+        text={t("dashboard")}
+        icon={<Gauge />}
+      />
       <SidebarItem
         href="/dashboard/profile"
         text={t("profile")}

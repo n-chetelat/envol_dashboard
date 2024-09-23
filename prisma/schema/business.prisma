@@ -9,7 +9,7 @@ model Business {
   createdAt               DateTime             @default(now())
   updatedAt               DateTime             @updatedAt
   profile                 Profile              @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  courseTopics            CourseTopic[]
+  courseDescriptions      CourseDescription[]
   instructorProfileTokens InstructorToken[]
   locations               Location[]
   stripeAccount           StripeAccount?

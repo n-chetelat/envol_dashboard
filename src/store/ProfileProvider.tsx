@@ -2,18 +2,18 @@
 
 import React, { useState, createContext, useContext } from "react";
 import { create } from "zustand";
-import { ProfileWithProfileTypes } from "@/libs/types";
+import { Profile } from "@/libs/types";
 
 type ProfileStoreCreateProps = {
-  profile: ProfileWithProfileTypes;
-  setProfile: (profile: ProfileWithProfileTypes) => void;
+  profile: Profile;
+  setProfile: (profile: Profile) => void;
 };
 
-const createStore = (profile: ProfileWithProfileTypes) => {
+const createStore = (profile: Profile) => {
   return create<ProfileStoreCreateProps>((set) => {
     return {
       profile,
-      setProfile(profile: ProfileWithProfileTypes) {
+      setProfile(profile: Profile) {
         set({ profile });
       },
     };
@@ -35,7 +35,7 @@ export const ProfileProvider = ({
   profile,
   children,
 }: {
-  profile: ProfileWithProfileTypes;
+  profile: Profile;
   children: React.ReactNode;
 }) => {
   const [store] = useState(() => createStore(profile));

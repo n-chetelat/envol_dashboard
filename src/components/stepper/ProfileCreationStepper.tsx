@@ -22,7 +22,7 @@ export default function ProfileCreationStepper() {
     if (profileTypeData["tokenIsValid"] === true) {
       try {
         await createProfile(profileTypeData.profileType, profileCreateInput);
-        router.replace("/dashboard");
+        router.replace("/dashboard/main");
       } catch (error) {
         console.error("Error while creating profile:");
         console.error(error);

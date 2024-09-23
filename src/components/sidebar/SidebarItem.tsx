@@ -14,7 +14,7 @@ interface SidebarItemProps {
 
 export default function SidebarItem({ href, text, icon }: SidebarItemProps) {
   const pathname = usePathname();
-  const isActive = pathname.endsWith(href);
+  const isActive = pathname.includes(href);
   const tooltipId = `tooltip-${href.replace("/", "-")}`;
 
   const { currentBreakpoint, getBreakpointValue } = useBreakpoint();

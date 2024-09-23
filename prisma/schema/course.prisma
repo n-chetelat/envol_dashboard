@@ -1,4 +1,4 @@
-model CourseTopic {
+model CourseDescription {
   id                String             @id @default(uuid()) @db.Uuid
   name              String             @db.VarChar(225)
   description       String
@@ -18,8 +18,8 @@ model CourseTopicImage {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  image       Image       @relation(fields: [imageId], references: [id], onDelete: Cascade)
-  courseTopic CourseTopic @relation(fields: [courseTopicId], references: [id], onDelete: Cascade)
+  image             Image             @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  courseDescription CourseDescription @relation(fields: [courseTopicId], references: [id], onDelete: Cascade)
 }
 
 model Location {
@@ -77,7 +77,7 @@ model CourseTemplate {
 
   courseTemplateInstructorProfiles CourseTemplateInstructorProfiles[]
   location                         Location                           @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  courseTopic                      CourseTopic                        @relation(fields: [courseTopicId], references: [id], onDelete: Cascade)
+  courseDescription                CourseDescription                  @relation(fields: [courseTopicId], references: [id], onDelete: Cascade)
   CourseSession                    CourseSession[]
 }
 

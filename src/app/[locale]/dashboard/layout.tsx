@@ -5,7 +5,7 @@ import SpinnerLoader from "@/components/loaders/SpinnerLoader";
 import Sidebar from "@/components/sidebar/Sidebar";
 import DashboardContent from "@/components/dashboards/DashboardContent";
 import DashboardOverlay from "@/components/dashboards/DashboardOverlay";
-import { ProfileWithProfileTypes } from "@/libs/types";
+import { Profile } from "@/libs/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { DashboardProvider } from "@/contexts/DashboardContext";
@@ -35,7 +35,7 @@ export default async function DashboardLayout({
     locale: string;
   };
 }>) {
-  const profile: ProfileWithProfileTypes | null = await getProfile();
+  const profile: Profile | null = await getProfile();
   if (!profile) {
     redirect("/profile_setup");
   }

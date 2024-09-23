@@ -1,6 +1,6 @@
 import { getProfile } from "@/actions/profile";
 import { redirect } from "@/libs/navigation";
-import { ProfileWithProfileTypes } from "@/libs/types";
+import { Profile } from "@/libs/types";
 import { PROFILE_TYPES } from "@/libs/constants";
 import BusinessDashboard from "@/components/dashboards/BusinessDashboard";
 import InstructorDashboard from "@/components/dashboards/InstructorDashboard";
@@ -13,7 +13,7 @@ interface DashboardPageParams {
 export default async function DashboardPage({
   params: { locale },
 }: DashboardPageParams) {
-  const profile: ProfileWithProfileTypes | null = await getProfile();
+  const profile: Profile | null = await getProfile();
   if (!profile) {
     redirect("/profile_setup");
   }

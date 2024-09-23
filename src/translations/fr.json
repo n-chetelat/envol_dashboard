@@ -122,6 +122,8 @@
     "createClass": "Créer un nouveau cour",
     "createLocation": "Créer un nouveau lieu",
     "removeClass": "Enlever un cours",
-    "removeLocation": "Enlever un lieu"
+    "removeLocation": "Enlever un lieu",
+    "newClassDesc": "Create a new class description - FR",
+    "editClassDesc": "Edit your class description - FR"
   }
 }

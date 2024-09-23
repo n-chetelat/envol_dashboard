@@ -1,7 +1,7 @@
-import { ProfileWithProfileTypes } from "@/libs/types";
+import { Profile } from "@/libs/types";
 
 interface StudentDashboardProps {
-  profile: ProfileWithProfileTypes;
+  profile: Profile;
 }
 
 export default async function StudentDashboard({

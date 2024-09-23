@@ -11,14 +11,14 @@ import {
   BusinessSettingsFormSchemaType,
 } from "@/validations/businessSettingsForm";
 import CheckboxInput from "@/components/forms/CheckboxInput";
-import { BusinessWithStripeAccount } from "@/libs/types";
+import { Business } from "@/libs/types";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
 import { translateError } from "@/libs/utils";
 
 interface BusinessFormProps {
   profileId: string;
-  business: BusinessWithStripeAccount | null;
+  business: Business | null;
 }
 
 export default function BusinessSettingsForm({

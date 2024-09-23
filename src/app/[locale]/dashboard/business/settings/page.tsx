@@ -2,7 +2,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { getProfile } from "@/actions/profile";
 import { getBusiness } from "@/actions/business";
-import { BusinessWithStripeAccount } from "@/libs/types";
+import { Business } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";
 import { getTranslations } from "next-intl/server";
@@ -20,9 +20,7 @@ export default async function BusinessSettingsPage({
     redirect("/profile_setup");
   }
 
-  const business: BusinessWithStripeAccount | null = await getBusiness(
-    profile.id,
-  );
+  const business: Business | null = await getBusiness();
 
   return (
     <div className="p-8">

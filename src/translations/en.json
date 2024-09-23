@@ -122,6 +122,8 @@
     "createClass": "Create New Class",
     "createLocation": "Create New Location",
     "removeClass": "Remove Class",
-    "removeLocation": "Remove Location"
+    "removeLocation": "Remove Location",
+    "newClassDesc": "Create a new class description",
+    "editClassDesc": "Edit your class description"
   }
 }

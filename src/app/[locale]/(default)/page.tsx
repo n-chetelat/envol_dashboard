@@ -26,7 +26,7 @@ export default function Home({
 
         {userId ? (
           <div className="m-4 flex-1 bg-lilac p-4 text-center font-sans text-white hover:bg-lilac-dark">
-            <Link href="/dashboard">{t("dashboardCta")}</Link>
+            <Link href="/dashboard/main">{t("dashboardCta")}</Link>
           </div>
         ) : (
           <div className="flex">
