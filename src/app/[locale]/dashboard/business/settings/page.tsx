@@ -1,7 +1,7 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { getProfile } from "@/queries/profile";
-import { getBusiness } from "@/queries/business";
+import { getProfile } from "@/actions/profile";
+import { getBusiness } from "@/actions/business";
 import { BusinessWithStripeAccount } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";

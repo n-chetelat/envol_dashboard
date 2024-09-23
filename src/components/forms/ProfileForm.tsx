@@ -17,7 +17,7 @@ import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
 import { useProfile } from "@/store/ProfileProvider";
 import { translateError } from "@/libs/utils";
-import { updateProfile } from "@/queries/profile";
+import { updateProfile } from "@/actions/profile";
 
 export default function ProfileForm() {
   const t = useTranslations();

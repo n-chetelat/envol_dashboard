@@ -7,7 +7,6 @@ export {
   type Business,
   type Instructor,
   type Student,
-  type CourseListing,
 } from "@prisma/client";
 
 // Prisma

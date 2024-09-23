@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "@/components/forms/Button";
 import ConfirmationDialog from "@/components/modals/ConfirmationDialog";
 import { useTranslations } from "next-intl";
-import { deleteProfile } from "@/queries/profile";
+import { deleteProfile } from "@/actions/profile";
 import { useProfile } from "@/store/ProfileProvider";
 import { useRouter } from "@/libs/navigation";
 

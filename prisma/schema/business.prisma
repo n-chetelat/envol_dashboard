@@ -1,0 +1,60 @@
+model Business {
+  id                      String               @id @default(uuid()) @db.Uuid
+  name                    String?              @db.VarChar(50)
+  bio                     String?
+  phoneNumber             String?              @db.VarChar(30)
+  contactEmail            String?              @db.VarChar(30)
+  published               Boolean              @default(false)
+  profileId               String               @unique @db.Uuid
+  createdAt               DateTime             @default(now())
+  updatedAt               DateTime             @updatedAt
+  profile                 Profile              @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  courses                 Course[]
+  instructorProfileTokens InstructorToken[]
+  locations               Location[]
+  stripeAccount           StripeAccount?
+  BusinessInstructor      BusinessInstructor[]
+}
+
+model BusinessToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  token     String   @db.VarChar(250)
+  used      Boolean  @default(false)
+  email     String   @db.VarChar(50)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime @default(dbgenerated("((now() AT TIME ZONE 'UTC'::text) + '1 day'::interval)")) @db.Timestamptz(6)
+}
+
+model BusinessInstructor {
+  id           String    @id @default(uuid()) @db.Uuid
+  businessId   String    @db.Uuid
+  instructorId String    @db.Uuid
+  verifiedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  business   Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  instructor Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+}
+
+model BusinessInstructorProfile {
+  id                             String                           @id @default(uuid()) @db.Uuid
+  businessInstructorId           String                           @db.Uuid
+  name                           String?                          @db.VarChar(50)
+  description                    String?
+  createdAt                      DateTime                         @default(now())
+  updatedAt                      DateTime                         @updatedAt
+  BusinessInstructorProfileImage BusinessInstructorProfileImage[]
+}
+
+model BusinessInstructorProfileImage {
+  id                          String   @id @default(uuid()) @db.Uuid
+  businessInstructorProfileId String   @db.Uuid()
+  imageId                     String   @db.Uuid()
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+
+  businessInstructorProfile BusinessInstructorProfile @relation(fields: [businessInstructorProfileId], references: [id], onDelete: Cascade)
+  image                     Image                     @relation(fields: [imageId], references: [id], onDelete: Cascade)
+}

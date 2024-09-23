@@ -1,7 +1,7 @@
 import ProfileCreationStepper from "@/components/stepper/ProfileCreationStepper";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { getProfile } from "@/queries/profile";
+import { getProfile } from "@/actions/profile";
 
 export default async function ProfileSetup({
   params: { locale },

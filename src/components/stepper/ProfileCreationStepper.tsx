@@ -5,7 +5,7 @@ import ProfileTypeForm from "@/components/forms/ProfileTypeForm";
 import Stepper from "@/components/stepper/Stepper";
 import { PROFILE_TYPES } from "@/libs/constants";
 import { useRouter } from "@/libs/navigation";
-import { createProfile as createProfileAction } from "@/queries/profile";
+import { createProfile as createProfileAction } from "@/actions/profile";
 import { ProfileFormSchemaType } from "@/validations/profileForm";
 
 export default function ProfileCreationStepper() {

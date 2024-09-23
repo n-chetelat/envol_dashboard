@@ -1,4 +1,4 @@
-import { getProfile } from "@/queries/profile";
+import { getProfile } from "@/actions/profile";
 import Navbar from "@/components/navbar/navbar/Navbar";
 import { Suspense } from "react";
 import SpinnerLoader from "@/components/loaders/SpinnerLoader";
