@@ -70,7 +70,7 @@ export default function MultiSelectInput<T>({
   };
   return (
     <div className="flex w-full flex-col">
-      <label>
+      <label htmlFor={selectId}>
         {label}
         {required && <span className="font-bold text-violet">*</span>}
       </label>

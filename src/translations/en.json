@@ -49,7 +49,11 @@
     "validating": "Validating",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "remove": "Remove",
+    "selectFiles": "Select files",
+    "dragAndDrop": "Drag and drop files here",
+    "images": "Images"
   },
   "errors": {
     "wrong": "Something went wrong",
@@ -62,7 +66,11 @@
     "failedToSave": "There was an error saving your information.",
     "noEmailToVerify": "There is no email to verify",
     "verificationFailed": "Email verification failed",
-    "invalidCode": "Invalid code"
+    "invalidCode": "Invalid code",
+    "mustBeFile": "Must be a File",
+    "fileSize": "File size must be under {size}MB",
+    "formatsAccepted": "Only these formats are accepted: {formats}",
+    "uploadMax": "You can upload a maximum of {count} files"
   },
   "success": {
     "saved": "Your information was saved successfully.",

@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useForm, FieldError } from "react-hook-form";
 import { CourseDescription } from "@/libs/types";
 import TextInput from "@/components/forms/TextInput";
+import MultiFileUpload from "./MultiFileUpload";
 import Button from "@/components/forms/Button";
 import { translateError } from "@/libs/utils";
 import { isFieldRequired } from "@/libs/validation";
@@ -27,10 +29,13 @@ export default function BusinessCoursesInfoForm({
   const isRequired = (fieldName: string) =>
     isFieldRequired(BusinessCourseDescFormSchema, fieldName);
   const isNewEntry = !businessCourseInfo;
+  const [images, setImages] = useState<File[]>([]);
+
   const {
     register,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
+    control,
   } = useForm<BusinessCourseDescFormSchemaType>({
     resolver: zodResolver(BusinessCourseDescFormSchema),
     mode: "onChange",
@@ -43,7 +48,10 @@ export default function BusinessCoursesInfoForm({
       : {},
   });
 
-  const handleSubmitCourseDesc = async () => {
+  const handleSubmitCourseDesc = async (
+    formData: BusinessCourseDescFormSchemaType,
+  ) => {
+    console.log(formData);
     // save and update course desc
   };
 
@@ -70,6 +78,13 @@ export default function BusinessCoursesInfoForm({
           errors={te(errors.requirements)}
           label={t("common.requirements")}
           required={isRequired("requirements")}
+        />
+        <MultiFileUpload
+          name={"images"}
+          label={t("common.images")}
+          required={isRequired("images")}
+          className="max-w-md"
+          control={control}
         />
         <Button isSubmitting={isSubmitting} isValid={isValid}>
           {t("common.submit")}
