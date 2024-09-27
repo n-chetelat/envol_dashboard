@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl";
 import { useForm, FieldError } from "react-hook-form";
 import { CourseDescription } from "@/libs/types";
-import TextInput from "@/components/forms/TextInput";
-import MultiFileUpload from "./MultiFileUpload";
-import Button from "@/components/forms/Button";
+import TextInput from "@/components/forms/components/TextInput";
+import MultiFileUpload from "./components/MultiFileUpload";
+import Button from "@/components/forms/components/Button";
 import { translateError } from "@/libs/utils";
 import { isFieldRequired } from "@/libs/validation";
 import {
@@ -13,6 +13,7 @@ import {
   BusinessCourseDescFormSchemaType,
 } from "@/validations/businessCourseDescForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ACCEPTED_IMAGE_TYPES } from "@/libs/constants";
 
 type BusinessCoursesInfoFormProps = {
   businessCourseInfo: CourseDescription | null;
@@ -83,6 +84,7 @@ export default function BusinessCoursesInfoForm({
           required={isRequired("images")}
           className="max-w-md"
           control={control}
+          allowedTypes={ACCEPTED_IMAGE_TYPES}
         />
         <Button isSubmitting={isSubmitting} isValid={isValid}>
           {t("common.submit")}

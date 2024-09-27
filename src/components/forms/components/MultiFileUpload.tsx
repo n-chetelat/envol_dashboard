@@ -3,6 +3,7 @@ import { useController, Control } from "react-hook-form";
 import { cn } from "@/libs/utils";
 import useTranslatedError from "@/hooks/useTranslatedError";
 import { useTranslations } from "next-intl";
+import { FilePreview } from "@/components/forms/components/FilePreview";
 
 interface MultiFileUploadProps {
   name: string;
@@ -10,6 +11,7 @@ interface MultiFileUploadProps {
   className?: string;
   label: string;
   required: boolean;
+  allowedTypes?: string[];
 }
 
 const MultiFileUpload = ({
@@ -18,6 +20,7 @@ const MultiFileUpload = ({
   className,
   label,
   required,
+  allowedTypes = [],
 }: MultiFileUploadProps) => {
   const t = useTranslations();
   const [fileList, setFileList] = useState<File[]>([]);
@@ -87,6 +90,7 @@ const MultiFileUpload = ({
           onChange={handleFileChange}
           multiple
           className="hidden"
+          accept={allowedTypes.join(",")}
         />
         <button
           type="button"
@@ -97,20 +101,10 @@ const MultiFileUpload = ({
         </button>
         <p className="mt-2">{t("common.dragAndDrop")}</p>
         {fileList.length > 0 && (
-          <ul className="mt-4">
+          <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {fileList.map((file, index) => (
-              <li
-                key={index}
-                className="flex items-center justify-between py-2"
-              >
-                <span>{file.name}</span>
-                <button
-                  type="button"
-                  onClick={() => removeFile(index)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  {t("common.remove")}
-                </button>
+              <li key={file.name} className="flex w-24 flex-col items-center">
+                <FilePreview file={file} onRemove={() => removeFile(index)} />
               </li>
             ))}
           </ul>

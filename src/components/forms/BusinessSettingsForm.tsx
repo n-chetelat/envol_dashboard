@@ -3,14 +3,14 @@
 import { useEffect } from "react";
 import { useForm, FieldError } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import TextInput from "@/components/forms/TextInput";
-import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
+import TextInput from "@/components/forms/components/TextInput";
+import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   BusinessSettingsFormSchema,
   BusinessSettingsFormSchemaType,
 } from "@/validations/businessSettingsForm";
-import CheckboxInput from "@/components/forms/CheckboxInput";
+import CheckboxInput from "@/components/forms/components/CheckboxInput";
 import { Business } from "@/libs/types";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";

@@ -7,7 +7,7 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import Button from "@/components/forms/Button";
+import Button from "@/components/forms/components/Button";
 
 interface ConfirmationDialogProps {
   isOpen: boolean;

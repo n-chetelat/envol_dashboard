@@ -14,4 +14,5 @@ export {
   LoaderPinwheel,
   CircleUserRound,
   LogOut,
+  X,
 } from "lucide-react";

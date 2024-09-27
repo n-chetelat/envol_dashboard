@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Button from "@/components/forms/Button";
+import Button from "@/components/forms/components/Button";
 import ConfirmationDialog from "@/components/modals/ConfirmationDialog";
 import { useTranslations } from "next-intl";
 import { deleteProfile } from "@/actions/profile";

@@ -82,7 +82,8 @@
     "toggleMobileMenu": "Toggle mobile menu - FR",
     "currentLocale": "Current locale - FR",
     "languageNavLabel": "Locale switcher - FR",
-    "switchTo": "Switch to language - FR"
+    "switchTo": "Switch to language - FR",
+    "removeFile": "Remove file - FR"
   },
   "home": {
     "subtitle": "Envol offers booking solutions - FR",

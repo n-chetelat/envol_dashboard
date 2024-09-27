@@ -10,11 +10,11 @@ import {
 } from "@/validations/profileTypeForm";
 import { StepComponentProps } from "@/components/stepper/Stepper";
 import { useTranslations } from "next-intl";
-import TextInput from "@/components/forms/TextInput";
+import TextInput from "@/components/forms/components/TextInput";
 import { verifyToken } from "@/libs/tokens";
 import { PROFILE_TYPES } from "@/libs/constants";
 import { Loader, CircleCheckBig } from "@/libs/icons";
-import RadioInput from "@/components/forms/RadioInput";
+import RadioInput from "@/components/forms/components/RadioInput";
 import { isFieldRequired } from "@/libs/validation";
 import { translateError } from "@/libs/utils";
 import { useUser } from "@clerk/nextjs";

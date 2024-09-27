@@ -5,9 +5,9 @@ import { useForm, FieldError } from "react-hook-form";
 import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/libs/constants";
 import { useTranslations } from "next-intl";
-import TextInput from "@/components/forms/TextInput";
-import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
-import MultiSelectInput from "@/components/forms/MultiSelectInput";
+import TextInput from "@/components/forms/components/TextInput";
+import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
+import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ProfileFormSchema,

@@ -9,10 +9,10 @@ import {
   ProfileFormSchema,
   ProfileFormSchemaType,
 } from "@/validations/profileForm";
-import TextInput from "@/components/forms/TextInput";
-import PhoneNumberInput from "@/components/forms/PhoneNumberInput";
-import MultiSelectInput from "@/components/forms/MultiSelectInput";
-import Button from "@/components/forms/Button";
+import TextInput from "@/components/forms/components/TextInput";
+import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
+import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
+import Button from "@/components/forms/components/Button";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
 import { isFieldRequired } from "@/libs/validation";
 import { useProfile } from "@/store/ProfileProvider";
