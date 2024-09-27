@@ -1,8 +1,9 @@
 "use client";
 
 import Select, { StylesConfig, MultiValue, GroupBase } from "react-select";
-import { Controller, Control, FieldError } from "react-hook-form";
+import { useController, Control } from "react-hook-form";
 import { useId } from "react";
+import useTranslatedError from "@/hooks/useTranslatedError";
 
 // Define a generic type for the option value
 type OptionType<T> = {
@@ -12,25 +13,33 @@ type OptionType<T> = {
 
 // Update the props interface to use generics
 interface MultiSelectInputProps<T> {
-  inputParams: any;
-  errors: Partial<FieldError> | undefined;
+  name: string;
   label: string;
   options: OptionType<T>[];
   placeholder: string;
-  formControl: Control<any>;
+  control: Control<any>;
   required: boolean;
 }
 
 export default function MultiSelectInput<T>({
-  inputParams,
-  errors,
+  name,
   label,
   options,
   placeholder,
-  formControl,
+  control,
   required,
 }: MultiSelectInputProps<T>) {
   const selectId = useId();
+
+  const {
+    field: { onChange, value, ref },
+    fieldState: { error },
+  } = useController({
+    name,
+    control,
+  });
+
+  const translatedError = useTranslatedError(error);
 
   const multiSelectInputStyles: StylesConfig<
     OptionType<T>,
@@ -74,28 +83,22 @@ export default function MultiSelectInput<T>({
         {label}
         {required && <span className="font-bold text-violet">*</span>}
       </label>
-      <Controller
-        name={inputParams.name}
-        control={formControl}
-        render={({ field: { onChange, value, name, ref } }) => (
-          <Select<OptionType<T>, true>
-            instanceId={selectId}
-            name={name}
-            ref={ref}
-            placeholder={`${placeholder}...`}
-            options={options}
-            isMulti
-            value={options.filter(
-              (c) => Array.isArray(value) && value.some((v) => v === c.value),
-            )}
-            onChange={(newValue: MultiValue<OptionType<T>>) => {
-              onChange(newValue.map((v) => v.value));
-            }}
-            styles={multiSelectInputStyles}
-          />
+      <Select<OptionType<T>, true>
+        instanceId={selectId}
+        name={name}
+        ref={ref}
+        placeholder={`${placeholder}...`}
+        options={options}
+        isMulti
+        value={options.filter(
+          (c) => Array.isArray(value) && value.includes(c.value),
         )}
+        onChange={(newValue: MultiValue<OptionType<T>>) => {
+          onChange(newValue.map((v) => v.value));
+        }}
+        styles={multiSelectInputStyles}
       />
-      <p className="h-8 text-error">{errors?.message}</p>
+      <p className="h-8 text-error">{translatedError?.message}</p>
     </div>
   );
 }

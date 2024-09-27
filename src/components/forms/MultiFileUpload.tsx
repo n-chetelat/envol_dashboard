@@ -1,8 +1,8 @@
 import { useState, useRef, ChangeEvent, useId } from "react";
-import { useController, Control, FieldError } from "react-hook-form";
+import { useController, Control } from "react-hook-form";
 import { cn } from "@/libs/utils";
+import useTranslatedError from "@/hooks/useTranslatedError";
 import { useTranslations } from "next-intl";
-import { translateError } from "@/libs/utils";
 
 interface MultiFileUploadProps {
   name: string;
@@ -34,7 +34,7 @@ const MultiFileUpload = ({
     defaultValue: [],
   });
 
-  const translatedError = translateError(t, error as FieldError | undefined);
+  const translatedError = useTranslatedError(error, t);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

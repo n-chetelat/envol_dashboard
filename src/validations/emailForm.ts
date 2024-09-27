@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const EmailFormSchema = z
   .object({
-    primaryEmail: z.string().email("invalidEmail"),
+    primaryEmail: z.string().email("invalidEmail").optional(),
     secondaryEmail: z.string().email("invalidEmail"),
     verificationCode: z.string().optional(),
   })

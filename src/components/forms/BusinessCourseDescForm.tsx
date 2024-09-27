@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useForm, FieldError } from "react-hook-form";
 import { CourseDescription } from "@/libs/types";
@@ -29,7 +28,6 @@ export default function BusinessCoursesInfoForm({
   const isRequired = (fieldName: string) =>
     isFieldRequired(BusinessCourseDescFormSchema, fieldName);
   const isNewEntry = !businessCourseInfo;
-  const [images, setImages] = useState<File[]>([]);
 
   const {
     register,
@@ -62,20 +60,20 @@ export default function BusinessCoursesInfoForm({
       </h2>
       <form onSubmit={handleSubmit(handleSubmitCourseDesc)}>
         <TextInput
-          inputParams={register("name")}
-          errors={te(errors.name)}
+          name="name"
+          control={control}
           label={t("common.name")}
           required={isRequired("name")}
         />
         <TextInput
-          inputParams={register("description")}
-          errors={te(errors.description)}
+          name="description"
+          control={control}
           label={t("common.description")}
           required={isRequired("description")}
         />
         <TextInput
-          inputParams={register("requirements")}
-          errors={te(errors.requirements)}
+          name="requirements"
+          control={control}
           label={t("common.requirements")}
           required={isRequired("requirements")}
         />

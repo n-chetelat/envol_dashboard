@@ -34,6 +34,7 @@ export default function ProfileTypeForm({
     watch,
     setValue,
     getValues,
+    control,
   } = useForm<ProfileTypeFormType>({
     resolver: zodResolver(ProfileTypeFormSchema),
     mode: "onChange",
@@ -137,8 +138,8 @@ export default function ProfileTypeForm({
         ) && (
           <div className="m-2 translate-y-4 animate-[fadeInUp_0.3s_ease-out_forwards] space-y-4 opacity-0 transition-all duration-300 ease-out">
             <TextInput
-              inputParams={register("token")}
-              errors={te(errors.token)}
+              name="token"
+              control={control}
               label={t("profile.token")}
               required={false}
             />

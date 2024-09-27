@@ -88,37 +88,35 @@ export default function ProfileForm() {
       className="flex flex-col items-center"
     >
       <TextInput
-        inputParams={register("firstName")}
-        errors={te(errors.firstName)}
+        name="firstName"
+        control={control}
         label={t("common.firstName")}
         required={isRequired("firstName")}
       />
       <TextInput
-        inputParams={register("lastName")}
-        errors={te(errors.lastName)}
+        name="lastName"
+        control={control}
         label={t("common.lastName")}
         required={isRequired("lastName")}
       />
       <TextInput
-        inputParams={register("preferredName")}
-        errors={te(errors.preferredName)}
+        name="preferredName"
+        control={control}
         label={t("common.preferredName")}
         required={isRequired("preferredName")}
       />
       <MultiSelectInput<string>
-        inputParams={register("pronouns")}
-        errors={te(errors.pronouns as FieldError)}
+        name="pronouns"
         label={t("common.pronoun")}
         options={pronounSelectorOptions}
-        formControl={control}
+        control={control}
         placeholder={t("common.select")}
         required={isRequired("pronouns")}
       />
       <PhoneNumberInput
-        inputParams={register("phoneNumber")}
-        errors={te(errors.phoneNumber)}
+        name="phoneNumber"
         label={t("common.phoneNumber")}
-        formControl={control}
+        control={control}
         required={isRequired("phoneNumber")}
       />
       <Button isValid={isValid} isSubmitting={isSubmitting} className="w-3/6">

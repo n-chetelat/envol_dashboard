@@ -1,22 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm, FieldError, set } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useUser } from "@clerk/nextjs";
 import TextInput from "@/components/forms/TextInput";
 import Button from "@/components/forms/Button";
 import { showSuccessToast, showErrorToast } from "@/libs/toast";
-import { translateError } from "@/libs/utils";
 import { EmailFormSchema, EmailFormSchemaType } from "@/validations/emailForm";
 import { EmailAddressResource } from "@clerk/types";
 
 export default function EmailForm() {
   const { user } = useUser();
   const t = useTranslations();
-  const te = (keyErrors: FieldError | undefined) =>
-    translateError(t, keyErrors);
   const [isVerifying, setIsVerifying] = useState(false);
   const [showVerificationInput, setShowVerificationInput] = useState(false);
   const [newEmailAddress, setNewEmailAddress] = useState<
@@ -24,17 +21,13 @@ export default function EmailForm() {
   >();
 
   const {
-    register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { isValid, isSubmitting },
     handleSubmit,
     setValue,
+    control,
   } = useForm<EmailFormSchemaType>({
     resolver: zodResolver(EmailFormSchema),
     mode: "onChange",
-    defaultValues: {
-      secondaryEmail: undefined,
-      verificationCode: undefined,
-    },
   });
 
   useEffect(() => {
@@ -142,21 +135,17 @@ export default function EmailForm() {
   return (
     <form onSubmit={handleSubmit(handleSubmitEmail)} className="flex flex-col">
       <TextInput
-        inputParams={{
-          ...register("primaryEmail"),
-          disabled: true,
-        }}
-        errors={te(errors.primaryEmail)}
+        disabled={true}
+        name="primaryEmail"
+        control={control}
         label={t("profile.primaryEmail")}
-        required={true}
+        required={false}
       />
       <div className="flex flex-col space-y-2 lg:flex-row lg:items-center lg:space-x-2 lg:space-y-0">
         <TextInput
-          inputParams={{
-            ...register("secondaryEmail"),
-            disabled: isVerifying,
-          }}
-          errors={te(errors.secondaryEmail)}
+          disabled={isVerifying}
+          name="secondaryEmail"
+          control={control}
           label={t("profile.secondaryEmail")}
           required={true}
         />
@@ -209,8 +198,8 @@ export default function EmailForm() {
         {isVerifying && (
           <div className="flex items-center space-x-2">
             <TextInput
-              inputParams={register("verificationCode")}
-              errors={te(errors.verificationCode)}
+              name="verificationCode"
+              control={control}
               label={t("profile.verificationCode")}
               required={true}
             />

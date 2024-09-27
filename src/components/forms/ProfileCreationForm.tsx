@@ -80,29 +80,28 @@ export default function ProfileCreationForm({
       <h3 className="my-4 text-center">{t("profile.description")}</h3>
       <form className="flex flex-col items-center">
         <TextInput
-          inputParams={register("firstName")}
-          errors={te(errors.firstName)}
+          name="firstName"
+          control={control}
           label={t("common.firstName")}
           required={isRequired("firstName")}
         />
         <TextInput
-          inputParams={register("lastName")}
-          errors={te(errors.lastName)}
+          name="lastName"
+          control={control}
           label={t("common.lastName")}
           required={isRequired("lastName")}
         />
         <TextInput
-          inputParams={register("preferredName")}
-          errors={te(errors.preferredName)}
+          name="preferredName"
+          control={control}
           label={t("common.preferredName")}
           required={isRequired("preferredName")}
         />
         <MultiSelectInput<string>
-          inputParams={register("pronouns")}
-          errors={te(errors.pronouns as FieldError)}
+          name="pronouns"
           label={t("common.pronoun")}
           options={pronounSelectorOptions}
-          formControl={control}
+          control={control}
           placeholder={t("common.select")}
           required={isRequired("pronouns")}
         />

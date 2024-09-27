@@ -93,28 +93,27 @@ export default function BusinessSettingsForm({
   return (
     <form className="flex flex-col items-center">
       <TextInput
-        inputParams={register("name")}
-        errors={te(errors.name)}
+        name="name"
+        control={control}
         label={t("common.name")}
         required={isRequired("name")}
       />
       <TextInput
-        inputParams={register("bio")}
-        errors={te(errors.bio)}
+        name="bio"
+        control={control}
         label={t("common.bio")}
         required={isRequired("bio")}
       />
       <TextInput
-        inputParams={register("contactEmail")}
-        errors={te(errors.contactEmail)}
+        name="contactEmail"
+        control={control}
         label={t("common.email")}
         required={isRequired("contactEmail")}
       />
       <PhoneNumberInput
-        inputParams={register("phoneNumber")}
-        errors={te(errors.phoneNumber)}
+        name="phoneNumber"
         label={t("common.phoneNumber")}
-        formControl={control}
+        control={control}
         required={isRequired("phoneNumber")}
       />
       <CheckboxInput

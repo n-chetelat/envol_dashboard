@@ -63,7 +63,7 @@ export default function RadioInput({
           </div>
         ))}
       </fieldset>
-      {errors && <p className="mt-1 h-8 text-error">{errors?.message}</p>}
+      <p className="mt-1 h-8 text-error">{errors?.message}</p>
     </div>
   );
 }
