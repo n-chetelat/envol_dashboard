@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import Button from "@/components/forms/components/Button";
+import TextInput from "@/components/forms/components/TextInput";
+import { showErrorToast, showSuccessToast } from "@/libs/toast";
+import { EmailFormSchema, EmailFormSchemaType } from "@/validations/emailForm";
+import { useUser } from "@clerk/nextjs";
+import { EmailAddressResource } from "@clerk/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useUser } from "@clerk/nextjs";
-import TextInput from "@/components/forms/components/TextInput";
-import Button from "@/components/forms/components/Button";
-import { showSuccessToast, showErrorToast } from "@/libs/toast";
-import { EmailFormSchema, EmailFormSchemaType } from "@/validations/emailForm";
-import { EmailAddressResource } from "@clerk/types";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function EmailForm() {
   const { user } = useUser();

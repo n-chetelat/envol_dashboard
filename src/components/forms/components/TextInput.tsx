@@ -1,7 +1,7 @@
 "use client";
-import { useId } from "react";
-import { useController, Control } from "react-hook-form";
 import useTranslatedError from "@/hooks/useTranslatedError";
+import { useId } from "react";
+import { Control, useController } from "react-hook-form";
 
 type TextInputProps = {
   control: Control<any>;

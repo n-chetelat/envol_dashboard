@@ -1,9 +1,11 @@
-import { useState, useRef, ChangeEvent, useId } from "react";
-import { useController, Control } from "react-hook-form";
-import { cn } from "@/libs/utils";
-import useTranslatedError from "@/hooks/useTranslatedError";
-import { useTranslations } from "next-intl";
+"use client";
+
 import { FilePreview } from "@/components/forms/components/FilePreview";
+import useTranslatedError from "@/hooks/useTranslatedError";
+import { cn } from "@/libs/utils";
+import { useTranslations } from "next-intl";
+import { ChangeEvent, useId, useRef, useState } from "react";
+import { Control, useController } from "react-hook-form";
 
 interface MultiFileUploadProps {
   name: string;

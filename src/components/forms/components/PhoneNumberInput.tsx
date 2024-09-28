@@ -1,7 +1,10 @@
+"use client";
+
 import { useState } from "react";
-import "react-phone-number-input/style.css";
+import { Control, useController } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
-import { useController, Control } from "react-hook-form";
+import "react-phone-number-input/style.css";
+
 import useTranslatedError from "@/hooks/useTranslatedError";
 
 type PhoneNumberInputProps = {

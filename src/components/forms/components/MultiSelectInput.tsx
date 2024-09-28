@@ -1,9 +1,9 @@
 "use client";
 
-import Select, { StylesConfig, MultiValue, GroupBase } from "react-select";
-import { useController, Control } from "react-hook-form";
-import { useId } from "react";
 import useTranslatedError from "@/hooks/useTranslatedError";
+import { useId } from "react";
+import { Control, useController } from "react-hook-form";
+import Select, { GroupBase, MultiValue, StylesConfig } from "react-select";
 
 // Define a generic type for the option value
 type OptionType<T> = {

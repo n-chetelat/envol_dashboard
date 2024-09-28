@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import Image from "next/image";
 import { cn } from "@/libs/utils";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface FileThumbnailProps {
   file: File;

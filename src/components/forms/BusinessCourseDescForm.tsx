@@ -31,8 +31,7 @@ export default function BusinessCoursesInfoForm({
   const isNewEntry = !businessCourseInfo;
 
   const {
-    register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { isValid, isSubmitting },
     handleSubmit,
     control,
   } = useForm<BusinessCourseDescFormSchemaType>({

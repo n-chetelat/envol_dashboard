@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
-import { useForm, FieldError } from "react-hook-form";
-import { useTranslations } from "next-intl";
-import TextInput from "@/components/forms/components/TextInput";
+import CheckboxInput from "@/components/forms/components/CheckboxInput";
 import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
-import { zodResolver } from "@hookform/resolvers/zod";
+import TextInput from "@/components/forms/components/TextInput";
+import { showErrorToast, showSuccessToast } from "@/libs/toast";
+import { Business } from "@/libs/types";
+import { translateError } from "@/libs/utils";
+import { isFieldRequired } from "@/libs/validation";
 import {
   BusinessSettingsFormSchema,
   BusinessSettingsFormSchemaType,
 } from "@/validations/businessSettingsForm";
-import CheckboxInput from "@/components/forms/components/CheckboxInput";
-import { Business } from "@/libs/types";
-import { showSuccessToast, showErrorToast } from "@/libs/toast";
-import { isFieldRequired } from "@/libs/validation";
-import { translateError } from "@/libs/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { FieldError, useForm } from "react-hook-form";
 
 interface BusinessFormProps {
   profileId: string;
@@ -31,8 +31,7 @@ export default function BusinessSettingsForm({
   const isRequired = (fieldName: string) =>
     isFieldRequired(BusinessSettingsFormSchema, fieldName);
   const {
-    register,
-    formState: { errors, isValid },
+    formState: { isValid },
     control,
     reset,
     getValues,
@@ -117,8 +116,8 @@ export default function BusinessSettingsForm({
         required={isRequired("phoneNumber")}
       />
       <CheckboxInput
-        inputParams={register("published")}
-        errors={te(errors.published)}
+        name="published"
+        control={control}
         label={t("settings.published")}
         required={isRequired("published")}
       />

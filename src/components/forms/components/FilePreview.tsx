@@ -1,9 +1,10 @@
 "use client";
 
-import { FileThumbnail } from "@/components/forms/components/FileThumbnail";
-import { X } from "@/libs/icons";
+import React from "react";
 import { useTranslations } from "next-intl";
+import { X } from "@/libs/icons";
 import { cn } from "@/libs/utils";
+import { FileThumbnail } from "@/components/forms/components/FileThumbnail";
 
 interface FilePreviewProps {
   file: File;

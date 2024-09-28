@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { UseFormRegisterReturn, FieldError } from "react-hook-form";
+import useTranslatedError from "@/hooks/useTranslatedError";
+import { Control, useController } from "react-hook-form";
 
 interface Option {
   value: string;
@@ -10,8 +10,8 @@ interface Option {
 
 interface RadioInputProps {
   options: Option[];
-  inputParams: UseFormRegisterReturn;
-  errors?: Partial<FieldError> | undefined;
+  control: Control<any>;
+  name: string;
   size?: "sm" | "md" | "lg";
   label?: string;
   disabled?: boolean;
@@ -26,14 +26,22 @@ const sizeClasses: Record<RadioInputProps["size"] & string, string> = {
 
 export default function RadioInput({
   options,
-  inputParams,
-  errors,
+  control,
+  name,
   size = "md",
   label,
   disabled = false,
   required,
 }: RadioInputProps) {
   const radioSizeClass = sizeClasses[size] || sizeClasses.md;
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    control,
+    name,
+  });
+  const translatedError = useTranslatedError(error);
 
   return (
     <div className="flex w-full flex-col">
@@ -45,12 +53,12 @@ export default function RadioInput({
         {options.map((option) => (
           <div key={option.value} className="mb-2 flex items-center">
             <input
+              {...field}
               id={`radio-${option.value}`}
               type="radio"
               value={option.value}
               className={`mr-2 ${radioSizeClass} cursor-pointer appearance-none rounded-full border-2 border-gray-300 transition-all duration-200 checked:border-0 checked:border-violet checked:bg-violet focus:shadow-radio-ring-focus focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50`}
               disabled={disabled}
-              {...inputParams}
             />
             <label
               htmlFor={`radio-${option.value}`}
@@ -63,7 +71,7 @@ export default function RadioInput({
           </div>
         ))}
       </fieldset>
-      <p className="mt-1 h-8 text-error">{errors?.message}</p>
+      <p className="mt-1 h-8 text-error">{translatedError?.message}</p>
     </div>
   );
 }

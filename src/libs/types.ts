@@ -1,5 +1,4 @@
 import { Prisma } from "@prisma/client";
-import { UseFormRegisterReturn, FieldError } from "react-hook-form";
 
 export {
   type ProfileType,
@@ -23,12 +22,3 @@ export type Business = Prisma.BusinessGetPayload<{
     stripeAccount: true;
   };
 }>;
-
-// Forms
-
-export type InputProps = {
-  inputParams: UseFormRegisterReturn;
-  errors: Partial<FieldError> | undefined;
-  label: string;
-  required: boolean;
-};

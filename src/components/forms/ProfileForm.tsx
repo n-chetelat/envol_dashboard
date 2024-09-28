@@ -1,23 +1,23 @@
 "use client";
 
-import { useMemo } from "react";
-import { useForm, FieldError } from "react-hook-form";
+import { updateProfile } from "@/actions/profile";
+import Button from "@/components/forms/components/Button";
+import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
+import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
+import TextInput from "@/components/forms/components/TextInput";
 import { PRONOUNS } from "@/libs/constants";
-import { useTranslations } from "next-intl";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { showErrorToast, showSuccessToast } from "@/libs/toast";
+import { translateError } from "@/libs/utils";
+import { isFieldRequired } from "@/libs/validation";
+import { useProfile } from "@/store/ProfileProvider";
 import {
   ProfileFormSchema,
   ProfileFormSchemaType,
 } from "@/validations/profileForm";
-import TextInput from "@/components/forms/components/TextInput";
-import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
-import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
-import Button from "@/components/forms/components/Button";
-import { showSuccessToast, showErrorToast } from "@/libs/toast";
-import { isFieldRequired } from "@/libs/validation";
-import { useProfile } from "@/store/ProfileProvider";
-import { translateError } from "@/libs/utils";
-import { updateProfile } from "@/actions/profile";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
+import { FieldError, useForm } from "react-hook-form";
 
 export default function ProfileForm() {
   const t = useTranslations();
@@ -30,8 +30,7 @@ export default function ProfileForm() {
     state.setProfile,
   ]);
   const {
-    register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { isValid, isSubmitting },
     control,
     handleSubmit,
   } = useForm<ProfileFormSchemaType>({

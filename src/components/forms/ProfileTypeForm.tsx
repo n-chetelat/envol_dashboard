@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useForm, FieldError } from "react-hook-form";
-import { Prisma } from "@prisma/client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import RadioInput from "@/components/forms/components/RadioInput";
+import TextInput from "@/components/forms/components/TextInput";
+import { StepComponentProps } from "@/components/stepper/Stepper";
+import { PROFILE_TYPES } from "@/libs/constants";
+import { CircleCheckBig, Loader } from "@/libs/icons";
+import { verifyToken } from "@/libs/tokens";
+import { translateError } from "@/libs/utils";
+import { isFieldRequired } from "@/libs/validation";
 import {
   ProfileTypeFormSchema,
   type ProfileTypeFormType,
 } from "@/validations/profileTypeForm";
-import { StepComponentProps } from "@/components/stepper/Stepper";
-import { useTranslations } from "next-intl";
-import TextInput from "@/components/forms/components/TextInput";
-import { verifyToken } from "@/libs/tokens";
-import { PROFILE_TYPES } from "@/libs/constants";
-import { Loader, CircleCheckBig } from "@/libs/icons";
-import RadioInput from "@/components/forms/components/RadioInput";
-import { isFieldRequired } from "@/libs/validation";
-import { translateError } from "@/libs/utils";
 import { useUser } from "@clerk/nextjs";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Prisma } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { FieldError, useForm } from "react-hook-form";
 
 export default function ProfileTypeForm({
   data,
@@ -30,7 +30,7 @@ export default function ProfileTypeForm({
   const {
     trigger,
     register,
-    formState: { errors, isValid },
+    formState: { isValid },
     watch,
     setValue,
     getValues,
@@ -112,8 +112,8 @@ export default function ProfileTypeForm({
       </h1>
       <form className="flx w-full flex-col">
         <RadioInput
-          inputParams={register("profileType")}
-          errors={te(errors.profileType)}
+          name="profileType"
+          control={control}
           options={[
             {
               value: PROFILE_TYPES.STUDENT_TYPE,

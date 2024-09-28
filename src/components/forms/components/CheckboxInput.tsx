@@ -1,21 +1,39 @@
 "use client";
 
-import { InputProps } from "@/libs/types";
+import useTranslatedError from "@/hooks/useTranslatedError";
+import { Control, useController } from "react-hook-form";
+
+type CheckboxInputProps = {
+  control: Control<any>;
+  name: string;
+  label: string;
+  required: boolean;
+};
+
 export default function CheckboxInput({
-  inputParams,
-  errors,
+  control,
+  name,
   label,
   required,
-}: InputProps) {
+}: CheckboxInputProps) {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    control,
+    name,
+  });
+
+  const translateError = useTranslatedError(error);
   return (
     <div className="flex w-full flex-col">
       <div className="flex">
         <div className="pr-2">
           <input
+            {...field}
             className="h-5 w-5 accent-violet"
             type="checkbox"
-            aria-invalid={errors ? "true" : "false"}
-            {...inputParams}
+            aria-invalid={error ? "true" : "false"}
           />
         </div>
 
@@ -25,7 +43,7 @@ export default function CheckboxInput({
         </label>
       </div>
 
-      <p className="h-8 text-error">{errors?.message}</p>
+      <p className="h-8 text-error">{translateError?.message}</p>
     </div>
   );
 }

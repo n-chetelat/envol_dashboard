@@ -1,21 +1,21 @@
 "use client";
 
-import { useMemo, useEffect } from "react";
-import { useForm, FieldError } from "react-hook-form";
+import { useEffect, useMemo } from "react";
+import { FieldError, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Prisma } from "@prisma/client";
 import { PRONOUNS } from "@/libs/constants";
-import { useTranslations } from "next-intl";
-import TextInput from "@/components/forms/components/TextInput";
-import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
-import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { translateError } from "@/libs/utils";
+import { isFieldRequired } from "@/libs/validation";
 import {
   ProfileFormSchema,
   ProfileFormSchemaType,
 } from "@/validations/profileForm";
+import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
+import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
+import TextInput from "@/components/forms/components/TextInput";
 import { StepComponentProps } from "@/components/stepper/Stepper";
-import { isFieldRequired } from "@/libs/validation";
-import { translateError } from "@/libs/utils";
 
 type ProfileTypeFormProps = {
   data: Partial<Prisma.ProfileCreateInput>;
@@ -34,8 +34,7 @@ export default function ProfileCreationForm({
   const {
     getFieldState,
     trigger,
-    register,
-    formState: { errors, isValid },
+    formState: { isValid },
     control,
     watch,
     setValue,
@@ -106,10 +105,9 @@ export default function ProfileCreationForm({
           required={isRequired("pronouns")}
         />
         <PhoneNumberInput
-          inputParams={register("phoneNumber")}
-          errors={te(errors.phoneNumber)}
+          control={control}
+          name="phoneNumber"
           label={t("common.phoneNumber")}
-          formControl={control}
           required={isRequired("phoneNumber")}
         />
       </form>

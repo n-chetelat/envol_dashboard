@@ -1,6 +1,6 @@
-import { Loader } from "@/libs/icons";
-import { useTranslations } from "next-intl";
 import type { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
+import { Loader } from "@/libs/icons";
 import { cn } from "@/libs/utils";
 
 interface ButtonProps {
