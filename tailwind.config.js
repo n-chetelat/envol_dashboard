@@ -48,6 +48,10 @@ module.exports = {
         "spin-change-color":
           "spin 3s linear infinite, change-colors 3s linear infinite",
       },
+      gridTemplateColumns: {
+        "static-2": "repeat(2, 6rem)",
+        "static-4": "repeat(4, 6rem)",
+      },
     },
   },
   plugins: [],

@@ -1,6 +1,6 @@
+import { FieldError } from "react-hook-form";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { FieldError } from "react-hook-form";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -26,4 +26,32 @@ export const translateError = (
     };
   }
   return undefined;
+};
+
+export const uploadFiles = async (files: File[]) => {
+  const fileInfo: { name: string; type: string; url: string }[] = files.map(
+    (file) => ({ name: file.name, type: file.type, url: "" }),
+  );
+  const filesFormData = encodeFilesAsFormData(files);
+  const response = await fetch("/api/files", {
+    method: "PUT",
+    body: filesFormData,
+  });
+  if (response.ok) {
+    const results = await response.json();
+    results.forEach((r: any, idx: number) => {
+      fileInfo[idx].url = r.url;
+    });
+    return fileInfo;
+  } else {
+    throw new Error("Error while uploading files.");
+  }
+};
+
+export const encodeFilesAsFormData = (files: File[]) => {
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append("file[]", file);
+  });
+  return formData;
 };

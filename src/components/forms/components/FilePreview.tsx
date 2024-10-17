@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useTranslations } from "next-intl";
 import { X } from "@/libs/icons";
 import { cn } from "@/libs/utils";
@@ -19,8 +18,8 @@ export const FilePreview = ({
 }: FilePreviewProps) => {
   const t = useTranslations("aria");
   return (
-    <div className={cn("group relative", className)}>
-      <FileThumbnail file={file} />
+    <div className={cn("group relative flex flex-col w-20 h-24", className)}>
+      <FileThumbnail file={file} className="w-full h-20" />
       <button
         onClick={onRemove}
         className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-violet text-white transition-colors group-hover:bg-violet-light"

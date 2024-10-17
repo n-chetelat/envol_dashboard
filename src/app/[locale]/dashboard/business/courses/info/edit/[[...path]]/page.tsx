@@ -1,8 +1,8 @@
 import { unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { getBusiness } from "@/queries/business";
+import { getCourseDescription } from "@/queries/course";
 import { Business, CourseDescription } from "@/libs/types";
-import { getBusiness } from "@/actions/business";
-import { getCourseDescription } from "@/actions/course";
 import BusinessCoursesInfoForm from "@/components/forms/BusinessCourseDescForm";
 
 export default async function BusinessCoursesInfoEditPage({
@@ -29,14 +29,16 @@ export default async function BusinessCoursesInfoEditPage({
   }
 
   // It is valid to have either no params (create) or one id param (edit)
-  const businessCourseInfoId = params.path ? params.path[0] : undefined;
-  let businessCourseInfo: CourseDescription | null = null;
-  if (businessCourseInfoId) {
+  const businessCourseDescriptionId = params.path ? params.path[0] : undefined;
+  let businessCourseDescription: CourseDescription | null = null;
+  if (businessCourseDescriptionId) {
     try {
-      businessCourseInfo = await getCourseDescription(businessCourseInfoId);
+      businessCourseDescription = await getCourseDescription(
+        businessCourseDescriptionId,
+      );
     } catch (error) {
       console.log(
-        `There was a problem while fetching course description with ID ${businessCourseInfoId}:`,
+        `There was a problem while fetching course description with ID ${businessCourseDescriptionId}:`,
         error,
       );
     }
@@ -47,7 +49,7 @@ export default async function BusinessCoursesInfoEditPage({
       {business ? (
         <BusinessCoursesInfoForm
           businessId={business.id}
-          businessCourseInfo={businessCourseInfo}
+          businessCourseDescription={businessCourseDescription}
         />
       ) : null}
     </>

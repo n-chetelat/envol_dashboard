@@ -1,5 +1,5 @@
+import { getProfile } from "@/queries/profile";
 import prisma from "@/libs/prisma";
-import { getProfile } from "@/actions/profile";
 import { Business } from "@/libs/types";
 
 export const getBusiness = async (): Promise<Business | null> => {

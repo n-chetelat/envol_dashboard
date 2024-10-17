@@ -1,34 +1,59 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useForm, FieldError } from "react-hook-form";
+import {
+  createCourseDescription,
+  updateCourseDescription,
+} from "@/actions/course";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ACCEPTED_IMAGE_TYPES } from "@/libs/constants";
+import { useRouter } from "@/libs/navigation";
+import { showErrorToast } from "@/libs/toast";
 import { CourseDescription } from "@/libs/types";
-import TextInput from "@/components/forms/components/TextInput";
-import MultiFileUpload from "./components/MultiFileUpload";
-import Button from "@/components/forms/components/Button";
-import { translateError } from "@/libs/utils";
+import { uploadFiles } from "@/libs/utils";
 import { isFieldRequired } from "@/libs/validation";
 import {
   BusinessCourseDescFormSchema,
   BusinessCourseDescFormSchemaType,
 } from "@/validations/businessCourseDescForm";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ACCEPTED_IMAGE_TYPES } from "@/libs/constants";
+import Button from "@/components/forms/components/Button";
+import MultiFileUpload from "@/components/forms/components/MultiFileUpload";
+import TextInput from "@/components/forms/components/TextInput";
 
 type BusinessCoursesInfoFormProps = {
-  businessCourseInfo: CourseDescription | null;
+  businessCourseDescription: CourseDescription | null;
   businessId: string;
 };
 
 export default function BusinessCoursesInfoForm({
-  businessCourseInfo,
+  businessCourseDescription,
+  businessId,
 }: BusinessCoursesInfoFormProps) {
   const t = useTranslations();
-  const te = (keyErrors: FieldError | undefined) =>
-    translateError(t, keyErrors);
+  const router = useRouter();
   const isRequired = (fieldName: string) =>
     isFieldRequired(BusinessCourseDescFormSchema, fieldName);
-  const isNewEntry = !businessCourseInfo;
+  const [fileList, setFileList] = useState<File[]>([]);
+
+  useEffect(() => {
+    const fetchBlobs = async () => {
+      if (businessCourseDescription?.courseDescriptionImages.length) {
+        const images = businessCourseDescription.courseDescriptionImages.map(
+          (cdi) => cdi.image,
+        );
+        const promises = images.map((image) =>
+          fetch(image.url)
+            .then((b) => b.blob())
+            .then((b) => new File([b], image.name, { type: image.type })),
+        );
+        const files = await Promise.all(promises);
+        setFileList(files);
+      }
+    };
+    fetchBlobs();
+  }, [businessCourseDescription]);
 
   const {
     formState: { isValid, isSubmitting },
@@ -37,26 +62,69 @@ export default function BusinessCoursesInfoForm({
   } = useForm<BusinessCourseDescFormSchemaType>({
     resolver: zodResolver(BusinessCourseDescFormSchema),
     mode: "onChange",
-    defaultValues: businessCourseInfo
+    defaultValues: businessCourseDescription
       ? {
-          name: businessCourseInfo.name,
-          description: businessCourseInfo.description,
-          requirements: businessCourseInfo.requirements,
+          name: businessCourseDescription.name,
+          description: businessCourseDescription.description,
+          requirements: businessCourseDescription.requirements,
         }
       : {},
   });
 
   const handleSubmitCourseDesc = async (
-    formData: BusinessCourseDescFormSchemaType,
+    data: BusinessCourseDescFormSchemaType,
   ) => {
-    console.log(formData);
-    // save and update course desc
+    try {
+      let imagesInfo: { name: string; type: string; url: string }[] = [];
+      // Store images if any
+      if (data.images?.length) {
+        imagesInfo = await uploadFiles(data.images);
+      }
+      // Store remaining course description information
+      const courseDescription = await saveCourseDescription({
+        name: data.name,
+        description: data.description || "",
+        requirements: data.requirements || "",
+        imagesInfo,
+      });
+
+      if (!courseDescription) {
+        throw new Error("Failed to save course description.");
+      } else {
+        router.push(
+          `/dashboard/business/courses/info/edit/${courseDescription.id}`,
+        );
+      }
+    } catch (error) {
+      showErrorToast(t("errors.failedToSave"));
+      console.log(error);
+    }
+  };
+
+  const saveCourseDescription = async (data: {
+    name: string;
+    description: string;
+    requirements: string;
+    imagesInfo: { name: string; type: string; url: string }[];
+  }): Promise<CourseDescription | null> => {
+    const courseDescriptionData = { ...data, businessId };
+    if (businessCourseDescription?.id) {
+      // Update existing course description
+      return await updateCourseDescription(
+        businessCourseDescription.id,
+        courseDescriptionData,
+      );
+    } else {
+      return await createCourseDescription(courseDescriptionData);
+    }
   };
 
   return (
     <>
       <h2>
-        {isNewEntry ? t("courses.newClassDesc") : t("courses.editClassDesc")}
+        {!businessCourseDescription
+          ? t("courses.newClassDesc")
+          : t("courses.editClassDesc")}
       </h2>
       <form onSubmit={handleSubmit(handleSubmitCourseDesc)}>
         <TextInput
@@ -81,9 +149,10 @@ export default function BusinessCoursesInfoForm({
           name={"images"}
           label={t("common.images")}
           required={isRequired("images")}
-          className="max-w-md"
+          className="max-w-xs lg:max-w-lg"
           control={control}
           allowedTypes={ACCEPTED_IMAGE_TYPES}
+          files={fileList}
         />
         <Button isSubmitting={isSubmitting} isValid={isValid}>
           {t("common.submit")}

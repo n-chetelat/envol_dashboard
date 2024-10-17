@@ -1,6 +1,6 @@
-import { cn } from "@/libs/utils";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import { cn } from "@/libs/utils";
 
 interface FileThumbnailProps {
   file: File;
@@ -32,7 +32,12 @@ export const FileThumbnail = ({ file, className }: FileThumbnailProps) => {
       {thumbnail ? (
         <Image src={thumbnail} alt={file.name} fill className="rounded-md" />
       ) : (
-        <div className="flex h-full w-full items-center justify-center rounded-md bg-gray-200">
+        <div
+          className={cn(
+            "flex h-full w-full items-center justify-center rounded-md bg-gray-200",
+            className,
+          )}
+        >
           <span className="text-xs">No preview</span>
         </div>
       )}

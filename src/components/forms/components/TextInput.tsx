@@ -1,7 +1,8 @@
 "use client";
-import useTranslatedError from "@/hooks/useTranslatedError";
+
 import { useId } from "react";
 import { Control, useController } from "react-hook-form";
+import useTranslatedError from "@/hooks/useTranslatedError";
 
 type TextInputProps = {
   control: Control<any>;
@@ -26,6 +27,7 @@ export default function TextInput({
     name,
     control,
     disabled,
+    defaultValue: "",
   });
 
   const translatedError = useTranslatedError(error);

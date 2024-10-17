@@ -4,7 +4,6 @@ export {
   type ProfileType,
   type Instructor,
   type Student,
-  type CourseDescription,
 } from "@prisma/client";
 
 // Prisma
@@ -20,5 +19,13 @@ export type Profile = Prisma.ProfileGetPayload<{
 export type Business = Prisma.BusinessGetPayload<{
   include: {
     stripeAccount: true;
+  };
+}>;
+
+export type CourseDescription = Prisma.CourseDescriptionGetPayload<{
+  include: {
+    courseDescriptionImages: {
+      include: { image: true };
+    };
   };
 }>;

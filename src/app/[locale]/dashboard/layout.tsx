@@ -1,15 +1,15 @@
-import { getProfile } from "@/actions/profile";
-import Navbar from "@/components/navbar/navbar/Navbar";
 import { Suspense } from "react";
-import SpinnerLoader from "@/components/loaders/SpinnerLoader";
-import Sidebar from "@/components/sidebar/Sidebar";
-import DashboardContent from "@/components/dashboards/DashboardContent";
-import DashboardOverlay from "@/components/dashboards/DashboardOverlay";
-import { Profile } from "@/libs/types";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
+import { getProfile } from "@/queries/profile";
 import { DashboardProvider } from "@/contexts/DashboardContext";
+import { Profile } from "@/libs/types";
 import { ProfileProvider } from "@/store/ProfileProvider";
+import DashboardContent from "@/components/dashboards/DashboardContent";
+import DashboardOverlay from "@/components/dashboards/DashboardOverlay";
+import SpinnerLoader from "@/components/loaders/SpinnerLoader";
+import Navbar from "@/components/navbar/navbar/Navbar";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 export const revalidate = 3600; // revalidate cached data at most every hour
 

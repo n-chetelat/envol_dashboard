@@ -1,7 +1,7 @@
-import { getProfile } from "@/actions/profile";
+import { getProfile } from "@/queries/profile";
+import { PROFILE_TYPES } from "@/libs/constants";
 import { redirect } from "@/libs/navigation";
 import { Profile } from "@/libs/types";
-import { PROFILE_TYPES } from "@/libs/constants";
 import BusinessDashboard from "@/components/dashboards/BusinessDashboard";
 import InstructorDashboard from "@/components/dashboards/InstructorDashboard";
 import StudentDashboard from "@/components/dashboards/StudentDashboard";

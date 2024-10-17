@@ -1,11 +1,11 @@
 import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { getProfile } from "@/actions/profile";
-import { getBusiness } from "@/actions/business";
+import { getBusiness } from "@/queries/business";
+import { getProfile } from "@/queries/profile";
 import { Business } from "@/libs/types";
 import BusinessSettingsForm from "@/components/forms/BusinessSettingsForm";
 import StripeConnectForm from "@/components/forms/StripeConnectForm";
-import { getTranslations } from "next-intl/server";
 
 export default async function BusinessSettingsPage({
   locale,

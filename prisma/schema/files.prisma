@@ -1,24 +1,30 @@
 model Image {
-    id                             String                           @id @default(uuid()) @db.Uuid
-    url                            String
-    createdAt                      DateTime                         @default(now())
-    updatedAt                      DateTime                         @default(now()) @updatedAt
-    courseTopicImage               CourseTopicImage[]
-    locationImage                  LocationImage[]
-    locationVideo                  LocationVideo[]
-    businessInstructorProfileImage BusinessInstructorProfileImage[]
+  id                             String                           @id @default(uuid()) @db.Uuid
+  url                            String
+  name                           String
+  type                           String
+  createdAt                      DateTime                         @default(now())
+  updatedAt                      DateTime                         @default(now()) @updatedAt
+  courseDescriptionImage         CourseDescriptionImage[]
+  locationImage                  LocationImage[]
+  locationVideo                  LocationVideo[]
+  businessInstructorProfileImage BusinessInstructorProfileImage[]
 }
 
 model Video {
-    id        String   @id @default(uuid()) @db.Uuid
-    url       String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+  id        String   @id @default(uuid()) @db.Uuid
+  url       String
+  name      String
+  type      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model File {
-    id        String   @id @default(uuid()) @db.Uuid
-    url       String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @default(now()) @updatedAt
+  id        String   @id @default(uuid()) @db.Uuid
+  url       String
+  name      String
+  type      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

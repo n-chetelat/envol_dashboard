@@ -1,11 +1,11 @@
 "use client";
 
-import { FilePreview } from "@/components/forms/components/FilePreview";
+import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
+import { Control, useController } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import useTranslatedError from "@/hooks/useTranslatedError";
 import { cn } from "@/libs/utils";
-import { useTranslations } from "next-intl";
-import { ChangeEvent, useId, useRef, useState } from "react";
-import { Control, useController } from "react-hook-form";
+import { FilePreview } from "@/components/forms/components/FilePreview";
 
 interface MultiFileUploadProps {
   name: string;
@@ -14,6 +14,7 @@ interface MultiFileUploadProps {
   label: string;
   required: boolean;
   allowedTypes?: string[];
+  files?: File[];
 }
 
 const MultiFileUpload = ({
@@ -23,6 +24,7 @@ const MultiFileUpload = ({
   label,
   required,
   allowedTypes = [],
+  files = [],
 }: MultiFileUploadProps) => {
   const t = useTranslations();
   const [fileList, setFileList] = useState<File[]>([]);
@@ -38,6 +40,12 @@ const MultiFileUpload = ({
     rules: { required },
     defaultValue: [],
   });
+
+  useEffect(() => {
+    if (files.length) {
+      setFileList(files);
+    }
+  }, [files]);
 
   const translatedError = useTranslatedError(error, t);
 
@@ -78,10 +86,9 @@ const MultiFileUpload = ({
         {label} {required && <span className="font-bold text-violet">*</span>}
       </label>
       <div
-        className={cn(
-          "rounded-md border-2 border-dashed border-gray-300 p-4",
-          className,
-        )}
+        className={
+          "rounded-md border-2 border-dashed border-gray-300 p-4 flex flex-col items-center"
+        }
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
@@ -103,9 +110,9 @@ const MultiFileUpload = ({
         </button>
         <p className="mt-2">{t("common.dragAndDrop")}</p>
         {fileList.length > 0 && (
-          <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <ul className="mt-4 grid grid-cols-static-2 gap-4 lg:grid-cols-static-4">
             {fileList.map((file, index) => (
-              <li key={file.name} className="flex w-24 flex-col items-center">
+              <li key={file.name}>
                 <FilePreview file={file} onRemove={() => removeFile(index)} />
               </li>
             ))}

@@ -1,24 +1,9 @@
 "use server";
 
-import prisma from "@/libs/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { ProfileFormSchemaType } from "@/validations/profileForm";
 import { clerkClient } from "@clerk/nextjs/server";
-
-export const getProfile = async () => {
-  const { userId } = auth();
-  if (!userId) {
-    throw new Error("No authenticated user was found to retrieve profile.");
-  }
-  return await prisma.profile.findFirst({
-    where: { userId },
-    include: {
-      student: true,
-      instructor: true,
-      business: true,
-    },
-  });
-};
+import prisma from "@/libs/prisma";
+import { ProfileFormSchemaType } from "@/validations/profileForm";
 
 export const createProfile = async (data: ProfileFormSchemaType) => {
   const { userId } = auth();
