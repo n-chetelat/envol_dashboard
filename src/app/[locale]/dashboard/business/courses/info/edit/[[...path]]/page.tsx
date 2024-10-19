@@ -1,4 +1,5 @@
 import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getBusiness } from "@/queries/business";
 import { getCourseDescription } from "@/queries/course";
@@ -13,6 +14,7 @@ export default async function BusinessCoursesInfoEditPage({
   params: { path?: string[] };
 }) {
   unstable_setRequestLocale(locale);
+  const t = await getTranslations("courses");
 
   // if the path has more params after /edit/{id}, it is invalid
   if (params.path && params.path.length > 1) {
@@ -44,13 +46,25 @@ export default async function BusinessCoursesInfoEditPage({
     }
   }
 
+  // In case the course description ID is invalid for this profile
+  if (businessCourseDescriptionId && !businessCourseDescription) {
+    notFound();
+  }
+
   return (
     <>
       {business ? (
-        <BusinessCoursesInfoForm
-          businessId={business.id}
-          businessCourseDescription={businessCourseDescription}
-        />
+        <div className="p-8">
+          <h2 className="title mb-4">
+            {!businessCourseDescriptionId
+              ? t("newClassDesc")
+              : t("editClassDesc")}
+          </h2>
+          <BusinessCoursesInfoForm
+            businessId={business.id}
+            businessCourseDescription={businessCourseDescription}
+          />
+        </div>
       ) : null}
     </>
   );

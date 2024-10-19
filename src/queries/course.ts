@@ -12,20 +12,15 @@ export const getCourseDescription = async (
     );
   }
 
-  const business = await prisma.business.findFirst({
-    where: { profileId: profile.id },
-    select: {
-      courseDescriptions: {
-        where: { id },
-        include: { courseDescriptionImages: { include: { image: true } } },
-      },
-    },
-  });
-
-  if (!business?.courseDescriptions.length)
+  try {
+    const courseDescription = await prisma.courseDescription.findFirst({
+      where: { id, business: { profileId: profile.id } },
+      include: { courseDescriptionImages: { include: { image: true } } },
+    });
+    return courseDescription;
+  } catch (error) {
     throw new Error(
-      `No business is associated with this course description: ID ${id}`,
+      `There was a problem while finding a course description with ID ${id}: ${error}`,
     );
-
-  return business.courseDescriptions[0];
+  }
 };

@@ -1,6 +1,7 @@
 import { FieldError } from "react-hook-form";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { FileWithId } from "@/libs/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,11 +29,18 @@ export const translateError = (
   return undefined;
 };
 
-export const uploadFiles = async (files: File[]) => {
+// Upload only the files that have not yet been uploaded to blob storage
+export const uploadFiles = async (
+  files: FileWithId[],
+): Promise<{ name: string; type: string; url: string }[]> => {
   const fileInfo: { name: string; type: string; url: string }[] = files.map(
-    (file) => ({ name: file.name, type: file.type, url: "" }),
+    (f) => ({
+      name: f.file.name,
+      type: f.file.type,
+      url: "",
+    }),
   );
-  const filesFormData = encodeFilesAsFormData(files);
+  const filesFormData = encodeFilesAsFormData(files.map((f) => f.file));
   const response = await fetch("/api/files", {
     method: "PUT",
     body: filesFormData,

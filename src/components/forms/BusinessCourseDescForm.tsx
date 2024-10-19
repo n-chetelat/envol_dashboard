@@ -12,6 +12,7 @@ import { ACCEPTED_IMAGE_TYPES } from "@/libs/constants";
 import { useRouter } from "@/libs/navigation";
 import { showErrorToast } from "@/libs/toast";
 import { CourseDescription } from "@/libs/types";
+import { FileInfo, FileWithId } from "@/libs/types";
 import { uploadFiles } from "@/libs/utils";
 import { isFieldRequired } from "@/libs/validation";
 import {
@@ -35,7 +36,7 @@ export default function BusinessCoursesInfoForm({
   const router = useRouter();
   const isRequired = (fieldName: string) =>
     isFieldRequired(BusinessCourseDescFormSchema, fieldName);
-  const [fileList, setFileList] = useState<File[]>([]);
+  const [fileList, setFileList] = useState<FileWithId[]>([]);
 
   useEffect(() => {
     const fetchBlobs = async () => {
@@ -46,7 +47,8 @@ export default function BusinessCoursesInfoForm({
         const promises = images.map((image) =>
           fetch(image.url)
             .then((b) => b.blob())
-            .then((b) => new File([b], image.name, { type: image.type })),
+            .then((b) => new File([b], image.name, { type: image.type }))
+            .then((file) => ({ fileId: image.id, remoteUrl: image.url, file })),
         );
         const files = await Promise.all(promises);
         setFileList(files);
@@ -75,10 +77,20 @@ export default function BusinessCoursesInfoForm({
     data: BusinessCourseDescFormSchemaType,
   ) => {
     try {
-      let imagesInfo: { name: string; type: string; url: string }[] = [];
-      // Store images if any
+      let imagesInfo: FileInfo[] = [];
+      // Store newly uploaded images if any
       if (data.images?.length) {
-        imagesInfo = await uploadFiles(data.images);
+        const uploadedFiles: FileInfo[] = data.images
+          .filter((f) => !!f.fileId)
+          .map((f) => ({
+            id: f.fileId,
+            name: f.file.name,
+            type: f.file.type,
+            url: f.remoteUrl,
+          }));
+        const filesNotUploaded = data.images.filter((f) => !f.fileId);
+        imagesInfo = await uploadFiles(filesNotUploaded);
+        imagesInfo = [...imagesInfo, ...uploadedFiles];
       }
       // Store remaining course description information
       const courseDescription = await saveCourseDescription({
@@ -105,7 +117,7 @@ export default function BusinessCoursesInfoForm({
     name: string;
     description: string;
     requirements: string;
-    imagesInfo: { name: string; type: string; url: string }[];
+    imagesInfo: FileInfo[];
   }): Promise<CourseDescription | null> => {
     const courseDescriptionData = { ...data, businessId };
     if (businessCourseDescription?.id) {
@@ -120,44 +132,37 @@ export default function BusinessCoursesInfoForm({
   };
 
   return (
-    <>
-      <h2>
-        {!businessCourseDescription
-          ? t("courses.newClassDesc")
-          : t("courses.editClassDesc")}
-      </h2>
-      <form onSubmit={handleSubmit(handleSubmitCourseDesc)}>
-        <TextInput
-          name="name"
-          control={control}
-          label={t("common.name")}
-          required={isRequired("name")}
-        />
-        <TextInput
-          name="description"
-          control={control}
-          label={t("common.description")}
-          required={isRequired("description")}
-        />
-        <TextInput
-          name="requirements"
-          control={control}
-          label={t("common.requirements")}
-          required={isRequired("requirements")}
-        />
-        <MultiFileUpload
-          name={"images"}
-          label={t("common.images")}
-          required={isRequired("images")}
-          className="max-w-xs lg:max-w-lg"
-          control={control}
-          allowedTypes={ACCEPTED_IMAGE_TYPES}
-          files={fileList}
-        />
-        <Button isSubmitting={isSubmitting} isValid={isValid}>
-          {t("common.submit")}
-        </Button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit(handleSubmitCourseDesc)}>
+      <TextInput
+        name="name"
+        control={control}
+        label={t("common.name")}
+        required={isRequired("name")}
+      />
+      <TextInput
+        name="description"
+        control={control}
+        label={t("common.description")}
+        required={isRequired("description")}
+      />
+      <TextInput
+        name="requirements"
+        control={control}
+        label={t("common.requirements")}
+        required={isRequired("requirements")}
+      />
+      <MultiFileUpload
+        name={"images"}
+        label={t("common.images")}
+        required={isRequired("images")}
+        className="max-w-xs lg:max-w-lg"
+        control={control}
+        allowedTypes={ACCEPTED_IMAGE_TYPES}
+        files={fileList}
+      />
+      <Button isSubmitting={isSubmitting} isValid={isValid} className="p-4">
+        {t("common.submit")}
+      </Button>
+    </form>
   );
 }

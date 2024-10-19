@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 import { Control, useController } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import useTranslatedError from "@/hooks/useTranslatedError";
+import { FileWithId } from "@/libs/types";
 import { cn } from "@/libs/utils";
 import { FilePreview } from "@/components/forms/components/FilePreview";
 
@@ -14,7 +15,7 @@ interface MultiFileUploadProps {
   label: string;
   required: boolean;
   allowedTypes?: string[];
-  files?: File[];
+  files?: FileWithId[];
 }
 
 const MultiFileUpload = ({
@@ -27,7 +28,7 @@ const MultiFileUpload = ({
   files = [],
 }: MultiFileUploadProps) => {
   const t = useTranslations();
-  const [fileList, setFileList] = useState<File[]>([]);
+  const [fileList, setFileList] = useState<FileWithId[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = useId();
 
@@ -52,7 +53,7 @@ const MultiFileUpload = ({
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles = Array.from(event.target.files);
-      const updatedFiles = [...fileList, ...newFiles];
+      const updatedFiles = [...fileList, ...newFiles.map((f) => ({ file: f }))];
       setFileList(updatedFiles);
       onChange(updatedFiles);
     }
@@ -68,7 +69,7 @@ const MultiFileUpload = ({
     event.stopPropagation();
     if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
       const newFiles = Array.from(event.dataTransfer.files);
-      const updatedFiles = [...fileList, ...newFiles];
+      const updatedFiles = [...fileList, ...newFiles.map((f) => ({ file: f }))];
       setFileList(updatedFiles);
       onChange(updatedFiles);
     }
@@ -111,9 +112,9 @@ const MultiFileUpload = ({
         <p className="mt-2">{t("common.dragAndDrop")}</p>
         {fileList.length > 0 && (
           <ul className="mt-4 grid grid-cols-static-2 gap-4 lg:grid-cols-static-4">
-            {fileList.map((file, index) => (
-              <li key={file.name}>
-                <FilePreview file={file} onRemove={() => removeFile(index)} />
+            {fileList.map((f, index) => (
+              <li key={f.file.name}>
+                <FilePreview file={f.file} onRemove={() => removeFile(index)} />
               </li>
             ))}
           </ul>

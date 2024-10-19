@@ -29,3 +29,18 @@ export type CourseDescription = Prisma.CourseDescriptionGetPayload<{
     };
   };
 }>;
+
+// Other
+
+export type FileWithId = {
+  fileId?: string;
+  file: File;
+  remoteUrl?: string;
+};
+
+export type FileInfo = {
+  id?: string | undefined;
+  name: string;
+  type: string;
+  url: string | undefined;
+};
