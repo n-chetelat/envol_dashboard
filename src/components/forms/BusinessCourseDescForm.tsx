@@ -76,9 +76,7 @@ export default function BusinessCoursesInfoForm({
       if (!courseDescription) {
         throw new Error("Failed to save course description.");
       } else {
-        router.push(
-          `/dashboard/business/courses/info/edit/${courseDescription.id}`,
-        );
+        router.push(`/dashboard/business/courses/info/${courseDescription.id}`);
       }
     } catch (error) {
       showErrorToast(t("errors.failedToSave"));
@@ -133,7 +131,11 @@ export default function BusinessCoursesInfoForm({
         allowedTypes={ACCEPTED_IMAGE_TYPES}
         files={filesWithBlob}
       />
-      <Button isSubmitting={isSubmitting} isValid={isValid} className="p-4">
+      <Button
+        isSubmitting={isSubmitting}
+        isValid={isValid}
+        className="py-2 px-4"
+      >
         {t("common.save")}
       </Button>
     </form>

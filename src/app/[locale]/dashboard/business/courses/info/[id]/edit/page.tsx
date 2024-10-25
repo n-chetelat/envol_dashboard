@@ -11,15 +11,10 @@ export default async function BusinessCoursesInfoEditPage({
   params,
 }: {
   locale: string;
-  params: { path?: string[] };
+  params: { id: string };
 }) {
   unstable_setRequestLocale(locale);
   const t = await getTranslations("courses");
-
-  // if the path has more params after /edit/{id}, it is invalid
-  if (params.path && params.path.length > 1) {
-    notFound();
-  }
 
   let business: Business | null = null;
   try {
@@ -30,8 +25,7 @@ export default async function BusinessCoursesInfoEditPage({
     );
   }
 
-  // It is valid to have either no params (create) or one id param (edit)
-  const businessCourseDescriptionId = params.path ? params.path[0] : undefined;
+  const businessCourseDescriptionId = params.id;
   let businessCourseDescription: CourseDescription | null = null;
   if (businessCourseDescriptionId) {
     try {
@@ -55,11 +49,7 @@ export default async function BusinessCoursesInfoEditPage({
     <>
       {business ? (
         <div className="p-8">
-          <h2 className="title mb-4">
-            {!businessCourseDescriptionId
-              ? t("newClassDesc")
-              : t("editClassDesc")}
-          </h2>
+          <h2 className="title mb-4">{t("editClassDesc")}</h2>
           <BusinessCoursesInfoForm
             businessId={business.id}
             businessCourseDescription={businessCourseDescription}

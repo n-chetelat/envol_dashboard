@@ -54,7 +54,8 @@
     "remove": "Remove",
     "selectFiles": "Select files",
     "dragAndDrop": "Drag and drop files here",
-    "images": "Images"
+    "images": "Images",
+    "edit": "Edit"
   },
   "errors": {
     "wrong": "Something went wrong",

@@ -24,7 +24,7 @@ export default async function BusinessCoursesPage({
           </Link>
         </li>
         <li>
-          <Link href="/dashboard/business/courses/info/edit">
+          <Link href="/dashboard/business/courses/info/create">
             Create a course description
           </Link>
         </li>

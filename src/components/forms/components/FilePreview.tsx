@@ -7,7 +7,7 @@ import { FileThumbnail } from "@/components/forms/components/FileThumbnail";
 
 interface FilePreviewProps {
   file: File;
-  onRemove: () => void;
+  onRemove?: () => void;
   className?: string;
 }
 
@@ -20,13 +20,16 @@ export const FilePreview = ({
   return (
     <div className={cn("group relative flex flex-col w-20 h-24", className)}>
       <FileThumbnail file={file} className="w-full h-20" />
-      <button
-        onClick={onRemove}
-        className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-violet text-white transition-colors group-hover:bg-violet-light"
-        aria-label={t("removeFile")}
-      >
-        <X />
-      </button>
+      {onRemove && (
+        <button
+          onClick={onRemove}
+          className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-violet text-white transition-colors group-hover:bg-violet-light"
+          aria-label={t("removeFile")}
+        >
+          <X />
+        </button>
+      )}
+
       <div className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap text-center text-sm">
         {file.name}
       </div>

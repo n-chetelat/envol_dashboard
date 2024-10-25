@@ -54,7 +54,8 @@
     "remove": "Remove - FR",
     "selectFiles": "Select files - FR",
     "dragAndDrop": "Drag and drop files here - FR",
-    "images": "Images"
+    "images": "Images",
+    "edit": "Edit - FR"
   },
   "errors": {
     "wrong": "Something went wrong - FR",

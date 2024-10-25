@@ -15,4 +15,5 @@ export {
   CircleUserRound,
   LogOut,
   X,
+  Pencil,
 } from "lucide-react";
