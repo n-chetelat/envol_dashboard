@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import {
   createCourseDescription,
   updateCourseDescription,
 } from "@/actions/course";
+import { saveFilesToStorage } from "@/queries/file";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useFiles } from "@/hooks/useFiles";
 import { ACCEPTED_IMAGE_TYPES } from "@/libs/constants";
 import { useRouter } from "@/libs/navigation";
 import { showErrorToast } from "@/libs/toast";
-import { CourseDescription } from "@/libs/types";
-import { FileInfo, FileWithId } from "@/libs/types";
-import { uploadFiles } from "@/libs/utils";
+import { CourseDescription, FileWithBlob } from "@/libs/types";
+import { FileMetadata } from "@/libs/types";
 import { isFieldRequired } from "@/libs/validation";
 import {
   BusinessCourseDescFormSchema,
@@ -36,26 +36,10 @@ export default function BusinessCoursesInfoForm({
   const router = useRouter();
   const isRequired = (fieldName: string) =>
     isFieldRequired(BusinessCourseDescFormSchema, fieldName);
-  const [fileList, setFileList] = useState<FileWithId[]>([]);
-
-  useEffect(() => {
-    const fetchBlobs = async () => {
-      if (businessCourseDescription?.courseDescriptionImages.length) {
-        const images = businessCourseDescription.courseDescriptionImages.map(
-          (cdi) => cdi.image,
-        );
-        const promises = images.map((image) =>
-          fetch(image.url)
-            .then((b) => b.blob())
-            .then((b) => new File([b], image.name, { type: image.type }))
-            .then((file) => ({ fileId: image.id, remoteUrl: image.url, file })),
-        );
-        const files = await Promise.all(promises);
-        setFileList(files);
-      }
-    };
-    fetchBlobs();
-  }, [businessCourseDescription]);
+  const images = businessCourseDescription?.courseDescriptionImages.map(
+    (cdi) => cdi.image,
+  );
+  const { filesWithBlob } = useFiles(images || [], businessCourseDescription);
 
   const {
     formState: { isValid, isSubmitting },
@@ -77,21 +61,10 @@ export default function BusinessCoursesInfoForm({
     data: BusinessCourseDescFormSchemaType,
   ) => {
     try {
-      let imagesInfo: FileInfo[] = [];
       // Store newly uploaded images if any
-      if (data.images?.length) {
-        const uploadedFiles: FileInfo[] = data.images
-          .filter((f) => !!f.fileId)
-          .map((f) => ({
-            id: f.fileId,
-            name: f.file.name,
-            type: f.file.type,
-            url: f.remoteUrl,
-          }));
-        const filesNotUploaded = data.images.filter((f) => !f.fileId);
-        imagesInfo = await uploadFiles(filesNotUploaded);
-        imagesInfo = [...imagesInfo, ...uploadedFiles];
-      }
+      const imagesInfo: FileMetadata[] = await saveFilesToStorage(
+        data.images as FileWithBlob[],
+      );
       // Store remaining course description information
       const courseDescription = await saveCourseDescription({
         name: data.name,
@@ -117,7 +90,7 @@ export default function BusinessCoursesInfoForm({
     name: string;
     description: string;
     requirements: string;
-    imagesInfo: FileInfo[];
+    imagesInfo: FileMetadata[];
   }): Promise<CourseDescription | null> => {
     const courseDescriptionData = { ...data, businessId };
     if (businessCourseDescription?.id) {
@@ -158,10 +131,10 @@ export default function BusinessCoursesInfoForm({
         className="max-w-xs lg:max-w-lg"
         control={control}
         allowedTypes={ACCEPTED_IMAGE_TYPES}
-        files={fileList}
+        files={filesWithBlob}
       />
       <Button isSubmitting={isSubmitting} isValid={isValid} className="p-4">
-        {t("common.submit")}
+        {t("common.save")}
       </Button>
     </form>
   );

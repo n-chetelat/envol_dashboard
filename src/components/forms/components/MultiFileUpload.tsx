@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
 import { Control, useController } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import useTranslatedError from "@/hooks/useTranslatedError";
-import { FileWithId } from "@/libs/types";
+import { FileWithBlob } from "@/libs/types";
 import { cn } from "@/libs/utils";
 import { FilePreview } from "@/components/forms/components/FilePreview";
 
@@ -15,7 +15,7 @@ interface MultiFileUploadProps {
   label: string;
   required: boolean;
   allowedTypes?: string[];
-  files?: FileWithId[];
+  files?: FileWithBlob[];
 }
 
 const MultiFileUpload = ({
@@ -28,7 +28,7 @@ const MultiFileUpload = ({
   files = [],
 }: MultiFileUploadProps) => {
   const t = useTranslations();
-  const [fileList, setFileList] = useState<FileWithId[]>([]);
+  const [fileList, setFileList] = useState<FileWithBlob[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const id = useId();
 
@@ -81,6 +81,10 @@ const MultiFileUpload = ({
     onChange(updatedFiles);
   };
 
+  const generateUniqueKey = (key: string) => {
+    return `${key}_${new Date().getTime()}`;
+  };
+
   return (
     <div className={className}>
       <label htmlFor={id}>
@@ -113,7 +117,7 @@ const MultiFileUpload = ({
         {fileList.length > 0 && (
           <ul className="mt-4 grid grid-cols-static-2 gap-4 lg:grid-cols-static-4">
             {fileList.map((f, index) => (
-              <li key={f.file.name}>
+              <li key={generateUniqueKey(f.file.name)}>
                 <FilePreview file={f.file} onRemove={() => removeFile(index)} />
               </li>
             ))}

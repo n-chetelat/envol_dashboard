@@ -1,14 +1,14 @@
 "use server";
 
-import { CourseDescriptionImage } from "@prisma/client";
+import { inngest } from "@/libs/inngest";
 import prisma from "@/libs/prisma";
-import { FileInfo } from "@/libs/types";
+import { FileMetadata } from "@/libs/types";
 
 type CourseDescriptionData = {
   name: string;
   description: string;
   requirements: string;
-  imagesInfo: FileInfo[];
+  imagesInfo: FileMetadata[];
   businessId: string;
 };
 
@@ -61,18 +61,32 @@ export const updateCourseDescription = async (
         },
       },
     });
-    const savedImageIds = courseDescription.courseDescriptionImages.map(
-      (c) => c.image.id,
-    );
+
     // Find the IDs of the incoming images that have already been saved.
     // Delete any saved images that are not among the incoming ones.
-    const newImageIds = imagesInfo.map((i) => i.id).filter((i) => !!i);
-    const imageIdsToDelete = savedImageIds.filter(
-      (id) => !newImageIds.includes(id),
+    const incomingImageIds = imagesInfo.map((i) => i.id).filter((i) => !!i);
+    const savedImages = courseDescription.courseDescriptionImages.map(
+      (c) => c.image,
     );
-    await prisma.courseDescriptionImage.deleteMany({
-      where: { imageId: { in: imageIdsToDelete } },
+    const imagesToDelete = savedImages.filter(
+      (i) => !incomingImageIds.includes(i.id),
+    );
+    const imageIdsToDelete = imagesToDelete.map((i) => i.id);
+    const deleted = await prisma.courseDescriptionImage.deleteMany({
+      where: { imageId: { in: imageIdsToDelete as string[] } },
     });
+    // Remove files from blob storage
+    if (deleted.count) {
+      const deleteFileRequests = imagesToDelete.map((img) => {
+        return {
+          name: "files/delete-file-from-storage",
+          data: {
+            url: img.url,
+          },
+        };
+      });
+      await inngest.send(deleteFileRequests);
+    }
 
     // Find the images that need to be added
     const imagesToAdd = imagesInfo.filter((i) => !i.id);
@@ -90,7 +104,7 @@ export const updateCourseDescription = async (
         imageId: ni.id,
       })),
     });
-    // TODO: Dispatch a worker to remove the deleted images from blob storage
+
     return await prisma.courseDescription.findFirst({
       where: { id: courseDescription.id },
       include: { courseDescriptionImages: { include: { image: true } } },

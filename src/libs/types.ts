@@ -32,15 +32,22 @@ export type CourseDescription = Prisma.CourseDescriptionGetPayload<{
 
 // Other
 
-export type FileWithId = {
+export interface FileType {
+  id: string;
+  url: string;
+  name: string;
+  type: string;
+}
+
+export type FileMetadata = {
+  id?: string | undefined;
+  url: string | undefined;
+  name: string;
+  type: string;
+};
+
+export type FileWithBlob = {
   fileId?: string;
   file: File;
   remoteUrl?: string;
-};
-
-export type FileInfo = {
-  id?: string | undefined;
-  name: string;
-  type: string;
-  url: string | undefined;
 };

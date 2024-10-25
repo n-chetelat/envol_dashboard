@@ -1,4 +1,4 @@
-import { PutBlobResult, put } from "@vercel/blob";
+import { PutBlobResult, del, put } from "@vercel/blob";
 
 export const runtime = "edge";
 
@@ -11,8 +11,19 @@ export async function PUT(request: Request) {
       promises.push(put(file.name, file, { access: "public" }));
     });
     const blobs = await Promise.all(promises);
-    console.log(blobs);
     return Response.json(blobs);
+  } catch (error) {
+    return Response.json({ error }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const urlToDelete = searchParams.get("url") as string;
+    await del(urlToDelete);
+
+    return new Response();
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }

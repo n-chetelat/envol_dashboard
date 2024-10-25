@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { z } from "zod";
 import {
   ACCEPTED_IMAGE_TYPES,
   MAX_IMAGE_COUNT,

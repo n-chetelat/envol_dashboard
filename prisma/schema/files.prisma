@@ -7,7 +7,6 @@ model Image {
   updatedAt                      DateTime                         @default(now()) @updatedAt
   courseDescriptionImage         CourseDescriptionImage[]
   locationImage                  LocationImage[]
-  locationVideo                  LocationVideo[]
   businessInstructorProfileImage BusinessInstructorProfileImage[]
 }
 
@@ -18,6 +17,8 @@ model Video {
   type      String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  locationVideo LocationVideo[]
 }
 
 model File {

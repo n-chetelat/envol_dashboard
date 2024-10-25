@@ -51,12 +51,12 @@ model LocationImage {
 
 model LocationVideo {
   id         String   @id @default(uuid()) @db.Uuid
-  imageId    String   @db.Uuid
+  videoId    String   @db.Uuid
   locationId String   @db.Uuid
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  image    Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  video    Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
   location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
 }
 

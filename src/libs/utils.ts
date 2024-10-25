@@ -1,7 +1,6 @@
 import { FieldError } from "react-hook-form";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { FileWithId } from "@/libs/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -27,33 +26,6 @@ export const translateError = (
     };
   }
   return undefined;
-};
-
-// Upload only the files that have not yet been uploaded to blob storage
-export const uploadFiles = async (
-  files: FileWithId[],
-): Promise<{ name: string; type: string; url: string }[]> => {
-  const fileInfo: { name: string; type: string; url: string }[] = files.map(
-    (f) => ({
-      name: f.file.name,
-      type: f.file.type,
-      url: "",
-    }),
-  );
-  const filesFormData = encodeFilesAsFormData(files.map((f) => f.file));
-  const response = await fetch("/api/files", {
-    method: "PUT",
-    body: filesFormData,
-  });
-  if (response.ok) {
-    const results = await response.json();
-    results.forEach((r: any, idx: number) => {
-      fileInfo[idx].url = r.url;
-    });
-    return fileInfo;
-  } else {
-    throw new Error("Error while uploading files.");
-  }
 };
 
 export const encodeFilesAsFormData = (files: File[]) => {
