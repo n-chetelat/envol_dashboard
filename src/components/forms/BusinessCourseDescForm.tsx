@@ -62,8 +62,9 @@ export default function BusinessCoursesInfoForm({
   ) => {
     try {
       // Store newly uploaded images if any
+      const currentImages = data.images?.length ? data.images : filesWithBlob;
       const imagesInfo: FileMetadata[] = await saveFilesToStorage(
-        data.images as FileWithBlob[],
+        currentImages as FileWithBlob[],
       );
       // Store remaining course description information
       const courseDescription = await saveCourseDescription({

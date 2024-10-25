@@ -39,7 +39,7 @@ const MultiFileUpload = ({
     name: name,
     control,
     rules: { required },
-    defaultValue: [],
+    defaultValue: files,
   });
 
   useEffect(() => {
