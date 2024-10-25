@@ -41,7 +41,7 @@ stripe trigger account.updated
 ### How to run Inngest server in dev
 
 ```bash
-npx inngest-cli@latest dev
+npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest
 ```
 
 ### Prisma commands

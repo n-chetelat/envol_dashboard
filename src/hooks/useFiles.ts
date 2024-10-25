@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { FileType, FileWithBlob } from "@/libs/types";
+import { FileMetadata, FileWithBlob } from "@/libs/types";
 
 export const useFiles = (
-  files: (FileType & Record<PropertyKey, unknown>)[],
+  files: (FileMetadata & Record<PropertyKey, unknown>)[],
   changeTrigger: any,
 ) => {
   const [filesWithBlob, setFilesWithBlob] = useState<FileWithBlob[]>([]);
@@ -11,7 +11,7 @@ export const useFiles = (
     const fetchBlobs = async () => {
       if (files.length) {
         const promises = files.map((file) =>
-          fetch(file.url)
+          fetch(file.url as string)
             .then((b) => b.blob())
             .then((b) => new File([b], file.name, { type: file.type }))
             .then((f) => ({ fileId: file.id, remoteUrl: file.url, file: f })),

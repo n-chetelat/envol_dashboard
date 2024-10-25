@@ -1,9 +1,17 @@
-import { Prisma } from "@prisma/client";
+import {
+  Prisma,
+  File as PrismaFile,
+  Image as PrismaImage,
+  Video,
+} from "@prisma/client";
 
 export {
   type ProfileType,
   type Instructor,
   type Student,
+  type Image,
+  type Video,
+  type File,
 } from "@prisma/client";
 
 // Prisma
@@ -32,12 +40,7 @@ export type CourseDescription = Prisma.CourseDescriptionGetPayload<{
 
 // Other
 
-export interface FileType {
-  id: string;
-  url: string;
-  name: string;
-  type: string;
-}
+export type AttachableType = PrismaImage | Video | PrismaFile;
 
 export type FileMetadata = {
   id?: string | undefined;

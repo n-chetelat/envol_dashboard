@@ -19,10 +19,8 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const urlToDelete = searchParams.get("url") as string;
-    const response = await del(urlToDelete);
-    console.log("ljhjvlbkj", response);
+    const { urls } = await request.json();
+    const response = await del(urls);
     return Response.json(response);
   } catch (error) {
     return Response.json({ error }, { status: 500 });
