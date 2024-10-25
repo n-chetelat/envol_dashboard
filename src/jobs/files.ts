@@ -4,14 +4,15 @@ export const handleFileDelete = inngest.createFunction(
   { id: "file-delete-handler" },
   { event: "files/delete-file-from-storage" },
   async ({ event, step }) => {
-    const response = await handleDeleteFile(event.data.url);
+    await handleDeleteFile(event.data.url, event.user.token);
     return { event };
   },
 );
 
-async function handleDeleteFile(url: string) {
-  const response = await fetch(`/api/files?url=${url}`, {
+async function handleDeleteFile(url: string, token: string) {
+  const response = await fetch(`${process.env["HOST"]}/api/files?url=${url}`, {
     method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 }

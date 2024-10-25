@@ -21,9 +21,9 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const urlToDelete = searchParams.get("url") as string;
-    await del(urlToDelete);
-
-    return new Response();
+    const response = await del(urlToDelete);
+    console.log("ljhjvlbkj", response);
+    return Response.json(response);
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }

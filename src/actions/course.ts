@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@clerk/nextjs/server";
 import { inngest } from "@/libs/inngest";
 import prisma from "@/libs/prisma";
 import { FileMetadata } from "@/libs/types";
@@ -72,16 +73,22 @@ export const updateCourseDescription = async (
       (i) => !incomingImageIds.includes(i.id),
     );
     const imageIdsToDelete = imagesToDelete.map((i) => i.id);
-    const deleted = await prisma.courseDescriptionImage.deleteMany({
-      where: { imageId: { in: imageIdsToDelete as string[] } },
+    // Deleting these images will cascade into deleting the necessary join table rows in CourseDescriptionImage
+    const deleted = await prisma.image.deleteMany({
+      where: { id: { in: imageIdsToDelete as string[] } },
     });
     // Remove files from blob storage
     if (deleted.count) {
+      const { getToken } = auth();
+      const token = await getToken();
       const deleteFileRequests = imagesToDelete.map((img) => {
         return {
           name: "files/delete-file-from-storage",
           data: {
             url: img.url,
+          },
+          user: {
+            token,
           },
         };
       });
