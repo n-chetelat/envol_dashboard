@@ -1,7 +1,7 @@
 "use client";
 
-import useTranslatedError from "@/hooks/useTranslatedError";
 import { Control, useController } from "react-hook-form";
+import useTranslatedError from "@/hooks/useTranslatedError";
 
 interface Option {
   value: string;
@@ -46,7 +46,7 @@ export default function RadioInput({
   return (
     <div className="flex w-full flex-col">
       <fieldset aria-disabled={disabled}>
-        <legend className="mb-2 text-sm font-medium">
+        <legend className="mb-2 label">
           {label}
           {label && required && <span className="text-error">*</span>}
         </legend>

@@ -87,7 +87,7 @@ const MultiFileUpload = ({
 
   return (
     <div className={className}>
-      <label htmlFor={id}>
+      <label htmlFor={id} className="label">
         {label} {required && <span className="font-bold text-violet">*</span>}
       </label>
       <div

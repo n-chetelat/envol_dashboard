@@ -1,9 +1,9 @@
 "use client";
 
-import useTranslatedError from "@/hooks/useTranslatedError";
 import { useId } from "react";
 import { Control, useController } from "react-hook-form";
 import Select, { GroupBase, MultiValue, StylesConfig } from "react-select";
+import useTranslatedError from "@/hooks/useTranslatedError";
 
 // Define a generic type for the option value
 type OptionType<T> = {
@@ -79,7 +79,7 @@ export default function MultiSelectInput<T>({
   };
   return (
     <div className="flex w-full flex-col">
-      <label htmlFor={selectId}>
+      <label htmlFor={selectId} className="label">
         {label}
         {required && <span className="font-bold text-violet">*</span>}
       </label>

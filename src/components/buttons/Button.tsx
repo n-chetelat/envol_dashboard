@@ -18,7 +18,7 @@ export default function Button({
   children,
   buttonType = "info",
   className,
-  isSubmitType,
+  isSubmitType = true,
   ...nativeButtonProps
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
   const t = useTranslations("common");

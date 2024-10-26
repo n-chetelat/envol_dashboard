@@ -35,6 +35,10 @@
   .title {
     @apply font-serif font-bold text-lg
   }
+
+  .label {
+    @apply font-serif font-semibold text-sm
+  }
 }
 
 /*** Animations ***/

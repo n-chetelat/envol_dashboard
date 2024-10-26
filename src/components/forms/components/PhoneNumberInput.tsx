@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Control, useController } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-
 import useTranslatedError from "@/hooks/useTranslatedError";
 
 type PhoneNumberInputProps = {
@@ -21,6 +20,7 @@ export default function PhoneNumberInput({
   required,
 }: PhoneNumberInputProps) {
   const [focused, setFocused] = useState(false);
+  const id = useId();
 
   const {
     field,
@@ -34,12 +34,13 @@ export default function PhoneNumberInput({
 
   return (
     <div className="flex w-full flex-col">
-      <label>
+      <label htmlFor={id} className="label">
         {label}
         {required && <span className="font-bold text-violet">*</span>}
       </label>
       <PhoneInput
         {...field}
+        id={id}
         international
         defaultCountry="CA"
         className={`w-full rounded border border-gray-300 bg-white px-2 py-1.5 outline-none outline-offset-0  hover:border-gray-400 ${

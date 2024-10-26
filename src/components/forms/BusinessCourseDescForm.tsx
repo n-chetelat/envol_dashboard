@@ -21,6 +21,7 @@ import {
 } from "@/validations/businessCourseDescForm";
 import Button from "@/components/buttons/Button";
 import MultiFileUpload from "@/components/forms/components/MultiFileUpload";
+import TextAreaInput from "@/components/forms/components/TextAreaInput";
 import TextInput from "@/components/forms/components/TextInput";
 
 type BusinessCoursesInfoFormProps = {
@@ -111,13 +112,13 @@ export default function BusinessCoursesInfoForm({
         label={t("common.name")}
         required={isRequired("name")}
       />
-      <TextInput
+      <TextAreaInput
         name="description"
         control={control}
         label={t("common.description")}
         required={isRequired("description")}
       />
-      <TextInput
+      <TextAreaInput
         name="requirements"
         control={control}
         label={t("common.requirements")}

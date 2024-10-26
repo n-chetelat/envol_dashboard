@@ -5,7 +5,7 @@ import { useFiles } from "@/hooks/useFiles";
 import { CourseDescription } from "@/libs/types";
 import { cn } from "@/libs/utils";
 import { FilePreview } from "@/components/forms/components/FilePreview";
-import TextField from "@/components/text/TextField";
+import TextAreaField from "@/components/text/TextAreaField";
 
 type BusinessCoursesInfoProps = {
   businessCourseDescription: CourseDescription;
@@ -23,12 +23,12 @@ export default function BusinessCoursesInfo({
   const { filesWithBlob } = useFiles(images || [], businessCourseDescription);
 
   return (
-    <div className={cn("flex flex-col", className)}>
-      <TextField
+    <div className={cn("flex flex-col gap-8", className)}>
+      <TextAreaField
         label={t("common.description")}
         content={businessCourseDescription.description}
       />
-      <TextField
+      <TextAreaField
         label={t("common.requirements")}
         content={businessCourseDescription.requirements}
       />

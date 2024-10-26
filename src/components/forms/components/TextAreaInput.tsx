@@ -38,10 +38,9 @@ export default function TextInput({
         {label}
         {required && <span className="font-bold text-violet">*</span>}
       </label>
-      <input
+      <textarea
         id={id}
-        className={`rounded border border-gray-300 px-2 py-1.5 outline-none hover:border-gray-400 focus:outline-offset-0 focus:outline-lilac ${error ? "border-error" : ""} ${disabled ? "bg-gray-200 hover:border-gray-300" : ""}`}
-        type="text"
+        className={`rounded border border-gray-300 px-2 py-1.5 outline-none resize-y max-h-40 min-h-20 hover:border-gray-400 focus:outline-offset-0 focus:outline-lilac ${error ? "border-error" : ""} ${disabled ? "bg-gray-200 hover:border-gray-300" : ""}`}
         aria-invalid={error ? "true" : "false"}
         disabled={disabled}
         {...field}
