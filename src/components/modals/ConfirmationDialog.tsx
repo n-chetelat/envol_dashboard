@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogPanel,
@@ -7,7 +5,9 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import Button from "@/components/forms/components/Button";
+import { Fragment } from "react";
+import { useTranslations } from "next-intl";
+import Button from "@/components/buttons/Button";
 
 interface ConfirmationDialogProps {
   isOpen: boolean;

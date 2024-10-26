@@ -1,10 +1,10 @@
 "use client";
 
+import { useMemo } from "react";
+import { FieldError, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { updateProfile } from "@/actions/profile";
-import Button from "@/components/forms/components/Button";
-import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
-import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
-import TextInput from "@/components/forms/components/TextInput";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PRONOUNS } from "@/libs/constants";
 import { showErrorToast, showSuccessToast } from "@/libs/toast";
 import { translateError } from "@/libs/utils";
@@ -14,10 +14,10 @@ import {
   ProfileFormSchema,
   ProfileFormSchemaType,
 } from "@/validations/profileForm";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
-import { useMemo } from "react";
-import { FieldError, useForm } from "react-hook-form";
+import Button from "@/components/buttons/Button";
+import MultiSelectInput from "@/components/forms/components/MultiSelectInput";
+import PhoneNumberInput from "@/components/forms/components/PhoneNumberInput";
+import TextInput from "@/components/forms/components/TextInput";
 
 export default function ProfileForm() {
   const t = useTranslations();

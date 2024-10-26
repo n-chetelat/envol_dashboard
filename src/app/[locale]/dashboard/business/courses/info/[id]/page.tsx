@@ -3,10 +3,10 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getBusiness } from "@/queries/business";
 import { getCourseDescription } from "@/queries/course";
-import { Pencil } from "@/libs/icons";
 import { Business, CourseDescription } from "@/libs/types";
+import EditButton from "@/components/buttons/EditButton";
 import BusinessCoursesInfo from "@/components/dashboards/business/BusinessCourseInfo";
-import Button from "@/components/forms/components/Button";
+import BackLink from "@/components/navigation/BackLink";
 
 export default async function BusinessCoursesInfoPage({
   locale,
@@ -51,24 +51,18 @@ export default async function BusinessCoursesInfoPage({
     <>
       {businessCourseDescription ? (
         <div className="flex flex-row p-8 justify-between gap-4">
-          <div className="flex-1">
-            <h2 className="title mb-4">{businessCourseDescription.name}</h2>
+          <div className="flex flex-col flex-1 gap-4">
+            <h2 className="title">{businessCourseDescription.name}</h2>
+            <BackLink href={"/dashboard/business/courses/info"} />
+
             <BusinessCoursesInfo
               businessCourseDescription={businessCourseDescription}
             />
           </div>
 
-          <a
+          <EditButton
             href={`/dashboard/business/courses/info/${businessCourseDescriptionId}/edit`}
-          >
-            <Button
-              isSubmitting={false}
-              className="py-2 px-4 flex flex-row gap-2"
-            >
-              <Pencil size={20} />
-              {t("common.edit")}
-            </Button>
-          </a>
+          />
         </div>
       ) : null}
     </>

@@ -5,6 +5,7 @@ import { getBusiness } from "@/queries/business";
 import { getCourseDescription } from "@/queries/course";
 import { Business, CourseDescription } from "@/libs/types";
 import BusinessCoursesInfoForm from "@/components/forms/BusinessCourseDescForm";
+import BackLink from "@/components/navigation/BackLink";
 
 export default async function BusinessCoursesInfoEditPage({
   locale,
@@ -14,7 +15,7 @@ export default async function BusinessCoursesInfoEditPage({
   params: { id: string };
 }) {
   unstable_setRequestLocale(locale);
-  const t = await getTranslations("courses");
+  const t = await getTranslations();
 
   let business: Business | null = null;
   try {
@@ -48,8 +49,13 @@ export default async function BusinessCoursesInfoEditPage({
   return (
     <>
       {business ? (
-        <div className="p-8">
-          <h2 className="title mb-4">{t("editClassDesc")}</h2>
+        <div className="flex flex-col p-8 justify-between gap-4">
+          <h2 className="title">{t("courses.editClassDesc")}</h2>
+
+          <BackLink
+            href={`/dashboard/business/courses/info/${businessCourseDescriptionId}`}
+          />
+
           <BusinessCoursesInfoForm
             businessId={business.id}
             businessCourseDescription={businessCourseDescription}

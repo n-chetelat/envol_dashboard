@@ -19,7 +19,7 @@ import {
   BusinessCourseDescFormSchema,
   BusinessCourseDescFormSchemaType,
 } from "@/validations/businessCourseDescForm";
-import Button from "@/components/forms/components/Button";
+import Button from "@/components/buttons/Button";
 import MultiFileUpload from "@/components/forms/components/MultiFileUpload";
 import TextInput from "@/components/forms/components/TextInput";
 
@@ -42,7 +42,7 @@ export default function BusinessCoursesInfoForm({
   const { filesWithBlob } = useFiles(images || [], businessCourseDescription);
 
   const {
-    formState: { isValid, isSubmitting },
+    formState: { isValid, isSubmitting, dirtyFields },
     handleSubmit,
     control,
   } = useForm<BusinessCourseDescFormSchemaType>({
@@ -134,7 +134,7 @@ export default function BusinessCoursesInfoForm({
       />
       <Button
         isSubmitting={isSubmitting}
-        isValid={isValid}
+        isValid={!!Object.keys(dirtyFields).length && isValid}
         className="py-2 px-4"
       >
         {t("common.save")}

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { deleteProfile } from "@/actions/profile";
 import { useRouter } from "@/libs/navigation";
 import { useProfile } from "@/store/ProfileProvider";
-import Button from "@/components/forms/components/Button";
+import Button from "@/components/buttons/Button";
 import ConfirmationDialog from "@/components/modals/ConfirmationDialog";
 
 export default function DeleteProfileForm() {

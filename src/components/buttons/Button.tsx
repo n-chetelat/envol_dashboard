@@ -9,6 +9,7 @@ interface ButtonProps {
   buttonType?: "info" | "alert";
   className?: string;
   children: React.ReactNode;
+  isSubmitType?: boolean;
 }
 
 export default function Button({
@@ -17,6 +18,7 @@ export default function Button({
   children,
   buttonType = "info",
   className,
+  isSubmitType,
   ...nativeButtonProps
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
   const t = useTranslations("common");
@@ -29,7 +31,7 @@ export default function Button({
     <button
       className={buttonClasses}
       disabled={!isValid || isSubmitting}
-      type="submit"
+      type={isSubmitType ? "submit" : "button"}
       aria-busy={isSubmitting}
       aria-disabled={!isValid || isSubmitting}
       {...nativeButtonProps}
