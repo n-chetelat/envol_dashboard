@@ -36,6 +36,10 @@
     @apply font-serif font-bold text-lg
   }
 
+  .subtitle {
+    @apply font-sans font-bold text-lg
+  }
+
   .label {
     @apply font-serif font-semibold text-sm
   }

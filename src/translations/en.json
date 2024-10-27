@@ -55,7 +55,10 @@
     "selectFiles": "Select files",
     "dragAndDrop": "Drag and drop files here",
     "images": "Images",
-    "edit": "Edit"
+    "edit": "Edit",
+    "search": "Search",
+    "create": "Create",
+    "seeMore": "See more"
   },
   "errors": {
     "wrong": "Something went wrong",
@@ -85,7 +88,8 @@
     "currentLocale": "Current locale",
     "languageNavLabel": "Locale switcher",
     "switchTo": "Switch to language",
-    "removeFile": "Remove file"
+    "removeFile": "Remove file",
+    "coverImage": "Cover image"
   },
   "home": {
     "subtitle": "Envol offers booking solutions",

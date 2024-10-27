@@ -16,4 +16,5 @@ export {
   LogOut,
   X,
   Pencil,
+  Plus,
 } from "lucide-react";
