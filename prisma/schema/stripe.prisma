@@ -1,0 +1,20 @@
+model StripeAccount {
+  id                 String   @id @default(uuid()) @db.Uuid
+  stripeAccountId    String   @unique
+  chargesEnabled     Boolean  @default(false)
+  payoutsEnabled     Boolean  @default(false)
+  onboardingComplete Boolean  @default(false)
+  businessId         String   @unique @db.Uuid
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @default(now()) @updatedAt
+  business           Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid()) @db.Uuid
+  stripeCustomerId String
+  profileId        String   @unique @db.Uuid
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now()) @updatedAt
+  profile          Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}

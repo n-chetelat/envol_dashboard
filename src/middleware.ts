@@ -1,13 +1,15 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { defaultLocale, locales } from "@/libs/i18n";
-import { NextRequest, NextResponse } from "next/server";
-import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const PUBLIC_PAGES = [
+  "/",
   "/:locale",
-  "/:locale/sign-in",
-  "/:locale/sign-up",
-  "/sing-in",
+  "/:locale/sign-in(.*)",
+  "/:locale/sign-up(.*)",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
 ];
 
 const i18nMiddleware = createIntlMiddleware({
@@ -15,23 +17,17 @@ const i18nMiddleware = createIntlMiddleware({
   defaultLocale,
 });
 
-// Details of auth middleware:
-// https://clerk.com/docs/references/nextjs/auth-middleware
-export default authMiddleware({
-  publicRoutes: PUBLIC_PAGES,
-  beforeAuth: (request) => {
-    // Execute next-intl middleware before Clerk's auth middleware
-    return i18nMiddleware(request);
-  },
-  afterAuth(auth, request, event) {
-    if (!auth.userId && !auth.isPublicRoute) {
-      return redirectToSignIn({ returnBackUrl: request.url });
-    }
-    // TODO: Handle redirecting users by profile type here
-    return NextResponse.next();
-  },
+const isPublicRoute = createRouteMatcher(PUBLIC_PAGES);
+
+export default clerkMiddleware((auth, request) => {
+  if (!auth().userId && !isPublicRoute(request)) {
+    auth().protect();
+  }
+
+  if (request.url.includes("/api/")) return NextResponse.next();
+  return i18nMiddleware(request);
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next|api/webhooks|api/inngest).*)", "/"],
 };

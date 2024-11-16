@@ -1,3 +1,136 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import '~react-toastify/dist/ReactToastify.min.css';
+
+:root {
+  --navbar-height-lg: 8rem;
+  --navbar-height: 4rem;
+  --sidebar-width-expanded: 16rem;
+  --sidebar-width-collapsed: 4rem;
+  --toastify-color-info: theme('colors.violet.DEFAULT');
+  --toastify-color-success: theme('colors.success.DEFAULT');
+  --toastify-color-error: theme('colors.error.DEFAULT');
+  --toastify-color-warning: theme('colors.warning.DEFAULT');
+}
+
+@layer base {
+  html {
+    @apply text-gray-700;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded bg-violet font-bold text-white 
+    transition-[opacity,background-color] duration-300 ease-in
+    hover:bg-violet-light hover:transition-none
+    disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-violet;
+  }
+  .paper {
+    @apply rounded bg-gray-50 p-4 shadow-md;
+  }
+
+  .title {
+    @apply font-serif font-bold text-lg
+  }
+
+  .subtitle {
+    @apply font-sans font-bold text-lg
+  }
+
+  .label {
+    @apply font-serif font-semibold text-sm
+  }
+}
+
+/*** Animations ***/
+@keyframes backForth {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(.5rem);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeEnter {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeExit {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.back-forth-animation {
+  animation: backForth 0.5s ease-in-out 2;
+}
+
+/* Needed for Toastify but reusable */
+.fade-enter {
+  animation: fadeEnter 0.4s ease-out;
+}
+
+.fade-exit {
+  animation: fadeExit 0.4s ease-in forwards;
+}
+
+/*** 3rd Party Component Overrides ***/
+
+/* Clerk */
+.cl-card {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 4px 8px;
+}
+
+/* Phone input library */
+.PhoneInputInput {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Toastify */
+
+.toast-enter--top-right,
+.toast-enter--top-center,
+.toast-enter--top-left, 
+.toast-enter--bottom-right,
+.toast-enter--bottom-center,
+.toast-enter--bottom-left {
+  animation: fadeEnter 400ms ease-out;
+}
+
+.toast-exit--top-right,
+.toast-exit--top-center,
+.toast-exit--top-left,
+.toast-exit--bottom-right,
+.toast-exit--bottom-center,
+.toast-exit--bottom-left {
+  animation: fadeExit 400ms ease-in forwards;
+}

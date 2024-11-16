@@ -1,24 +1,144 @@
 {
   "metadata": {
     "mainLayout": {
-      "title": "Air Kollage | Home",
-      "description": "Did you ever want to join the circus? Welcome to your hub for circus classes in Montréal. Hoop, silks, pole, burlesque - Oh my!"
+      "title": "Envol | Home",
+      "description": "Circus classes"
+    },
+    "dashboardLayout": {
+      "title": "Envol | Dashbaord",
+      "description": "Circus classes."
     }
   },
   "locales": {
     "localeLabel": "English",
-    "localeOther": "Français",
+    "localeOther": "FR",
     "en": "English",
     "fr": "French"
   },
   "common": {
+    "yes": "Yes",
+    "no": "No",
     "and": "and",
     "or": "or",
-    "email": "Email"
+    "email": "Email",
+    "pronouns": {
+      "she/her": "She/Her",
+      "he/him": "He/Him",
+      "they/them": "They/Them"
+    },
+    "name": "Name",
+    "bio": "Bio",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "preferredName": "Preferred Name",
+    "phoneNumber": "Phone Number",
+    "pronoun": "Pronouns",
+    "preferredLanguage": "Preferred Language",
+    "select": "Select",
+    "welcome": "Welcome",
+    "submit": "Submit",
+    "save": "Save",
+    "submitting": "Submitting",
+    "title": "Title",
+    "description": "Description",
+    "requirements": "Requirements",
+    "location": "Location",
+    "next": "Next",
+    "back": "Back",
+    "validate": "Validate",
+    "validated": "Validated",
+    "validating": "Validating",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "remove": "Remove",
+    "selectFiles": "Select files",
+    "dragAndDrop": "Drag and drop files here",
+    "images": "Images",
+    "edit": "Edit",
+    "search": "Search",
+    "create": "Create",
+    "seeMore": "See more"
+  },
+  "errors": {
+    "wrong": "Something went wrong",
+    "pageNotFound": "Page not found",
+    "invalidPhone": "Invalid phone number",
+    "Required": "Field is required",
+    "selectOptions": "Select at least one option",
+    "invalidToken": "Invalid token",
+    "invalidEmail": "Enter a valid email",
+    "failedToSave": "There was an error saving your information.",
+    "noEmailToVerify": "There is no email to verify",
+    "verificationFailed": "Email verification failed",
+    "invalidCode": "Invalid code",
+    "mustBeFile": "Must be a File",
+    "fileSize": "File size must be under {size}MB",
+    "formatsAccepted": "Only these formats are accepted: {formats}",
+    "uploadMax": "You can upload a maximum of {count} files"
+  },
+  "success": {
+    "saved": "Your information was saved successfully.",
+    "verificationEmailSent": "Check your email for a verification code.",
+    "verificationCancelled": "Email update has been successfully canceled."
+  },
+  "aria": {
+    "dashboardNavigation": "Dashboard navigation",
+    "toggleMobileMenu": "Toggle mobile menu",
+    "currentLocale": "Current locale",
+    "languageNavLabel": "Locale switcher",
+    "switchTo": "Switch to language",
+    "removeFile": "Remove file",
+    "coverImage": "Cover image"
   },
   "home": {
-    "subtitle": "Join the circus",
+    "subtitle": "Envol offers booking solutions",
     "dashboardCta": "Go to dashboard",
-    "join": "Join"
+    "join": "Join us",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "profile": {
+    "title": "Welcome to Envol!",
+    "description": "Please fill out your profile information to continue",
+    "why": "What brings you to Envol today?",
+    "amStudent": "I want to take classes",
+    "amInstructor": "I am an instructor",
+    "amBusiness": "I am a business owner",
+    "haveToken": "I received a code",
+    "token": "Enter your code",
+    "deleteProfile": "Delete Profile",
+    "deleteProfileMessage": "Clicking this button will delete your profile from Envol and all of your information. This action is irreversible.",
+    "profileInformation": "Profile Information",
+    "deleteProfileWarning": "Clicking this button will delete your profile and all of your information. This action is irreversible.",
+    "deleteProfileConfrmationTitle": "Confirm Profile Deletion",
+    "deleteProfileConfrmation": "Are you sure you want to delete your profile? This action cannot be undone.",
+    "emailUpdate": "Update Email",
+    "primaryEmail": "Existing email",
+    "secondaryEmail": "New email",
+    "verificationCode": "Verification code",
+    "resend": "Resend code"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "classes": "Classes",
+    "settings": "Settings",
+    "profile": "Profile"
+  },
+  "settings": {
+    "createStripe": "Connect to Stripe",
+    "linkStripe": "Continue connecting to Stripe",
+    "businessTitle": "Business Settings",
+    "published": "List business to public",
+    "payments": "Payment Settings"
+  },
+  "courses": {
+    "yourClasses": "Your Classes",
+    "createClass": "Create New Class",
+    "createLocation": "Create New Location",
+    "removeClass": "Remove Class",
+    "removeLocation": "Remove Location",
+    "newClassDesc": "Create a new class description",
+    "editClassDesc": "Edit your class description"
   }
 }

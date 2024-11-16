@@ -1,0 +1,104 @@
+model CourseDescription {
+  id                      String                   @id @default(uuid()) @db.Uuid
+  name                    String                   @db.VarChar(225)
+  description             String
+  requirements            String
+  businessId              String                   @db.Uuid
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  business                Business                 @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  courseDescriptionImages CourseDescriptionImage[]
+  courseTemplates         CourseTemplate[]
+}
+
+model CourseDescriptionImage {
+  id                  String   @id @default(uuid()) @db.Uuid
+  imageId             String   @db.Uuid
+  courseDescriptionId String   @db.Uuid
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  image             Image             @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  courseDescription CourseDescription @relation(fields: [courseDescriptionId], references: [id], onDelete: Cascade)
+}
+
+model Location {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @db.VarChar(225)
+  address     String   @db.VarChar(225)
+  phoneNumber String?  @db.VarChar(30)
+  notes       String?
+  businessId  String   @db.Uuid
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  images          LocationImage[]
+  videos          LocationVideo[]
+  courseTemplates CourseTemplate[]
+}
+
+model LocationImage {
+  id         String   @id @default(uuid()) @db.Uuid
+  imageId    String   @db.Uuid
+  locationId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  image    Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model LocationVideo {
+  id         String   @id @default(uuid()) @db.Uuid
+  videoId    String   @db.Uuid
+  locationId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  video    Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model CourseTemplate {
+  id                  String    @id @default(uuid()) @db.Uuid
+  courseDescriptionId String    @db.Uuid
+  locationId          String    @db.Uuid
+  weekdays            Weekday[]
+  startDate           DateTime  @db.Date
+  endDate             DateTime  @db.Date
+  startTime           DateTime  @db.Time()
+  endTime             DateTime  @db.Time()
+  enrollmentMin       Int?      @default(0)
+  enrollmentMax       Int
+  timezone            String    @db.VarChar(30)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  courseTemplateInstructorProfiles CourseTemplateInstructorProfiles[]
+  location                         Location                           @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  courseDescription                CourseDescription                  @relation(fields: [courseDescriptionId], references: [id], onDelete: Cascade)
+  CourseSession                    CourseSession[]
+}
+
+model CourseTemplateInstructorProfiles {
+  id                          String                    @id @default(uuid()) @db.Uuid
+  courseTemplateId            String                    @db.Uuid
+  businessInstructorProfileId String                    @db.Uuid
+  createdAt                   DateTime                  @default(now())
+  updatedAt                   DateTime                  @updatedAt
+  courseTemplate              CourseTemplate            @relation(fields: [courseTemplateId], references: [id], onDelete: Cascade)
+  businessInstructorProfile   BusinessInstructorProfile @relation(fields: [businessInstructorProfileId], references: [id], onDelete: Cascade)
+}
+
+model CourseSession {
+  id               String   @id @default(uuid()) @db.Uuid
+  courseTemplateId String   @db.Uuid
+  enrollment       Int      @default(0)
+  startDate        DateTime @db.Date
+  endDate          DateTime @db.Date
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  courseTemplate CourseTemplate @relation(fields: [courseTemplateId], references: [id], onDelete: Cascade)
+}

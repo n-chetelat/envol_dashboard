@@ -1,28 +1,29 @@
 import { clerkTheme } from "@/libs/clerk";
-import { getClerkLocale, locales } from "@/libs/i18n";
+import { getClerkLocale } from "@/libs/i18n";
 import { ClerkProvider } from "@clerk/nextjs";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import Navbar from "@/components/navbar/navbar/Navbar";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import { Lato, Baskervville } from "next/font/google";
+import CustomToastContainer from "@/components/toast/CustomToastContainer";
 import "./globals.css";
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) {
-  const t = await getTranslations({ locale, namespace: "metadata" });
+const lato = Lato({
+  weight: ["300", "400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
-  return {
-    title: t("mainLayout.title"),
-    description: t("mainLayout.description"),
-  };
-}
+const baskervville = Baskervville({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-serif",
+});
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: Readonly<{
@@ -32,18 +33,23 @@ export default function RootLayout({
   };
 }>) {
   unstable_setRequestLocale(locale);
-
+  const messages = await getMessages();
   return (
     <ClerkProvider
       appearance={clerkTheme}
       localization={getClerkLocale(locale)}
     >
-      <html lang={locale}>
-        <body>
-          <Navbar />
-          {children}
-        </body>
-      </html>
+      <NextIntlClientProvider messages={messages}>
+        <html
+          lang={locale}
+          className={`${lato.variable} ${baskervville.variable} mono`}
+        >
+          <body>
+            {children}
+            <CustomToastContainer />
+          </body>
+        </html>
+      </NextIntlClientProvider>
     </ClerkProvider>
   );
 }

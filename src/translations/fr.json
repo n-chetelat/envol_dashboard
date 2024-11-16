@@ -1,24 +1,144 @@
 {
   "metadata": {
     "mainLayout": {
-      "title": "Air Kollage | Accueil",
-      "description": "Avez-vous déjà eu envie de rejoindre le cirque ? Bienvenue dans votre hub de cours de cirque à Montréal. Cerceau, soies, pole-dance, burlesque - Oh mon Dieu !"
+      "title": "Envol | Accueil",
+      "description": "Circus classes. - FR"
+    },
+    "dashboardLayout": {
+      "title": "Envol | Tableau de bord",
+      "description": "Circus classes. - FR"
     }
   },
   "locales": {
     "localeLabel": "Français",
-    "localeOther": "English",
+    "localeOther": "EN",
     "en": "Anglais",
     "fr": "Français"
   },
   "common": {
+    "yes": "Oui",
+    "no": "Non",
     "and": "et",
     "or": "ou",
-    "email": "Courriel"
+    "email": "Courriel",
+    "pronouns": {
+      "she/her": "Elle",
+      "he/him": "Il",
+      "they/them": "Iel"
+    },
+    "name": "Nom",
+    "bio": "Description",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "preferredName": "Prénom d'usage",
+    "phoneNumber": "Numéro de téléphone",
+    "pronoun": "Pronoms",
+    "preferredLanguage": "Langue préférée",
+    "select": "Sélectionez",
+    "welcome": "Bienvenue",
+    "submit": "Soumettre",
+    "save": "Sauvegarder",
+    "submitting": "Submitting - FR",
+    "title": "Titre",
+    "description": "Description",
+    "requirements": "FR- Requirements",
+    "location": "Lieu",
+    "next": "Suivat",
+    "back": "Précedent",
+    "validate": "Valider",
+    "validated": "Validated - FR",
+    "validating": "Validating - FR",
+    "confirm": "Confirm - FR",
+    "cancel": "Cancel - FR",
+    "delete": "Delete - FR",
+    "remove": "Remove - FR",
+    "selectFiles": "Select files - FR",
+    "dragAndDrop": "Drag and drop files here - FR",
+    "images": "Images",
+    "edit": "Edit - FR",
+    "search": "Search - FR",
+    "create": "Create - FR",
+    "seeMore": "See more - FR"
+  },
+  "errors": {
+    "wrong": "Something went wrong - FR",
+    "pageNotFound": "Page not found - FR",
+    "invalidPhone": "Invalid phone number - FR",
+    "Required": "Field is required - FR",
+    "selectOptions": "Select at least one option - FR",
+    "invalidToken": "Invalid token - FR",
+    "invalidEmail": "Enter a valid email - FR",
+    "failedToSave": "There was an error saving your information - FR",
+    "noEmailToVerify": "There is no email to verify - FR",
+    "verificationFailed": "Email verification failed - FR",
+    "invalidCode": "Invalid code - FR",
+    "mustBeFile": "Must be a File - FR",
+    "fileSize": "File size must be under {size}MB - FR",
+    "formatsAccepted": "Only these formats are accepted: {formats} - FR",
+    "uploadMax": "You can upload a maximum of {count} files - FR"
+  },
+  "success": {
+    "saved": "Your information was saved successfully. - FR",
+    "verificationEmailSent": "Check your email for a verification code. - FR",
+    "verificationCancelled": "Email update has been canceled successfully. - FR"
+  },
+  "aria": {
+    "dashboardNavigation": "Dashboard navigation - FR",
+    "toggleMobileMenu": "Toggle mobile menu - FR",
+    "currentLocale": "Current locale - FR",
+    "languageNavLabel": "Locale switcher - FR",
+    "switchTo": "Switch to language - FR",
+    "removeFile": "Remove file - FR",
+    "coverImage": "Cover image"
   },
   "home": {
-    "subtitle": "Viens rejoindre le cirque",
+    "subtitle": "Envol offers booking solutions - FR",
     "dashboardCta": "Tableau de bord",
-    "join": "Rejoindre"
+    "join": "Rejoindre",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion"
+  },
+  "profile": {
+    "title": "Bienvenue chez Envol!",
+    "description": "Veuillez remplir les informations de votre profil pour continuer",
+    "why": "Qu’est-ce qui vous amène chez Envol ?",
+    "amStudent": "Je veux suivre des cours",
+    "amInstructor": "Je suis instructeur",
+    "amBusiness": "Je gère une entreprise",
+    "haveToken": "J'ai reçu un code",
+    "token": "Entrez votre code",
+    "deleteProfile": "Delete Profile - FR",
+    "deleteProfileMessage": "Clicking this button will delete your profile from Envol and all of your information. This action is irreversible. - FR",
+    "profileInformation": "Profile Information - FR",
+    "deleteProfileWarning": "Clicking this button will delete your profile and all of your information. This action is irreversible. - FR",
+    "deleteProfileConfrmationTitle": "Confirm Profile Deletion - FR",
+    "deleteProfileConfrmation": "Are you sure you want to delete your profile? This action cannot be undone. - FR",
+    "emailUpdate": "Update Email - FR",
+    "primaryEmail": "Existing email - FR",
+    "secondaryEmail": "New email, FR",
+    "verificationCode": "Verification code - FR",
+    "resend": "Resend code - FR"
+  },
+  "dashboard": {
+    "dashboard": "Tableau de bord",
+    "classes": "Cours",
+    "settings": "Paramètres",
+    "profile": "Profile - FR"
+  },
+  "settings": {
+    "createStripe": "Se connecter à Stripe",
+    "linkStripe": "Continuer de se connecter à Stripe",
+    "businessTitle": "Paramètres de l'entreprise",
+    "published": "Inscrire l'entreprise au public",
+    "payments": "paramètres de paiement"
+  },
+  "courses": {
+    "yourClasses": "Vos cours",
+    "createClass": "Créer un nouveau cour",
+    "createLocation": "Créer un nouveau lieu",
+    "removeClass": "Enlever un cours",
+    "removeLocation": "Enlever un lieu",
+    "newClassDesc": "Create a new class description - FR",
+    "editClassDesc": "Edit your class description - FR"
   }
 }

@@ -6,8 +6,11 @@
 .pnp.js
 .yarn/install-state.gz
 
+
 # testing
 /coverage
+/mocks
+/backups
 
 # next.js
 /.next/
@@ -19,6 +22,8 @@
 # misc
 .DS_Store
 *.pem
+/.vscode
+/.swc
 
 # debug
 npm-debug.log*
@@ -27,6 +32,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -34,3 +40,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.templates
