@@ -21,7 +21,7 @@ export default async function BackButton({
       <Button
         isSubmitting={false}
         className={cn("py-2 px-4 flex flex-row gap-2", className)}
-        isSubmitType={false}
+        type="button"
       >
         <ChevronLeft size={20} />
         {label}

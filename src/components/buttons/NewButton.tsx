@@ -21,7 +21,7 @@ export default async function NewButton({
       <Button
         isSubmitting={false}
         className={cn("py-2 px-4 flex flex-row gap-1 items-center", className)}
-        isSubmitType={false}
+        type="button"
       >
         <Plus size={20} strokeWidth={3} />
         {label || t("create")}

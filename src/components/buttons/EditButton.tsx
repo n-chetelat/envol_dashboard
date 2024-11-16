@@ -21,7 +21,7 @@ export default async function EditButton({
       <Button
         isSubmitting={false}
         className={cn("py-2 px-4 flex flex-row gap-2", className)}
-        isSubmitType={false}
+        type="button"
       >
         <Pencil size={20} />
         {label || t("edit")}
