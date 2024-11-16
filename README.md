@@ -44,9 +44,10 @@ stripe trigger account.updated
 npx inngest-cli@latest dev --no-discovery -u http://localhost:3000/api/inngest
 ```
 
-or ```bash
-npm run inngest-dev
+or 
 
+```bash
+npm run inngest-dev
 ````
 
 ### Prisma commands
